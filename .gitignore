@@ -1,5 +1,7 @@
 node_modules/
 .venv/
 .next/
+.DS_Store
+.idea/
 
 .pdm-python
