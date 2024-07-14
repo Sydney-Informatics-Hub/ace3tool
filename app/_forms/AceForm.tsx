@@ -31,11 +31,11 @@ export default function AceForm() {
           className="flex flex-wrap max-w-lg gap-4 my-2"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <ScoreInput label="Attention" name="attention" form_return={form} />
-          <ScoreInput label="Memory" name="memory" form_return={form} />
-          <ScoreInput label="Fluency" name="fluency" form_return={form} />
-          <ScoreInput label="Language" name="language" form_return={form} />
-          <ScoreInput label="Visuospatial" name="visual" form_return={form} />
+          <ScoreInput label="Attention" name="attention" />
+          <ScoreInput label="Memory" name="memory" />
+          <ScoreInput label="Fluency" name="fluency" />
+          <ScoreInput label="Language" name="language" />
+          <ScoreInput label="Visuospatial" name="visual" />
         </form>
         <Button type="submit" className="my-2">
           Submit
