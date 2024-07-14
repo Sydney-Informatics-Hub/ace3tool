@@ -1,5 +1,5 @@
 "use client";
-import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
 import { Badge } from "flowbite-react";
 import { useEffect, useState } from "react";
 
@@ -29,5 +29,9 @@ export function DisplayTotal(props: DisplayTotalProps) {
         return;
       });
   });
-  return <Badge>{total}</Badge>;
+  return (
+    <Badge className="max-w-sm justify-center" size="lg">
+      {total}
+    </Badge>
+  );
 }
