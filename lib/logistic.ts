@@ -27,7 +27,10 @@ function linear_prediction<p extends string>(model: Model<p>, data: Data<p>) {
   );
 }
 
-export function predict<p extends string>(model: Model<p>, data: Data<p>): number {
+export function predict<p extends string>(
+  model: Model<p>,
+  data: Data<p>
+): number {
   const xb = linear_prediction(model, data);
   return inverse_logit(xb);
 }
@@ -42,12 +45,12 @@ export function confidence_interval<p extends string>(
   const z = qnorm(1 - tail / 2);
   const pred_matrix = matrix([1, ...Object.values<number>(data)]);
   // math.js's types seem to be wrong here, not sure how to override apart from ts-ignore
-  // @ts-ignore
+  // @ts-expect-error
   const variance: number = math.multiply(
     math.multiply(pred_matrix, vcov),
     math.transpose(pred_matrix)
   );
-  // @ts-ignore
+  // @ts-expect-error
   const std_error: number = math.sqrt(variance);
   const xb = linear_prediction(model, data);
   const xb_upper = xb + std_error * z;

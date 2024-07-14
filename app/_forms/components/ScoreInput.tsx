@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 import { Label, TextInput } from "flowbite-react";
-import { useFormContext, UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 interface ScoreInputProps extends ComponentProps<typeof TextInput> {
   label: string;
