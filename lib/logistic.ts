@@ -44,14 +44,13 @@ export function confidence_interval<p extends string>(
   const tail = 1 - ci;
   const z = qnorm(1 - tail / 2);
   const pred_matrix = matrix([1, ...Object.values<number>(data)]);
-  // math.js's types seem to be wrong here, not sure how to override apart from ts-ignore
-  // @ts-expect-error
+  // @ts-expect-error: math.js's types seem to be wrong here, if the result
+  //   is scalar it will just be a number
   const variance: number = math.multiply(
     math.multiply(pred_matrix, vcov),
     math.transpose(pred_matrix)
   );
-  // @ts-expect-error
-  const std_error: number = math.sqrt(variance);
+  const std_error: number = math.sqrt(variance) as number;
   const xb = linear_prediction(model, data);
   const xb_upper = xb + std_error * z;
   const xb_lower = xb - std_error * z;
