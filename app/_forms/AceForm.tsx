@@ -21,70 +21,36 @@ import {
 } from "flowbite-react";
 import { DisplayTotal } from "@/app/_forms/components/DisplayTotal";
 import ScorePlot from "@/app/_forms/components/ScorePlot";
+import ScoreInput from "@/app/_forms/components/ScoreInput";
 
 export default function AceForm() {
-  const { control, handleSubmit, register, formState } =
-    useForm<AceScaleScores>({
-      mode: "onBlur",
-      defaultValues: AceScaleScoresSchema.getDefault(),
-      resolver: yupResolver(AceScaleScoresSchema),
-    });
+  const form = useForm<AceScaleScores>({
+    mode: "all",
+    defaultValues: AceScaleScoresSchema.getDefault(),
+    resolver: yupResolver(AceScaleScoresSchema),
+  });
+  const { control, handleSubmit, formState } = form;
+  // Need to subscribe to errors to get instant error validation
+  const { errors } = formState;
 
   const current_value = useWatch({ control });
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
-  const validateField = (
-    field: FieldName<AceScaleScores>,
-    form_state: FormState<AceScaleScores>
-  ): keyof FlowbiteTextInputColors | undefined => {
-    if (form_state.dirtyFields[field]) {
-      if (form_state.errors[field] !== undefined) {
-        return "failure";
-      }
-      return "success";
-    }
-    return undefined;
-  };
-  const attention_valid = validateField("attention", formState);
-
   return (
     <div id="ace-form" className="flex-col">
       <form
-        className="flex flex-wrap max-w-lg gap-4"
+        className="flex flex-wrap max-w-lg gap-4 my-2"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Label htmlFor="attention">Attention</Label>
-        <TextInput
-          type="number"
-          color={attention_valid}
-          {...register("attention")}
-        />
-        <FloatingLabel
-          label="Fluency"
-          variant="outlined"
-          type="number"
-          {...register("fluency")}
-        />
-        <FloatingLabel
-          label="Memory"
-          variant="outlined"
-          type="number"
-          {...register("memory")}
-        />
-        <FloatingLabel
-          label="Language"
-          variant="outlined"
-          type="number"
-          {...register("language")}
-        />
-        <FloatingLabel
-          label="Visuospatial"
-          variant="outlined"
-          type="number"
-          {...register("visual")}
-        />
-        <Button type="submit">Submit</Button>
+        <ScoreInput label="Attention" name="attention" form_return={form} />
+        <ScoreInput label="Memory" name="memory" form_return={form} />
+        <ScoreInput label="Fluency" name="fluency" form_return={form} />
+        <ScoreInput label="Language" name="language" form_return={form} />
+        <ScoreInput label="Visuospatial" name="visual" form_return={form} />
       </form>
-      <div id="data-display" className="flex-col max-w-lg">
+      <Button type="submit" className="my-2">
+        Submit
+      </Button>
+      <div id="data-display" className="flex-col max-w-lg gap-4">
         <DisplayTotal scores={current_value} />
         <ScorePlot scores={current_value} />
       </div>
