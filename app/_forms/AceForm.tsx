@@ -9,8 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
 import { Button } from "flowbite-react";
 import { DisplayTotal } from "@/app/_forms/components/DisplayTotal";
-import ScorePlot from "@/app/_forms/components/ScorePlot";
+import ScorePlot from "@/app/_plots/ScorePlot";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
+import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 
 export default function AceForm() {
   const form = useForm<AceScaleScores>({
@@ -25,8 +26,8 @@ export default function AceForm() {
   const current_value = useWatch({ control });
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
   return (
-    <FormProvider {...form}>
-      <div id="ace-form" className="flex-col">
+    <div id="ace-form" className="flex-col">
+      <FormProvider {...form}>
         <form
           className="flex flex-wrap max-w-lg gap-4 my-2"
           onSubmit={handleSubmit(onSubmit)}
@@ -40,11 +41,12 @@ export default function AceForm() {
         <Button type="submit" className="my-2">
           Submit
         </Button>
-        <div id="data-display" className="flex-col max-w-lg gap-4">
-          <DisplayTotal scores={current_value} />
-          <ScorePlot scores={current_value} />
-        </div>
+      </FormProvider>
+      <div id="data-display" className="flex-col max-w-lg gap-4">
+        <DisplayTotal scores={current_value} />
+        <ScorePlot scores={current_value} />
+        <TotalScorePlot scores={current_value} />
       </div>
-    </FormProvider>
+    </div>
   );
 }
