@@ -28,7 +28,8 @@ export function DisplayTotal(props: DisplayTotalProps) {
       .catch((err) => {
         return;
       });
-  });
+  }, [scores]);
+
   return (
     <Badge className="max-w-sm justify-center" size="lg">
       {total}
