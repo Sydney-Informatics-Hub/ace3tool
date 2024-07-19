@@ -26,7 +26,9 @@ export default function ScoreInput(props: ScoreInputProps) {
         {...register(name)}
         {...input_props}
       />
-      {state.error && state.error.message}
+      {state.error && (
+        <span className="text-sm text-red-400">{state.error.message}</span>
+      )}
     </div>
   );
 }
