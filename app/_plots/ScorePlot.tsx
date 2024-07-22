@@ -13,7 +13,7 @@ import { AceScaleScores, AceScales } from "@/app/_forms/schemas/ace";
 import { schemeTableau10 } from "d3-scale-chromatic";
 
 interface ScorePlotProps {
-  scores: AceScaleScores;
+  scores: Partial<AceScaleScores>;
 }
 
 export default function ScorePlot(props: ScorePlotProps) {

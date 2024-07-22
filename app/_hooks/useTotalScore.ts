@@ -1,7 +1,7 @@
 import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
 import { useEffect, useState } from "react";
 
-export function useTotalScore(scores: AceScaleScores) {
+export function useTotalScore(scores: Partial<AceScaleScores>) {
   const [valid, setValid] = useState(false);
   const [total, setTotal] = useState<number>(0);
 

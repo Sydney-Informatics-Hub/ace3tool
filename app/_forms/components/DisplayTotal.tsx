@@ -4,7 +4,7 @@ import { Badge } from "flowbite-react";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 
 interface DisplayTotalProps {
-  scores: AceScaleScores;
+  scores: Partial<AceScaleScores>;
 }
 export function DisplayTotal(props: DisplayTotalProps) {
   const { scores } = props;
