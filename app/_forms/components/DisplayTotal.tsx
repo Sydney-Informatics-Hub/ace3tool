@@ -1,38 +1,18 @@
 "use client";
-import { AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
+import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { Badge } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useTotalScore } from "@/app/_hooks/useTotalScore";
 
 interface DisplayTotalProps {
-  scores: {
-    attention?: number | undefined;
-    memory?: number | undefined;
-    visual?: number | undefined;
-    fluency?: number | undefined;
-    language?: number | undefined;
-  };
+  scores: AceScaleScores;
 }
 export function DisplayTotal(props: DisplayTotalProps) {
-  const [total, setTotal] = useState<number>(0);
   const { scores } = props;
-
-  useEffect(() => {
-    AceScaleScoresSchema.validate(scores)
-      .then((parsed) => {
-        const sum = Object.values(parsed).reduce(
-          (sum, score) => sum + score,
-          0
-        );
-        setTotal(sum);
-      })
-      .catch((err) => {
-        return;
-      });
-  }, [scores]);
+  const { valid, total } = useTotalScore(scores);
 
   return (
     <Badge className="max-w-sm justify-center" size="lg">
-      {total}
+      {valid ? total : "..."}
     </Badge>
   );
 }
