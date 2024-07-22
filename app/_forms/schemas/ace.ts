@@ -34,7 +34,7 @@ export const AceScaleScoresSchema = object({
     .max(26, max_score_message)
     .typeError("Please enter a number")
     .required(),
-  visual: number()
+  visuospatial: number()
     .label("Visuospatial")
     .integer()
     .min(0)
@@ -50,5 +50,5 @@ export const AceScales: (keyof AceScaleScores)[] = [
   "memory",
   "fluency",
   "language",
-  "visual",
+  "visuospatial",
 ];

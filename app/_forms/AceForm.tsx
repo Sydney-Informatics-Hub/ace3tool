@@ -28,7 +28,7 @@ export default function AceForm(props: AceFormProps) {
             <ScoreInput label="Memory" name="memory" />
             <ScoreInput label="Fluency" name="fluency" />
             <ScoreInput label="Language" name="language" />
-            <ScoreInput label="Visuospatial" name="visual" />
+            <ScoreInput label="Visuospatial" name="visuospatial" />
           </form>
         </FormProvider>
         <Button type="submit" className="my-2 max-w-50">
