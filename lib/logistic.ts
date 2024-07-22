@@ -1,7 +1,7 @@
-import { all, create, matrix, Matrix } from "mathjs";
+import { create, matrix, Matrix, matrixDependencies } from "mathjs";
 import erfinv from "@stdlib/math-base-special-erfinv";
 
-const math = create(all);
+const math = create(matrixDependencies);
 
 export type ModelCoefs<predictors extends string = string> = {
   intercept: number;
@@ -13,7 +13,7 @@ export type Data<predictors extends string = string> = Readonly<
 >;
 
 interface LogisticModelOptions {
-  vcov?: Matrix;
+  vcov?: number[][];
   scale_predictors?: boolean;
 }
 
@@ -26,7 +26,7 @@ export class LogisticModel<predictors extends string> {
   constructor(coefs: ModelCoefs<predictors>, options?: LogisticModelOptions) {
     this.predictors = Object.keys(coefs.coefs) as predictors[];
     this.coefs = coefs;
-    this.vcov = options?.vcov || undefined;
+    this.vcov = options?.vcov ? math.matrix(options.vcov) : undefined;
     this.scale_predictors = options?.scale_predictors || false;
   }
 
