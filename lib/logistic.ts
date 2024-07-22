@@ -73,10 +73,13 @@ export class LogisticModel<predictors extends string> {
   }
 
   linear_prediction(data: Data<predictors>): number {
+    const pred_data = this.center_predictors
+      ? this.get_centered_data(data)
+      : data;
     return (
       this.coefs.intercept +
       this.predictors.reduce(
-        (sum: number, key) => sum + this.coefs.coefs[key] * data[key],
+        (sum: number, key) => sum + this.coefs.coefs[key] * pred_data[key],
         0
       )
     );
@@ -96,9 +99,12 @@ export class LogisticModel<predictors extends string> {
         "You must provide vcov (the variance-covariance matrix) to calculate confidence intervals"
       );
     }
+    const pred_data = this.center_predictors
+      ? this.get_centered_data(data)
+      : data;
     const tail = 1 - ci;
     const z = qnorm(1 - tail / 2);
-    const pred_matrix = matrix([1, ...Object.values<number>(data)]);
+    const pred_matrix = matrix([1, ...Object.values<number>(pred_data)]);
     // @ts-expect-error: math.js's types seem to be wrong here, if the result
     //   is scalar it will just be a number
     const variance: number = math.multiply(
