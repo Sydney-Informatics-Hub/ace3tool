@@ -8,6 +8,7 @@ import {
 } from "@/app/_forms/schemas/ace";
 import { schemeTableau10 } from "d3-scale-chromatic";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
+import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
 
 type ScoreRange = {
   label: string;
@@ -33,6 +34,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
+      title: "Total score",
       width: 500,
       height: 150,
       x: { grid: true, label: "ACE-III total score" },
@@ -62,8 +64,12 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
           : null,
       ],
     });
-    containerRef?.current?.append(plot);
+    containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
   });
-  return <div ref={containerRef} />;
+  return (
+    <div ref={containerRef}>
+      <PlotPlaceholder />
+    </div>
+  );
 }
