@@ -92,4 +92,21 @@ describe("Logistic regression", () => {
     expect(ci50[0]).toBeCloseTo(expected_ci50[0], 5);
     expect(ci50[1]).toBeCloseTo(expected_ci50[1], 5);
   });
+
+  test("We can center predictors", () => {
+    const model = new LogisticModel(
+      {
+        intercept: -3,
+        coefs: {
+          gre: 2,
+          gpa: 1,
+          rank: 3,
+        },
+      },
+      { center_predictors: true, predictor_means: { gre: 5, gpa: 2, rank: 2 } }
+    );
+    const data1: Data = { gre: 6, gpa: 3, rank: 3 };
+    const expected1: Data = { gre: 1, gpa: 1, rank: 1 };
+    expect(model.get_centered_data(data1)).toStrictEqual(expected1);
+  });
 });
