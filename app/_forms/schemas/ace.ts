@@ -13,7 +13,13 @@ export const AceScaleScoresSchema = object({
     .max(18, max_score_message)
     .typeError("Please enter a number")
     .required(),
-  memory: number().label("Memory").integer().min(0).max(26, max_score_message),
+  memory: number()
+    .label("Memory")
+    .integer()
+    .min(0)
+    .max(26, max_score_message)
+    .typeError("Please enter a number")
+    .required(),
   fluency: number()
     .label("Fluency")
     .integer()
