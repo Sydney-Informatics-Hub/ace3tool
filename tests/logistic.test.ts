@@ -1,8 +1,5 @@
-import { create, all } from "mathjs";
 import { describe, test, expect } from "vitest";
 import { Data, qnorm, LogisticModel } from "@/lib/logistic";
-
-const math = create(all);
 
 test("qnorm returns expected values", () => {
   expect(qnorm(0.975)).toBeCloseTo(1.959964, 7);
@@ -56,7 +53,7 @@ describe("Logistic regression", () => {
   test("We can predict with prediction intervals", () => {
     // These values found by running a simple logistic regression
     //   model in Python
-    const vcov = math.matrix([
+    const vcov = [
       [
         1.2833400790865244, -0.00031537768873402824, -0.29029115578663295,
         -0.03517198874219694,
@@ -73,7 +70,7 @@ describe("Logistic regression", () => {
         -0.03517198874219694, 7.727229745652387e-6, -0.001981510705975415,
         0.01616381401554067,
       ],
-    ]);
+    ];
     const model = new LogisticModel(
       {
         intercept: -3.4495483976684698,
