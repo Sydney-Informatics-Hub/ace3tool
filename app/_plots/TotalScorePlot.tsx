@@ -7,6 +7,7 @@ import {
   AceScaleScoresSchema,
 } from "@/app/_forms/schemas/ace";
 import { schemeTableau10 } from "d3-scale-chromatic";
+import { useTotalScore } from "@/app/_hooks/useTotalScore";
 
 type ScoreRange = {
   label: string;
@@ -22,27 +23,14 @@ const Ranges: ScoreRange[] = [
 ];
 
 interface TotalScorePlotProps {
-  scores: AceScaleScores;
+  scores: Partial<AceScaleScores>;
 }
 
 export default function TotalScorePlot(props: TotalScorePlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [total, setTotal] = useState<number>(0);
   const { scores } = props;
+  const { valid, total } = useTotalScore(scores);
 
-  useEffect(() => {
-    AceScaleScoresSchema.validate(scores)
-      .then((parsed) => {
-        const sum = Object.values(parsed).reduce(
-          (sum, score) => sum + score,
-          0
-        );
-        setTotal(sum);
-      })
-      .catch((err) => {
-        return;
-      });
-  }, [scores]);
   useEffect(() => {
     const plot = Plot.plot({
       width: 500,
@@ -63,12 +51,15 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
           fill: "label",
           opacity: 0.7,
         }),
-        Plot.tickX([{ score: total }], {
-          x: "score",
-          stroke: "black",
-          marker: "circle",
-          strokeWidth: 2,
-        }),
+        // Only show total marker once we have a valid total
+        valid
+          ? Plot.tickX([{ score: total }], {
+              x: "score",
+              stroke: "black",
+              marker: "circle",
+              strokeWidth: 2,
+            })
+          : null,
       ],
     });
     containerRef?.current?.append(plot);
