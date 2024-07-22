@@ -43,6 +43,8 @@ export default function RiskPlot(props: RiskPlotProps) {
       },
       marks: [
         Plot.axisY({ ticks: [] }),
+        // TODO: Might be better to use an SVG gradient for this?
+        //   https://observablehq.com/@observablehq/plot-gradient-bars
         Plot.rect(ranges, {
           x1: "start",
           x2: "end",
