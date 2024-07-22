@@ -10,23 +10,31 @@ export const AceScaleScoresSchema = object({
     .label("Attention")
     .integer()
     .min(0)
-    .max(18, max_score_message),
+    .max(18, max_score_message)
+    .typeError("Please enter a number")
+    .required(),
   memory: number().label("Memory").integer().min(0).max(26, max_score_message),
   fluency: number()
     .label("Fluency")
     .integer()
     .min(0)
-    .max(14, max_score_message),
+    .max(14, max_score_message)
+    .typeError("Please enter a number")
+    .required(),
   language: number()
     .label("Language")
     .integer()
     .min(0)
-    .max(26, max_score_message),
+    .max(26, max_score_message)
+    .typeError("Please enter a number")
+    .required(),
   visual: number()
     .label("Visuospatial")
     .integer()
     .min(0)
-    .max(16, max_score_message),
+    .max(16, max_score_message)
+    .typeError("Please enter a number")
+    .required(),
 });
 
 export type AceScaleScores = InferType<typeof AceScaleScoresSchema>;
