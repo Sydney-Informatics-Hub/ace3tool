@@ -1,7 +1,20 @@
-import { create, matrix, Matrix, matrixDependencies } from "mathjs";
+import {
+  create,
+  matrix,
+  Matrix,
+  matrixDependencies,
+  multiplyDependencies,
+  sqrtDependencies,
+  transposeDependencies,
+} from "mathjs";
 import erfinv from "@stdlib/math-base-special-erfinv";
 
-const math = create(matrixDependencies);
+const math = create({
+  matrixDependencies,
+  multiplyDependencies,
+  sqrtDependencies,
+  transposeDependencies,
+});
 
 export type ModelCoefs<predictors extends string = string> = {
   intercept: number;
