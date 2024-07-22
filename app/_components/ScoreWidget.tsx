@@ -9,7 +9,6 @@ import AceForm from "@/app/_forms/AceForm";
 import { Card } from "flowbite-react";
 import model_data from "@/app/_data/logistic_model_v1.json";
 import { LogisticModel } from "@/lib/logistic";
-import { Matrix } from "mathjs";
 
 export default function ScoreWidget() {
   const form = useForm<AceScaleScores>({
@@ -21,6 +20,8 @@ export default function ScoreWidget() {
   // Need to subscribe to errors to get instant error validation
   const { errors } = formState;
 
+  // TODO: Need to get means for predictors, and set scale_predictors in the model
+  //   options
   const model = new LogisticModel(model_data.coefs, {
     vcov: model_data.vcov,
   });
