@@ -25,26 +25,51 @@ export type Data<predictors extends string = string> = Readonly<
   Record<predictors, number>
 >;
 
-interface LogisticModelOptions {
+// TOOD: Need to optionally set means here
+interface LogisticModelOptions<predictors extends string> {
   vcov?: number[][];
-  scale_predictors?: boolean;
+  center_predictors?: boolean;
+  predictor_means?: Data<predictors>;
 }
 
 export class LogisticModel<predictors extends string> {
   readonly predictors: predictors[];
   readonly coefs: ModelCoefs<predictors>;
   readonly vcov: Matrix | undefined;
-  readonly scale_predictors: boolean;
+  readonly center_predictors: boolean;
+  readonly predictor_means: Data<predictors> | undefined;
 
-  constructor(coefs: ModelCoefs<predictors>, options?: LogisticModelOptions) {
+  constructor(
+    coefs: ModelCoefs<predictors>,
+    options?: LogisticModelOptions<predictors>
+  ) {
     this.predictors = Object.keys(coefs.coefs) as predictors[];
     this.coefs = coefs;
     this.vcov = options?.vcov ? math.matrix(options.vcov) : undefined;
-    this.scale_predictors = options?.scale_predictors || false;
+    this.center_predictors = options?.center_predictors || false;
+    this.predictor_means = options?.predictor_means || undefined;
   }
 
   private has_vcov(): this is this & { vcov: Matrix } {
     return this.vcov !== undefined;
+  }
+
+  private has_means(): this is this & { predictor_means: Data<predictors>[] } {
+    return this.predictor_means !== undefined;
+  }
+
+  get_centered_data(data: Data<predictors>): Data<predictors> {
+    if (!this.has_means()) {
+      throw new Error(
+        "You must provide predictor_means in the options to center data"
+      );
+    }
+    return Object.fromEntries(
+      this.predictors.map((key) => {
+        const value = data[key] - this.predictor_means[key];
+        return [key, value];
+      })
+    ) as Data<predictors>;
   }
 
   linear_prediction(data: Data<predictors>): number {
