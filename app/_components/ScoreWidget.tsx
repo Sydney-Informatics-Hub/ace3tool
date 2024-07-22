@@ -9,6 +9,7 @@ import AceForm from "@/app/_forms/AceForm";
 import { Card } from "flowbite-react";
 import model_data from "@/app/_data/logistic_model_v1.json";
 import { LogisticModel } from "@/lib/logistic";
+import RiskPlot from "@/app/_plots/RiskPlot";
 
 export default function ScoreWidget() {
   const form = useForm<AceScaleScores>({
@@ -30,10 +31,11 @@ export default function ScoreWidget() {
   return (
     <div id="ace-form" className="flex flex-col lg:flex-row space-x-4">
       <AceForm form={form} />
-      <Card id="data-display" className="flex-col max-w-lg space-y-4">
+      <Card id="data-display" className="flex-col max-w-xl space-y-4">
         <DisplayTotal scores={current_value} />
         <ScorePlot scores={current_value} />
         <TotalScorePlot scores={current_value} />
+        <RiskPlot scores={current_value} model={model} />
       </Card>
     </div>
   );
