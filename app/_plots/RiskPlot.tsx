@@ -4,19 +4,20 @@ import * as Plot from "@observablehq/plot";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
+import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
 
 function create_risk_ranges(n: number) {
   let start = 0;
   const width = 1 / n;
   const ranges: { start: number; end: number }[] = [];
-  [...Array(n).keys()].map((key) => {
+  [...Array(n).keys()].map(() => {
     ranges.push({ start, end: start + width });
     start += width;
   });
   return ranges;
 }
 
-const ranges = create_risk_ranges(20);
+const ranges = create_risk_ranges(50);
 
 interface RiskPlotProps {
   scores: Partial<AceScaleScores>;
@@ -26,7 +27,7 @@ interface RiskPlotProps {
 export default function RiskPlot(props: RiskPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { model } = props;
-  const { valid, scores } = useValidatedScores(props.scores);
+  const { scores } = useValidatedScores(props.scores);
   const risk = scores ? model.predict(scores) : undefined;
 
   useEffect(() => {
@@ -61,8 +62,12 @@ export default function RiskPlot(props: RiskPlotProps) {
           : null,
       ],
     });
-    containerRef?.current?.append(plot);
+    containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  });
-  return <div ref={containerRef} />;
+  }, [risk]);
+  return (
+    <div ref={containerRef}>
+      <PlotPlaceholder />
+    </div>
+  );
 }

@@ -30,7 +30,7 @@ export default function ScorePlot(props: ScorePlotProps) {
         <YAxis name="Y" dataKey="y" domain={[0, 30]} />
         <Bar dataKey="y">
           {data.map((entry, index) => {
-            return <Cell fill={schemeTableau10[index]} key={index} />;
+            return <Cell fill={schemeTableau10[index]} key={entry.name} />;
           })}
         </Bar>
       </BarChart>
