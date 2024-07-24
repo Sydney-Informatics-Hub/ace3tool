@@ -22,11 +22,19 @@ export default function ScoreWidget() {
 
   const current_value = useWatch({ control });
   return (
-    <div id="ace-form" className="flex flex-col lg:flex-row space-x-4">
+    <div
+      id="ace-form"
+      className="flex flex-col lg:flex-row lg:flex-wrap space-x-4 space-y-4 "
+    >
       <AceForm form={form} />
-      <Card id="data-display" className="flex-col max-w-xl space-y-4">
-        <DisplayTotal scores={current_value} />
+      <Card
+        id="data-display-simple"
+        className="flex-col max-w-xl space-y-4 min-w-96"
+      >
+        <DisplayTotal scores={current_value} model={model} />
         <ScorePlot scores={current_value} />
+      </Card>
+      <Card id="risk-plots" className="flex-col max-w-xl space-y-4">
         <TotalScorePlot scores={current_value} />
         <RiskPlot scores={current_value} model={model} />
       </Card>
