@@ -28,7 +28,9 @@ export default function RiskPlot(props: RiskPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { model } = props;
   const { scores } = useValidatedScores(props.scores);
-  const risk = scores ? model.predict(scores) : undefined;
+  // NOTE: the model is currently coded with "non-dementia" as the *positive*
+  //   outcome, so we need 1 - risk for the risk of dementia
+  const risk = scores ? 1 - model.predict(scores) : undefined;
 
   useEffect(() => {
     const plot = Plot.plot({
