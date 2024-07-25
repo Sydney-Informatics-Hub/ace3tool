@@ -23,7 +23,7 @@ export default function ScorePlot(props: ScorePlotProps) {
   });
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width={500} height={400}>
       <BarChart data={data} width={100} height={100}>
         <CartesianGrid strokeDasharray="1" />
         <XAxis name="Scale" dataKey="name" />
