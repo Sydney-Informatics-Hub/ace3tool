@@ -63,7 +63,7 @@ export default function MainNavbar() {
   const pathname = usePathname();
   return (
     <Navbar fluid theme={NavbarTheme}>
-      <NavbarBrand as={Link} href="https://flowbite-react.com">
+      <NavbarBrand as={Link} href="#">
         <ChartBarIcon className="size-6 me-2" />
         <span className="self-center whitespace-nowrap text-lg font-semibold">
           ACE-III risk calculator
