@@ -17,7 +17,7 @@ function create_risk_ranges(n: number) {
   return ranges;
 }
 
-const ranges = create_risk_ranges(50);
+const ranges = create_risk_ranges(100);
 
 interface RiskPlotProps {
   scores: Partial<AceScaleScores>;
@@ -34,7 +34,7 @@ export default function RiskPlot(props: RiskPlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: "Predicted risk",
+      title: "Predicted risk of dementia",
       width: 500,
       height: 150,
       x: { grid: true, label: "Risk" },
