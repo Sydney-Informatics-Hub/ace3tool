@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   Button,
@@ -9,6 +10,7 @@ import {
   NavbarToggle,
 } from "flowbite-react";
 import { ChartBarIcon } from "@heroicons/react/24/solid";
+import { usePathname } from "next/navigation";
 
 const NavbarTheme: FlowbiteNavbarTheme = {
   root: {
@@ -58,6 +60,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
 };
 
 export default function MainNavbar() {
+  const pathname = usePathname();
   return (
     <Navbar fluid theme={NavbarTheme}>
       <NavbarBrand as={Link} href="https://flowbite-react.com">
@@ -73,10 +76,10 @@ export default function MainNavbar() {
         <NavbarToggle />
       </div>
       <NavbarCollapse>
-        <NavbarLink href="#" active>
+        <NavbarLink href="#" active={pathname === "/"}>
           Home
         </NavbarLink>
-        <NavbarLink as={Link} href="#">
+        <NavbarLink as={Link} active={pathname === "/about"} href="#">
           About
         </NavbarLink>
       </NavbarCollapse>
