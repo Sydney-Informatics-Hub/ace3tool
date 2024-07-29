@@ -9,6 +9,10 @@ import AceForm from "@/app/_forms/AceForm";
 import { Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
 import model from "@/app/_model/model";
+import SwarmPlot from "@/app/_plots/SwarmPlot";
+import SvgCircle from "@/app/_components/SvgCircle";
+import { XCircleIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon as OutlineCircleIcon } from "@heroicons/react/24/outline";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -57,6 +61,18 @@ export default function ScoreWidget() {
       <Card id="risk-plots" className="flex-col max-w-xl space-y-4">
         <TotalScorePlot scores={current_value} />
         <RiskPlot scores={current_value} model={model} />
+      </Card>
+      <Card id="swarm-plots" className="flex-col max-w-xl space-y-4">
+        <div id="swarm-intro" className="text-sm">
+          The plot below shows the current scores in each subdomain as a line,
+          compared to scores from the sample of patients. Sample patients with
+          dementia are shown in white (
+          <OutlineCircleIcon className="size-5 text-black  inline" />
+          ), and those without dementia in black (
+          <XCircleIcon className="size-5 text-black inline" />)
+        </div>
+
+        <SwarmPlot scores={current_value} model={model} />
       </Card>
     </div>
   );
