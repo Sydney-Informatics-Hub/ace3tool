@@ -1,44 +1,69 @@
-import { object, number, InferType, Message } from "yup";
+import { object, number, InferType, Message, NumberSchema } from "yup";
+
+export const AceScaleInfo: Record<
+  "attention" | "memory" | "fluency" | "language" | "visuospatial",
+  { max: number; label: string }
+> = {
+  attention: {
+    max: 18,
+    label: "Attention",
+  },
+  memory: {
+    max: 26,
+    label: "Memory",
+  },
+  fluency: {
+    max: 14,
+    label: "Fluency",
+  },
+  language: {
+    max: 26,
+    label: "Language",
+  },
+  visuospatial: {
+    max: 16,
+    label: "Visuospatial",
+  },
+} as const;
 
 const max_score_message: Message = (data) => {
   return `The score for ${data.label} should be less than ${data.max}`;
 };
 
-// TODO: Should these all be required?
 export const AceScaleScoresSchema = object({
   attention: number()
-    .label("Attention")
+    .label(AceScaleInfo.attention.label)
     .integer()
     .min(0)
-    .max(18, max_score_message)
+    .max(AceScaleInfo.attention.max, max_score_message)
     .typeError("Please enter a number")
     .required(),
   memory: number()
-    .label("Memory")
+    .label(AceScaleInfo.memory.label)
     .integer()
     .min(0)
-    .max(26, max_score_message)
+    .max(AceScaleInfo.memory.max, max_score_message)
     .typeError("Please enter a number")
     .required(),
   fluency: number()
-    .label("Fluency")
+    .label(AceScaleInfo.fluency.label)
     .integer()
     .min(0)
-    .max(14, max_score_message)
+    .max(AceScaleInfo.fluency.max, max_score_message)
     .typeError("Please enter a number")
     .required(),
   language: number()
-    .label("Language")
+    .label(AceScaleInfo.language.label)
     .integer()
     .min(0)
-    .max(26, max_score_message)
+    .max(AceScaleInfo.language.max, max_score_message)
     .typeError("Please enter a number")
     .required(),
   visuospatial: number()
-    .label("Visuospatial")
+    .label(AceScaleInfo.visuospatial.label)
     .integer()
     .min(0)
-    .max(16, max_score_message)
+    .max(AceScaleInfo.visuospatial.max, max_score_message)
     .typeError("Please enter a number")
     .required(),
 });
