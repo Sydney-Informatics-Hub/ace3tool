@@ -56,9 +56,10 @@ export default function SwarmPlot(props: SwarmPlotProps) {
         x: "scale",
         label: null,
       },
+      fx: { domain: AceScales.map((key) => AceScaleInfo[key].label) },
       color: {
         type: "categorical",
-        scheme: "category10",
+        scheme: "Tableau10",
       },
       marks: [
         Plot.axisY({ ticks: [], labelAnchor: "center", labelArrow: "none" }),
@@ -66,8 +67,9 @@ export default function SwarmPlot(props: SwarmPlotProps) {
           y: "height",
           fill: "scale",
           fx: "scale",
-          opacity: 0.3,
-          stroke: "2px solid black",
+          opacity: 0.5,
+          stroke: "black",
+          strokeOpacity: 1,
         }),
         Plot.dot(
           fake_data,
