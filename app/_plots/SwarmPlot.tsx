@@ -15,7 +15,7 @@ import { number_range } from "@/app/_utils/utils";
 const fake_data = AceScales.map((scale) => {
   return number_range(50).map((x) => {
     const score = randomInt(40, 100);
-    const dementia = Math.random() + score / 100 < 0.9;
+    const dementia = Math.random() + score / 100 < 1.0;
     const dementia_fill = dementia ? "white" : "black";
     return { scale: AceScaleInfo[scale].label, score, dementia, dementia_fill };
   });
