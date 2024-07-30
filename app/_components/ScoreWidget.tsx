@@ -61,6 +61,7 @@ export default function ScoreWidget() {
         <TotalScorePlot scores={current_value} />
         <RiskPlot scores={current_value} model={model} />
       </Card>
+      {/* TODO: redo this as a wider/2-column card (for md+) with info next to the plot*/}
       <Card id="swarm-plots" className="flex-col max-w-xl space-y-4">
         <div id="swarm-intro" className="text-sm">
           The plot below shows the current scores in each subdomain as a line,
