@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="flex flex-wrap min-h-screen items-center justify-center md:gap-2 dark:bg-gray-800">
+    <main className="container mx-auto min-h-screen md:p-2">
       <ScoreWidget />
     </main>
   );

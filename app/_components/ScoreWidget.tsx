@@ -46,7 +46,7 @@ export default function ScoreWidget() {
   return (
     <div
       id="ace-form"
-      className="flex flex-col lg:flex-row lg:flex-wrap md:space-x-4 space-y-4 "
+      className="flex flex-col lg:flex-row lg:flex-wrap gap-2 md:gap-4 "
     >
       <AceForm form={form} />
       <Card
