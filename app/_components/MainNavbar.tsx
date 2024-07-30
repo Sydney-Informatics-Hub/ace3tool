@@ -70,9 +70,11 @@ export default function MainNavbar() {
         </span>
       </NavbarBrand>
       <div className="flex flex-grow-0 md:order-2">
-        <Button gradientDuoTone="purpleToPink" className="me-2">
-          Try it!
-        </Button>
+        <Link href="/#score-entry" passHref legacyBehavior>
+          <Button gradientDuoTone="purpleToPink" className="me-2">
+            Try it!
+          </Button>
+        </Link>
         <NavbarToggle />
       </div>
       <NavbarCollapse>
