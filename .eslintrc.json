@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "eslint-plugin-jsx-a11y"
   ],
   "extends": [
     "eslint:recommended",
