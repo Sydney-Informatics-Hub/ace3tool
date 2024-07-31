@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeModeScript } from "flowbite-react";
 import { ReactNode } from "react";
 import MainNavbar from "@/app/_components/MainNavbar";
 
@@ -12,9 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning>
-      <head>
-        <ThemeModeScript />
-      </head>
+      <head></head>
       <body>
         <MainNavbar />
         {children}
