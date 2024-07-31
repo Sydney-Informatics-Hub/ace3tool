@@ -15,7 +15,7 @@ export default function AceForm(props: AceFormProps) {
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
   return (
     <Card className="max-w-xl" id="score-entry">
-      <h2 className="text-2xl font-bold text-gray-900">
+      <h2 className="text-2xl font-bold text-indigo-700">
         Enter ACE-III scale scores
       </h2>
       <FormProvider {...form}>
@@ -30,9 +30,6 @@ export default function AceForm(props: AceFormProps) {
           <ScoreInput label="Visuospatial" name="visuospatial" />
         </form>
       </FormProvider>
-      <Button type="submit" className="my-2 max-w-50">
-        Submit
-      </Button>
     </Card>
   );
 }
