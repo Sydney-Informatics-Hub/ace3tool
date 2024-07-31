@@ -11,7 +11,7 @@ type SwarmPlotDisplayProps = CardProps & {
 
 function SwarmPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div id="swarm-legend" className="lg:basis-1/2 text-base max-w-prose">
+    <div {...props}>
       <h2 className="text-indigo-600 font-bold text-lg">Subdomain scores</h2>
       <p>
         This plot compares the current scores for each subdomain to those from a

@@ -1,4 +1,4 @@
-import { object, number, InferType, Message, NumberSchema } from "yup";
+import { object, number, InferType, Message } from "yup";
 
 export const AceScaleInfo: Record<
   "attention" | "memory" | "fluency" | "language" | "visuospatial",

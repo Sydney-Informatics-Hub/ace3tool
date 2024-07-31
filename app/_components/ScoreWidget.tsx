@@ -8,9 +8,6 @@ import AceForm from "@/app/_forms/AceForm";
 import { Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
 import model from "@/app/_model/model";
-import SwarmPlot from "@/app/_plots/SwarmPlot";
-import { XCircleIcon } from "@heroicons/react/24/solid";
-import { XCircleIcon as OutlineCircleIcon } from "@heroicons/react/24/outline";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { SwarmPlotDisplay } from "@/app/_components/SwarmPlotDisplay";
 

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import ScoreWidget from "@/app/_components/ScoreWidget";
 import { Card } from "flowbite-react";
 
 export const metadata: Metadata = {

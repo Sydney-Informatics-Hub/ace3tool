@@ -1,7 +1,7 @@
 "use client";
 import { SubmitHandler, FormProvider, UseFormReturn } from "react-hook-form";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
-import { Button, Card } from "flowbite-react";
+import { Card } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
 
 interface AceFormProps {

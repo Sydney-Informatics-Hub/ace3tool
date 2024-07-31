@@ -105,7 +105,7 @@ export default function SwarmPlot(props: SwarmPlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [risk, bar_data, score_data]);
+  }, [risk, bar_data, score_data, dementia_threshold_data, scores]);
   return (
     <div ref={containerRef}>
       <PlotPlaceholder />
