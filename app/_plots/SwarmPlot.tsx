@@ -11,6 +11,7 @@ import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
 import { randomInt } from "mathjs";
 import { number_range } from "@/app/_utils/utils";
+import score_thresholds from "@/app/_model/score_thresholds.json";
 
 const fake_data = AceScales.map((scale) => {
   return number_range(50).map((x) => {
@@ -35,6 +36,11 @@ export default function SwarmPlot(props: SwarmPlotProps) {
   const risk = scores ? 1 - model.predict(scores) : undefined;
   const bar_data = AceScales.map((key) => {
     return { scale: AceScaleInfo[key].label, height: 100 };
+  });
+  const dementia_threshold_data = AceScales.map((key) => {
+    const threshold =
+      (score_thresholds.dementia_p80[key] / AceScaleInfo[key].max) * 100;
+    return { scale: AceScaleInfo[key].label, threshold };
   });
   const score_data = AceScales.map((key) => {
     const scaled_score = scores
@@ -79,6 +85,13 @@ export default function SwarmPlot(props: SwarmPlotProps) {
             fill: "dementia_fill",
           })
         ),
+        Plot.tickY(dementia_threshold_data, {
+          fx: "scale",
+          y: "threshold",
+          stroke: "red",
+          strokeDasharray: "3,3,3",
+          strokeWidth: 2,
+        }),
         scores
           ? Plot.tickY(score_data, {
               fx: "scale",
