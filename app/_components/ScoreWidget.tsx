@@ -12,6 +12,7 @@ import SwarmPlot from "@/app/_plots/SwarmPlot";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { XCircleIcon as OutlineCircleIcon } from "@heroicons/react/24/outline";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
+import { SwarmPlotDisplay } from "@/app/_components/SwarmPlotDisplay";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -61,19 +62,12 @@ export default function ScoreWidget() {
         <TotalScorePlot scores={current_value} />
         <RiskPlot scores={current_value} model={model} />
       </Card>
-      {/* TODO: redo this as a wider/2-column card (for md+) with info next to the plot*/}
-      <Card id="swarm-plots" className="flex-col max-w-xl space-y-4">
-        <div id="swarm-intro" className="text-sm">
-          The plot below shows the current scores in each subdomain as a line,
-          compared to scores from the sample of patients. Sample patients with
-          dementia are shown in white (
-          <OutlineCircleIcon className="size-5 text-black  inline" />
-          ), and those without dementia in black (
-          <XCircleIcon className="size-5 text-black inline" />)
-        </div>
-
-        <SwarmPlot scores={current_value} model={model} />
-      </Card>
+      <SwarmPlotDisplay
+        id="swarm-plots"
+        className="max-w-full"
+        scores={current_value}
+        model={model}
+      />
     </div>
   );
 }
