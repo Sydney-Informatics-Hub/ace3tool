@@ -1,12 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import * as Plot from "@observablehq/plot";
-import {
-  AceScaleScores,
-  AceScales,
-  AceScaleScoresSchema,
-} from "@/app/_forms/schemas/ace";
-import { schemeTableau10 } from "d3-scale-chromatic";
+import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
 
@@ -42,6 +37,8 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
         type: "ordinal",
         scheme: "YlOrRd",
         domain: ["Low risk", "Moderate risk", "High risk"],
+        reverse: true,
+        legend: true,
       },
       marks: [
         Plot.axisY({ ticks: [] }),
