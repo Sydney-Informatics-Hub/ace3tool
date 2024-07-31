@@ -81,7 +81,7 @@ export default function MainNavbar() {
         <NavbarLink href="#" active={pathname === "/"}>
           Home
         </NavbarLink>
-        <NavbarLink as={Link} active={pathname === "/about"} href="#">
+        <NavbarLink as={Link} active={pathname === "/about"} href="/about">
           About
         </NavbarLink>
       </NavbarCollapse>
