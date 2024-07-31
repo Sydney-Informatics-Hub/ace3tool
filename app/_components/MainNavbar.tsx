@@ -45,8 +45,8 @@ const NavbarTheme: FlowbiteNavbarTheme = {
   link: {
     base: "block py-2 pl-3 pr-4 md:p-0",
     active: {
-      on: "bg-indigo-500 text-white md:bg-transparent md:text-gray-100 md:hover:text-amber-400",
-      off: "border-b border-gray-100 text-gray-200 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-amber-400",
+      on: "bg-indigo-500 text-white md:bg-transparent md:text-white md:hover:text-amber-400",
+      off: "border-b border-gray-100 text-gray-300 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-amber-400",
     },
     disabled: {
       on: "text-gray-400 hover:cursor-not-allowed dark:text-gray-600",
@@ -59,11 +59,16 @@ const NavbarTheme: FlowbiteNavbarTheme = {
   },
 };
 
+const navbar_items = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+];
+
 export default function MainNavbar() {
   const pathname = usePathname();
   return (
     <Navbar fluid theme={NavbarTheme}>
-      <NavbarBrand as={Link} href="#">
+      <NavbarBrand as={Link} href="/">
         <ChartBarIcon className="size-6 me-2" />
         <span className="self-center whitespace-nowrap text-lg font-semibold">
           ACE-III risk calculator
@@ -78,12 +83,18 @@ export default function MainNavbar() {
         <NavbarToggle />
       </div>
       <NavbarCollapse>
-        <NavbarLink href="#" active={pathname === "/"}>
-          Home
-        </NavbarLink>
-        <NavbarLink as={Link} active={pathname === "/about"} href="/about">
-          About
-        </NavbarLink>
+        {navbar_items.map((item, index) => {
+          return (
+            <NavbarLink
+              key={index}
+              as={Link}
+              href={item.href}
+              active={pathname === item.href}
+            >
+              {item.label}
+            </NavbarLink>
+          );
+        })}
       </NavbarCollapse>
     </Navbar>
   );
