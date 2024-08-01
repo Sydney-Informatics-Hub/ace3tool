@@ -6,7 +6,6 @@ import {
   AceScales,
   AceScaleScores,
 } from "@/app/_forms/schemas/ace";
-import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
 interface ScoreBarPlotProps {
@@ -15,9 +14,12 @@ interface ScoreBarPlotProps {
 
 export default function ScoreBarPlot(props: ScoreBarPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scores } = useValidatedScores(props.scores);
+  const scores = props.scores;
   const score_data = AceScales.map((key) => {
-    return { scale: AceScaleInfo[key].label, score: scores ? scores[key] : 0 };
+    return {
+      scale: AceScaleInfo[key].label,
+      score: scores[key] ? scores[key] : 0,
+    };
   });
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
           fill: "scale",
           x: "scale",
           stroke: "black",
+          opacity: 0.8,
         }),
       ],
     });
