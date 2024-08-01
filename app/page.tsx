@@ -2,7 +2,7 @@ import ScoreWidget from "@/app/_components/ScoreWidget";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ACE-III risk calculator",
+  title: "ACE-III risk calculator | FRONTIER Research",
   description: "Predict risk of impairment based on ACE-III scores",
 };
 

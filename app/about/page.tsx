@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Card } from "flowbite-react";
 
 export const metadata: Metadata = {
-  title: "ACE-III risk calculator - About",
+  title: "About",
   description: "About the calculator",
 };
 
