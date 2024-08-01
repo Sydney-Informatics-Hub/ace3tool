@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.w-500px {
+    width: 500px !important;
+}
+
+.h-500px {
+    height: 500px !important;
+}
