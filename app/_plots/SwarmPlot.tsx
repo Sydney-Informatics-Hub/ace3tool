@@ -8,13 +8,13 @@ import {
 } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
-import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
 import { randomInt } from "mathjs";
 import { number_range } from "@/app/_utils/utils";
 import score_thresholds from "@/app/_model/score_thresholds.json";
+import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
 const fake_data = AceScales.map((scale) => {
-  return number_range(50).map((x) => {
+  return number_range(50).map(() => {
     const score = randomInt(40, 100);
     const dementia = Math.random() + score / 100 < 1.0;
     const dementia_fill = dementia ? "white" : "black";
@@ -108,7 +108,7 @@ export default function SwarmPlot(props: SwarmPlotProps) {
   }, [risk, bar_data, score_data, dementia_threshold_data, scores]);
   return (
     <div ref={containerRef}>
-      <PlotPlaceholder />
+      <PlotSkeleton width={500} height={500} />
     </div>
   );
 }

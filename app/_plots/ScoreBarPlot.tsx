@@ -7,7 +7,7 @@ import {
   AceScaleScores,
 } from "@/app/_forms/schemas/ace";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
-import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
+import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
 interface ScoreBarPlotProps {
   scores: Partial<AceScaleScores>;
@@ -48,7 +48,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
   }, [score_data]);
   return (
     <div ref={containerRef}>
-      <PlotPlaceholder />
+      <PlotSkeleton width={500} height={500} />
     </div>
   );
 }
