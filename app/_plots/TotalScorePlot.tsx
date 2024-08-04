@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import * as Plot from "@observablehq/plot";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
-import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
+import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
 type ScoreRange = {
   label: string;
@@ -66,7 +66,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
   });
   return (
     <div ref={containerRef}>
-      <PlotPlaceholder />
+      <PlotSkeleton width={500} height={150} />
     </div>
   );
 }

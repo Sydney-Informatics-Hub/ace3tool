@@ -4,7 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
-import { PlotPlaceholder } from "@/app/_components/PlotPlaceholder";
+import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
 function create_risk_ranges(n: number) {
   let start = 0;
@@ -71,7 +71,7 @@ export default function RiskPlot(props: RiskPlotProps) {
   }, [risk]);
   return (
     <div ref={containerRef}>
-      <PlotPlaceholder />
+      <PlotSkeleton width={500} height={150} />
     </div>
   );
 }
