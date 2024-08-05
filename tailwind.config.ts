@@ -4,7 +4,11 @@ import flowbite from "flowbite-react/tailwind";
 const config: Config = {
   content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", flowbite.content()],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+      },
+    },
   },
   plugins: [flowbite.plugin()],
 };
