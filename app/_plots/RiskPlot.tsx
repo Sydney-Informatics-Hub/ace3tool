@@ -84,7 +84,7 @@ export default function RiskPlot(props: RiskPlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [risk]);
+  }, [risk, conf_int]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={500} height={150} />
