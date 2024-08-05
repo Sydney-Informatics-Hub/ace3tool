@@ -20,7 +20,7 @@ scale_data <- scale_data %>%
 
 scale_data %>%
     group_by(dementia) %>%
-    summarize(across(everything(), list(mean=mean, sd=sd, max=max, min=min, p20)))
+    summarize(across(everything(), list(mean=mean, sd=sd, max=max, min=min, p20 = ~ quantile(.x, probs = 0.2))))
 
 scale_data %>%
     tbl_summary(by = "dementia") %>%
@@ -36,4 +36,4 @@ ggplot(scale_long, aes(x=scale, y=score, colour=dementia)) +
 
 scale_long %>%
     group_by(dementia, scale) %>%
-    summarize(p20 = quantile(score, probs = 0.2), p80 = quantile(score, probs=0.8))
+    summarize(min=min(score), max=max(score), p20 = quantile(score, probs = 0.2), p80 = quantile(score, probs=0.8))
