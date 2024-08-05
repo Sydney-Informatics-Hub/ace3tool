@@ -17,9 +17,6 @@ export function DisplayTotal(props: DisplayTotalProps) {
   const risk = validated_scores
     ? 1 - model.predict(validated_scores)
     : undefined;
-  if (risk) {
-    console.log(model.get_centered_data(validated_scores!));
-  }
 
   return (
     <>
