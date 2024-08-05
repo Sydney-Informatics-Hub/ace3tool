@@ -31,6 +31,13 @@ export default function RiskPlot(props: RiskPlotProps) {
   // NOTE: the model is currently coded with "non-dementia" as the *positive*
   //   outcome, so we need 1 - risk for the risk of dementia
   const risk = scores ? 1 - model.predict(scores) : undefined;
+  const conf_int_reversed = scores
+    ? model.confidence_interval(scores)
+    : undefined;
+  const conf_int =
+    conf_int_reversed !== undefined
+      ? { upper: 1 - conf_int_reversed[0], lower: 1 - conf_int_reversed[1] }
+      : undefined;
 
   useEffect(() => {
     const plot = Plot.plot({
@@ -55,6 +62,15 @@ export default function RiskPlot(props: RiskPlotProps) {
           fill: "start",
           opacity: 0.7,
         }),
+        conf_int
+          ? Plot.ruleY([conf_int], {
+              x1: "lower",
+              x2: "upper",
+              y: 5,
+              stroke: "#404040",
+              strokeWidth: 1,
+            })
+          : null,
         // Only show total marker once we have a valid total
         risk
           ? Plot.tickX([{ score: risk }], {
