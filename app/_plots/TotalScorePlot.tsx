@@ -13,9 +13,9 @@ type ScoreRange = {
 };
 
 const Ranges: ScoreRange[] = [
-  { label: "Low risk", min: 0, max: 60, width: 60 },
+  { label: "High risk", min: 0, max: 60, width: 60 },
   { label: "Moderate risk", min: 60, max: 80, width: 20 },
-  { label: "High risk", min: 80, max: 100, width: 20 },
+  { label: "Low risk", min: 80, max: 100, width: 20 },
 ];
 
 interface TotalScorePlotProps {
@@ -37,7 +37,6 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
         type: "ordinal",
         scheme: "YlOrRd",
         domain: ["Low risk", "Moderate risk", "High risk"],
-        reverse: true,
         legend: true,
       },
       marks: [
