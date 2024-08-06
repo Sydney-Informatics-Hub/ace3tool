@@ -19,6 +19,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     return {
       scale: AceScaleInfo[key].label,
       score: scores[key] ? scores[key] : 0,
+      max: AceScaleInfo[key].max,
     };
   });
 
@@ -26,6 +27,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     const plot = Plot.plot({
       width: 500,
       height: 500,
+      title: "Subdomain scores",
       y: {
         label: "Score",
         domain: [0, 30],
@@ -37,6 +39,19 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
       },
       marks: [
         Plot.axisX({ label: null }),
+        Plot.barY(score_data, {
+          y: "max",
+          x: "scale",
+          stroke: 1,
+          strokeDasharray: "1 1",
+          fill: null,
+        }),
+        Plot.text(score_data, {
+          x: "scale",
+          y: "max",
+          dy: -6,
+          text: (d) => `Max: ${d.max}`,
+        }),
         Plot.barY(score_data, {
           y: "score",
           fill: "scale",
