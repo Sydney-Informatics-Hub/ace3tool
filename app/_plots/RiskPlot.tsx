@@ -8,7 +8,7 @@ import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
 function create_risk_ranges(n: number) {
   let start = 0;
-  const width = 1 / n;
+  const width = 100 / n;
   const ranges: { start: number; end: number }[] = [];
   [...Array(n).keys()].map(() => {
     ranges.push({ start, end: start + width });
@@ -30,7 +30,7 @@ export default function RiskPlot(props: RiskPlotProps) {
   const { scores } = useValidatedScores(props.scores);
   // NOTE: the model is currently coded with "non-dementia" as the *positive*
   //   outcome, so we need 1 - risk for the risk of dementia
-  const risk = scores ? 1 - model.predict(scores) : undefined;
+  const risk = scores ? (1 - model.predict(scores)) * 100 : undefined;
   const conf_int_reversed = scores
     ? model.confidence_interval(scores)
     : undefined;
@@ -44,11 +44,12 @@ export default function RiskPlot(props: RiskPlotProps) {
       title: "Predicted risk of dementia",
       width: 500,
       height: 150,
-      x: { grid: true, label: "Risk" },
+      x: { grid: true, label: "Risk (%)", reverse: true },
       color: {
         type: "sequential",
         scheme: "magma",
-        domain: [0.0, 1.0],
+        domain: [0, 100],
+        reverse: true,
       },
       marks: [
         Plot.axisY({ ticks: [] }),
