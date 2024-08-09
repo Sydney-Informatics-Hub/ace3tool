@@ -60,7 +60,6 @@ export default function ScoreWidget() {
         className="flex-col max-w-xl space-y-4 min-w-96"
         theme={NoPaddingCardTheme}
       >
-        <DisplayTotal scores={current_value} model={model} />
         <ScoreBarPlot scores={current_value} />
       </Card>
       <SwarmPlotDisplay
