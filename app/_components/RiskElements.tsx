@@ -35,7 +35,7 @@ export default function RiskElements(props: RiskElementsProps) {
       >
         Factors contributing to predicted risk
       </h2>
-      <List>
+      <List unstyled>
         {risk_items &&
           risk_items.map((item) => {
             const colour = item.risk_increased
