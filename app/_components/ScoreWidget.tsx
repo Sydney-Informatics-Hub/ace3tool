@@ -2,7 +2,6 @@
 import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
-import { DisplayTotal } from "@/app/_forms/components/DisplayTotal";
 import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 import AceForm from "@/app/_forms/AceForm";
 import { Card, FlowbiteCardTheme } from "flowbite-react";
