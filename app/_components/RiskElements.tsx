@@ -60,6 +60,11 @@ export default function RiskElements(props: RiskElementsProps) {
             </List.Item>
           ))}
       </List>
+      <p>
+        <ArrowUpIcon className="text-red-500 inline size-5" />: increased risk,{" "}
+        <ArrowDownIcon className="text-green-500 inline size-5" />: decreased
+        risk
+      </p>
     </>
   );
 }
