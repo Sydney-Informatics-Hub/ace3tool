@@ -4,13 +4,15 @@
     "fluency": 11,
     "language": 25,
     "memory": 24,
-    "visuospatial": 15
+    "visuospatial": 15,
+    "total": 93
   },
   "dementia_p80": {
     "attention": 17,
     "fluency": 9,
     "language": 24,
     "memory": 22,
-    "visuospatial": 16
+    "visuospatial": 16,
+    "total": 81
   }
 }
