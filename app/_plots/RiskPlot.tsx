@@ -41,7 +41,9 @@ export default function RiskPlot(props: RiskPlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: "Predicted risk of dementia",
+      title: risk
+        ? `Predicted risk of dementia: ${Math.round(risk)}%`
+        : "Predicted risk of dementia",
       width: 500,
       height: 150,
       x: { grid: true, label: "Risk (%)", reverse: true },
