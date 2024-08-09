@@ -12,13 +12,22 @@ import { randomInt } from "mathjs";
 import { number_range } from "@/app/_utils/utils";
 import score_thresholds from "@/app/_model/score_thresholds.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
+import { useTotalScore } from "@/app/_hooks/useTotalScore";
 
-const fake_data = AceScales.map((scale) => {
+const AceScalesWithTotal = [...AceScales, "total"] as const;
+const InfoWithTotal = { ...AceScaleInfo, total: { max: 100, label: "Total" } };
+
+const fake_data = AceScalesWithTotal.map((scale) => {
   return number_range(50).map(() => {
     const score = randomInt(40, 100);
     const dementia = Math.random() + score / 100 < 1.0;
     const dementia_fill = dementia ? "white" : "black";
-    return { scale: AceScaleInfo[scale].label, score, dementia, dementia_fill };
+    return {
+      scale: InfoWithTotal[scale].label,
+      score,
+      dementia,
+      dementia_fill,
+    };
   });
 }).flat();
 
@@ -31,22 +40,24 @@ export default function SwarmPlot(props: SwarmPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { model } = props;
   const { scores } = useValidatedScores(props.scores);
+  const { total } = useTotalScore(props.scores);
+  const scores_with_total = scores ? { ...scores, total } : undefined;
   // NOTE: the model is currently coded with "non-dementia" as the *positive*
   //   outcome, so we need 1 - risk for the risk of dementia
   const risk = scores ? 1 - model.predict(scores) : undefined;
-  const bar_data = AceScales.map((key) => {
-    return { scale: AceScaleInfo[key].label, height: 100 };
+  const bar_data = AceScalesWithTotal.map((key) => {
+    return { scale: InfoWithTotal[key].label, height: 100 };
   });
-  const dementia_threshold_data = AceScales.map((key) => {
+  const dementia_threshold_data = AceScalesWithTotal.map((key) => {
     const threshold =
-      (score_thresholds.dementia_p80[key] / AceScaleInfo[key].max) * 100;
-    return { scale: AceScaleInfo[key].label, threshold };
+      (score_thresholds.dementia_p80[key] / InfoWithTotal[key].max) * 100;
+    return { scale: InfoWithTotal[key].label, threshold };
   });
-  const score_data = AceScales.map((key) => {
-    const scaled_score = scores
-      ? (scores[key] / AceScaleInfo[key].max) * 100
+  const score_data = AceScalesWithTotal.map((key) => {
+    const scaled_score = scores_with_total
+      ? (scores_with_total[key] / InfoWithTotal[key].max) * 100
       : undefined;
-    return { scale: AceScaleInfo[key].label, value: scaled_score };
+    return { scale: InfoWithTotal[key].label, value: scaled_score };
   });
 
   useEffect(() => {
@@ -62,10 +73,13 @@ export default function SwarmPlot(props: SwarmPlotProps) {
         x: "scale",
         label: null,
       },
-      fx: { domain: AceScales.map((key) => AceScaleInfo[key].label) },
+      fx: {
+        domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
+      },
       color: {
         type: "categorical",
         scheme: "Tableau10",
+        domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
       },
       marks: [
         Plot.axisY({ ticks: [], labelAnchor: "center", labelArrow: "none" }),
