@@ -16,7 +16,8 @@ for (scale in names(scale_means)) {
     scale_data[scale] <- round(scale_data[scale] + scale_means[scale])
 }
 scale_data <- scale_data %>%
-    rename_with(~ str_remove(.x, "ACEIII..Subtotal"))
+    rename_with(~ str_remove(.x, "ACEIII..Subtotal")) %>%
+    mutate(Total = rowSums(across(- dementia)))
 
 scale_data %>%
     group_by(dementia) %>%
