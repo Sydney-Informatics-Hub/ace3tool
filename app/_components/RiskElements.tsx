@@ -60,7 +60,7 @@ export default function RiskElements(props: RiskElementsProps) {
             </List.Item>
           ))}
       </List>
-      <p>
+      <p className={show ? "" : "invisible"}>
         <span className="font-bold text-indigo-600">Key:</span>{" "}
         <ArrowUpIcon className="text-red-500 inline size-5" />: increased risk
         of dementia, <ArrowDownIcon className="text-green-500 inline size-5" />:
