@@ -31,15 +31,16 @@ export default function RiskPlot(props: RiskPlotProps) {
   // NOTE: the model is currently coded with "non-dementia" as the *positive*
   //   outcome, so we need 1 - risk for the risk of dementia
   const risk = scores ? (1 - model.predict(scores)) * 100 : undefined;
-  const conf_int_reversed = scores
-    ? model.confidence_interval(scores)
-    : undefined;
-  const conf_int =
-    conf_int_reversed !== undefined
-      ? { upper: 1 - conf_int_reversed[0], lower: 1 - conf_int_reversed[1] }
-      : undefined;
 
   useEffect(() => {
+    const conf_int_reversed = scores
+      ? model.confidence_interval(scores)
+      : undefined;
+    const conf_int =
+      conf_int_reversed !== undefined
+        ? { upper: 1 - conf_int_reversed[0], lower: 1 - conf_int_reversed[1] }
+        : undefined;
+
     const plot = Plot.plot({
       title: risk
         ? `Predicted risk of dementia: ${Math.round(risk)}%`
@@ -87,7 +88,7 @@ export default function RiskPlot(props: RiskPlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [risk, conf_int]);
+  }, [risk, model, scores]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={500} height={150} />
