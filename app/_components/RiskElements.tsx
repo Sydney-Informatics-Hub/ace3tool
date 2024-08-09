@@ -61,9 +61,10 @@ export default function RiskElements(props: RiskElementsProps) {
           ))}
       </List>
       <p>
-        <ArrowUpIcon className="text-red-500 inline size-5" />: increased risk,{" "}
-        <ArrowDownIcon className="text-green-500 inline size-5" />: decreased
-        risk
+        <span className="font-bold text-indigo-600">Key:</span>{" "}
+        <ArrowUpIcon className="text-red-500 inline size-5" />: increased risk
+        of dementia, <ArrowDownIcon className="text-green-500 inline size-5" />:
+        decreased risk
       </p>
     </>
   );
