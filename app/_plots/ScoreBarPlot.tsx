@@ -30,9 +30,12 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
       title: "Subdomain scores",
       y: {
         label: "Score",
-        domain: [0, 30],
+        domain: [0, 27],
       },
-      x: { domain: AceScales.map((key) => AceScaleInfo[key].label) },
+      x: {
+        domain: AceScales.map((key) => AceScaleInfo[key].label),
+        padding: 0.2,
+      },
       color: {
         type: "categorical",
         scheme: "Tableau10",
@@ -42,22 +45,23 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
         Plot.barY(score_data, {
           y: "max",
           x: "scale",
-          stroke: 1,
-          strokeDasharray: "1 1",
-          fill: null,
+          fill: "scale",
+          opacity: 0.3,
+          inset: -5,
+          insetBottom: 0,
         }),
-        Plot.text(score_data, {
-          x: "scale",
-          y: "max",
-          dy: -6,
-          text: (d) => `Max: ${d.max}`,
-        }),
+        // Plot.text(score_data, {
+        //   x: "scale",
+        //   y: "max",
+        //   dy: -6,
+        //   text: (d) => `Max: ${d.max}`,
+        // }),
         Plot.barY(score_data, {
           y: "score",
           fill: "scale",
           x: "scale",
-          stroke: "black",
           opacity: 0.8,
+          stroke: "black",
         }),
       ],
     });
