@@ -29,7 +29,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: "Total score",
+      title: valid ? `Total score: ${total}` : "Total score",
       width: 500,
       height: 150,
       x: { grid: true, label: "ACE-III total score" },
@@ -62,7 +62,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  });
+  }, [valid, total]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={500} height={150} />
