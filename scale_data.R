@@ -20,6 +20,10 @@ scale_data <- scale_data %>%
     mutate(Total = rowSums(across(- dementia)))
 
 scale_data %>%
+    rename_with(str_to_lower) |>
+    write_json("data/raw_scores.json", dataframe="columns")
+
+scale_data %>%
     group_by(dementia) %>%
     summarize(across(everything(), list(mean=mean, sd=sd, max=max, min=min, p20 = ~ quantile(.x, probs = 0.2))))
 
