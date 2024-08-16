@@ -11,5 +11,5 @@ export default logistic_model;
 
 export const total_model = new LogisticModel(total_model_data.coefs, {
   predictor_means: total_model_data.means,
-  center_predictors: false,
+  center_predictors: true,
 });
