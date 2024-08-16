@@ -6,10 +6,11 @@ import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 import AceForm from "@/app/_forms/AceForm";
 import { Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
-import model from "@/app/_model/model";
+import model, { total_model } from "@/app/_model/model";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { SwarmPlotDisplay } from "@/app/_components/SwarmPlotDisplay";
 import RiskElements from "@/app/_components/RiskElements";
+import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -51,7 +52,8 @@ export default function ScoreWidget() {
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
           <RiskPlot scores={current_value} model={model} />
-          <RiskElements scores={current_value} model={model} />
+          <RiskPlotTotal scores={current_value} model={total_model} />
+          {/*<RiskElements scores={current_value} model={model} />*/}
         </div>
       </Card>
       <Card
