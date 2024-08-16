@@ -43,8 +43,8 @@ export default function RiskPlot(props: RiskPlotProps) {
 
     const plot = Plot.plot({
       title: risk
-        ? `Predicted risk of dementia: ${Math.round(risk)}%`
-        : "Predicted risk of dementia",
+        ? `Predicted risk of dementia (subdomain model): ${Math.round(risk)}%`
+        : "Predicted risk of dementia (subdomain model)",
       width: 500,
       height: 150,
       x: { grid: true, label: "Risk (%)", reverse: true },
