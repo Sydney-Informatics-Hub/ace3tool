@@ -5,19 +5,7 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
-
-function create_risk_ranges(n: number) {
-  let start = 0;
-  const width = 100 / n;
-  const ranges: { start: number; end: number }[] = [];
-  [...Array(n).keys()].map(() => {
-    ranges.push({ start, end: start + width });
-    start += width;
-  });
-  return ranges;
-}
-
-const ranges = create_risk_ranges(100);
+import { create_d3_gradient } from "@/app/_plots/plot_utils";
 
 interface RiskPlotTotalProps {
   scores: Partial<AceScaleScores>;
@@ -56,15 +44,16 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
         reverse: true,
       },
       marks: [
+        create_d3_gradient(10, "total_risk_gradient"),
         Plot.axisY({ ticks: [] }),
         // TODO: Might be better to use an SVG gradient for this?
         //   https://observablehq.com/@observablehq/plot-gradient-bars
-        Plot.rect(ranges, {
-          x1: "start",
-          x2: "end",
+        Plot.rect([{ min: 0, max: 100 }], {
+          x1: "min",
+          x2: "max",
           y1: 0,
           y2: 10,
-          fill: "start",
+          fill: "url(#total_risk_gradient)",
           opacity: 0.7,
         }),
         // conf_int
