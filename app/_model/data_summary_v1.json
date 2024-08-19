@@ -1,0 +1,26 @@
+{
+  "control_means": {
+    "attention": 17.352678571428573,
+    "memory": 24.830357142857142,
+    "fluency": 12.348214285714286,
+    "language": 25.46875,
+    "visuospatial": 15.589285714285714,
+    "total": 95.589285714285708
+  },
+  "control_sds": {
+    "attention": 0.96377991100052207,
+    "memory": 1.5026935030982451,
+    "fluency": 1.5105596707505928,
+    "language": 0.80853421602016096,
+    "visuospatial": 0.74030137395476014,
+    "total": 3.3228481257620257
+  },
+  "specificity_100": {
+    "attention": 12.5,
+    "memory": 16.5,
+    "fluency": 7.5,
+    "language": 20.5,
+    "visuospatial": 11.5,
+    "total": 83.5
+  }
+}
