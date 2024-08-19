@@ -8,35 +8,26 @@ import {
 } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
-import { randomInt } from "mathjs";
-import { number_range } from "@/app/_utils/utils";
-import score_thresholds from "@/app/_model/score_thresholds.json";
+import data_summary from "@/app/_model/data_summary_v1.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 
 const AceScalesWithTotal = [...AceScales, "total"] as const;
 const InfoWithTotal = { ...AceScaleInfo, total: { max: 100, label: "Total" } };
 
-const fake_data = AceScalesWithTotal.map((scale) => {
-  return number_range(50).map(() => {
-    const score = randomInt(40, 100);
-    const dementia = Math.random() + score / 100 < 1.0;
-    const dementia_fill = dementia ? "white" : "black";
-    return {
-      scale: InfoWithTotal[scale].label,
-      score,
-      dementia,
-      dementia_fill,
-    };
-  });
-}).flat();
+const rescale_score = (
+  score: number,
+  scale: keyof AceScaleScores | "total"
+) => {
+  return (score / InfoWithTotal[scale].max) * 100;
+};
 
-interface SwarmPlotProps {
+interface NormPlotProps {
   scores: Partial<AceScaleScores>;
   model: LogisticModel<keyof AceScaleScores>;
 }
 
-export default function SwarmPlot(props: SwarmPlotProps) {
+export default function NormPlot(props: NormPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { model } = props;
   const { scores } = useValidatedScores(props.scores);
@@ -48,10 +39,14 @@ export default function SwarmPlot(props: SwarmPlotProps) {
   const bar_data = AceScalesWithTotal.map((key) => {
     return { scale: InfoWithTotal[key].label, height: 100 };
   });
-  const dementia_threshold_data = AceScalesWithTotal.map((key) => {
-    const threshold =
-      (score_thresholds.dementia_p80[key] / InfoWithTotal[key].max) * 100;
-    return { scale: InfoWithTotal[key].label, threshold };
+  const sd_threshold_data = AceScalesWithTotal.map((key) => {
+    const mean = data_summary.control_means[key];
+    const sd = data_summary.control_sds[key];
+    const sd_threshold = mean - 2 * sd;
+    return {
+      scale: InfoWithTotal[key].label,
+      value: rescale_score(sd_threshold, key),
+    };
   });
   const score_data = AceScalesWithTotal.map((key) => {
     const scaled_score = scores_with_total
@@ -87,23 +82,16 @@ export default function SwarmPlot(props: SwarmPlotProps) {
           y: "height",
           fill: "scale",
           fx: "scale",
-          opacity: 0.5,
+          fillOpacity: 0.5,
           stroke: "black",
+          strokeWidth: 2,
           strokeOpacity: 1,
         }),
-        Plot.dot(
-          fake_data,
-          Plot.dodgeX("middle", {
-            fx: "scale",
-            y: "score",
-            fill: "dementia_fill",
-          })
-        ),
-        Plot.tickY(dementia_threshold_data, {
+        Plot.tickY(sd_threshold_data, {
           fx: "scale",
-          y: "threshold",
-          stroke: "red",
-          strokeDasharray: "3,3,3",
+          y: "value",
+          stroke: "#f97316",
+          strokeDasharray: "1,1",
           strokeWidth: 2,
         }),
         scores
@@ -119,7 +107,7 @@ export default function SwarmPlot(props: SwarmPlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [risk, bar_data, score_data, dementia_threshold_data, scores]);
+  }, [risk, bar_data, score_data, sd_threshold_data, scores]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={500} height={500} />

@@ -8,7 +8,7 @@ import { Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
 import model, { total_model } from "@/app/_model/model";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
-import { SwarmPlotDisplay } from "@/app/_components/SwarmPlotDisplay";
+import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskElements from "@/app/_components/RiskElements";
 import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 
@@ -63,7 +63,7 @@ export default function ScoreWidget() {
       >
         <ScoreBarPlot scores={current_value} />
       </Card>
-      <SwarmPlotDisplay
+      <NormPlotDisplay
         id="swarm-plots"
         className="max-w-full"
         scores={current_value}
