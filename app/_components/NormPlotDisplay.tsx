@@ -32,6 +32,12 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
           </span>
           2 SDs below the mean for control patients
         </List.Item>
+        <List.Item>
+          <span className="text-red-500 font-bold p-1 border-2 me-2">
+            - - - -
+          </span>
+          100% specificity for detecting dementia in our sample
+        </List.Item>
       </List>
     </div>
   );

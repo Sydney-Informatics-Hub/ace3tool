@@ -11,6 +11,7 @@ import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import data_summary from "@/app/_model/data_summary_v1.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
+import { colours } from "@/app/_utils/colours";
 
 const AceScalesWithTotal = [...AceScales, "total"] as const;
 const InfoWithTotal = { ...AceScaleInfo, total: { max: 100, label: "Total" } };
@@ -48,10 +49,16 @@ export default function NormPlot(props: NormPlotProps) {
       value: rescale_score(sd_threshold, key),
     };
   });
+  const spec_threshold_data = AceScalesWithTotal.map((key) => {
+    const threshold = data_summary.specificity_100[key];
+    return {
+      scale: InfoWithTotal[key].label,
+      value: rescale_score(threshold, key),
+    };
+  });
   const score_data = AceScalesWithTotal.map((key) => {
-    const scaled_score = scores_with_total
-      ? (scores_with_total[key] / InfoWithTotal[key].max) * 100
-      : undefined;
+    const score = scores_with_total ? scores_with_total[key] : undefined;
+    const scaled_score = score ? rescale_score(score, key) : undefined;
     return { scale: InfoWithTotal[key].label, value: scaled_score };
   });
 
@@ -90,8 +97,15 @@ export default function NormPlot(props: NormPlotProps) {
         Plot.tickY(sd_threshold_data, {
           fx: "scale",
           y: "value",
-          stroke: "#f97316",
+          stroke: colours.orange500,
           strokeDasharray: "1,1",
+          strokeWidth: 2,
+        }),
+        Plot.tickY(spec_threshold_data, {
+          fx: "scale",
+          y: "value",
+          stroke: colours.red500,
+          strokeDasharray: "4,4",
           strokeWidth: 2,
         }),
         scores
@@ -100,14 +114,21 @@ export default function NormPlot(props: NormPlotProps) {
               y: "value",
               strokeWidth: 2,
               marker: "circle",
-              stroke: "#5850ec",
+              stroke: colours.indigo600,
             })
           : null,
       ],
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [risk, bar_data, score_data, sd_threshold_data, scores]);
+  }, [
+    risk,
+    bar_data,
+    score_data,
+    sd_threshold_data,
+    spec_threshold_data,
+    scores,
+  ]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={500} height={500} />
