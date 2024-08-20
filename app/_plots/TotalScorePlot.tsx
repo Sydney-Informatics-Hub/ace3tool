@@ -5,17 +5,19 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 
+type RiskLabels = "Moderate risk" | "Mild risk" | "Within normal limits";
+
 type ScoreRange = {
-  label: string;
+  label: RiskLabels;
   min: number;
   max: number;
   width: number;
 };
 
 const Ranges: ScoreRange[] = [
-  { label: "High risk", min: 0, max: 60, width: 60 },
-  { label: "Moderate risk", min: 60, max: 80, width: 20 },
-  { label: "Low risk", min: 80, max: 100, width: 20 },
+  { label: "Moderate risk", min: 0, max: 82, width: 82 },
+  { label: "Mild risk", min: 82, max: 88, width: 6 },
+  { label: "Within normal limits", min: 88, max: 100, width: 12 },
 ];
 
 interface TotalScorePlotProps {
@@ -34,9 +36,10 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
       height: 150,
       x: { grid: true, label: "ACE-III total score" },
       color: {
-        type: "ordinal",
-        scheme: "YlOrRd",
-        domain: ["Low risk", "Moderate risk", "High risk"],
+        type: "categorical",
+        scheme: "RdYlGn",
+        range: [0, 1, 2],
+        domain: ["Moderate risk", "Mild risk", "Within normal limits"],
         legend: true,
       },
       marks: [
@@ -46,8 +49,8 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
           x2: "max",
           y1: 0,
           y2: 10,
+          fillOpacity: 0.7,
           fill: "label",
-          opacity: 0.7,
         }),
         // Only show total marker once we have a valid total
         valid
