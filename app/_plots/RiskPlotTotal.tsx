@@ -6,6 +6,7 @@ import { LogisticModel } from "@/lib/logistic";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import { create_d3_gradient } from "@/app/_plots/plot_utils";
+import { colours } from "@/app/_utils/colours";
 
 interface RiskPlotTotalProps {
   scores: Partial<AceScaleScores>;
@@ -54,7 +55,9 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
           y1: 0,
           y2: 10,
           fill: "url(#total_risk_gradient)",
-          opacity: 0.7,
+          fillOpacity: 0.7,
+          stroke: "black",
+          strokeWidth: 1,
         }),
         // conf_int
         //   ? Plot.ruleY([conf_int], {
@@ -69,9 +72,10 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
         risk
           ? Plot.tickX([{ score: risk }], {
               x: "score",
-              stroke: "black",
-              marker: "circle",
-              strokeWidth: 2,
+              stroke: colours.indigo600,
+              marker: "circle-stroke",
+              strokeWidth: 3,
+              fill: colours.indigo600,
             })
           : null,
       ],

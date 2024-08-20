@@ -6,6 +6,7 @@ import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { create_d3_gradient } from "@/app/_plots/plot_utils";
+import { colours } from "@/app/_utils/colours";
 
 interface RiskPlotProps {
   scores: Partial<AceScaleScores>;
@@ -26,7 +27,10 @@ export default function RiskPlot(props: RiskPlotProps) {
       : undefined;
     const conf_int =
       conf_int_reversed !== undefined
-        ? { upper: 1 - conf_int_reversed[0], lower: 1 - conf_int_reversed[1] }
+        ? {
+            upper: (1 - conf_int_reversed[0]) * 100,
+            lower: (1 - conf_int_reversed[1]) * 100,
+          }
         : undefined;
 
     const plot = Plot.plot({
@@ -52,14 +56,16 @@ export default function RiskPlot(props: RiskPlotProps) {
           y1: 0,
           y2: 10,
           fill: "url(#risk_gradient)",
-          opacity: 0.7,
+          fillOpacity: 0.7,
+          stroke: "black",
+          strokeWidth: 1,
         }),
         conf_int
           ? Plot.ruleY([conf_int], {
               x1: "lower",
               x2: "upper",
               y: 5,
-              stroke: "#404040",
+              stroke: colours.indigo600,
               strokeWidth: 1,
             })
           : null,
@@ -67,9 +73,10 @@ export default function RiskPlot(props: RiskPlotProps) {
         risk
           ? Plot.tickX([{ score: risk }], {
               x: "score",
-              stroke: "black",
-              marker: "circle",
-              strokeWidth: 2,
+              stroke: colours.indigo600,
+              marker: "circle-stroke",
+              strokeWidth: 3,
+              fill: colours.indigo600,
             })
           : null,
       ],
