@@ -22,6 +22,17 @@ describe("Logistic regression", () => {
     expect(prob2).toBeCloseTo(0.87, 2);
   });
 
+  test("We can get coefficient * value for a basic model", () => {
+    const model = new LogisticModel({
+      intercept: -4.1,
+      coefs: { study_hours: 1.5 },
+    });
+    const data1: Data = { study_hours: 2 };
+    const expected1 = { study_hours: 2 * 1.5 };
+    const xb = model.get_xb_values(data1);
+    expect(xb.study_hours).toBeCloseTo(expected1.study_hours);
+  });
+
   // Currently getting these results/examples from a standalone python script,
   //   explore how to generate examples more easily
   test("More involved example with multiple predictors", () => {
