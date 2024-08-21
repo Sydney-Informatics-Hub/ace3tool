@@ -37,6 +37,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
       },
       y: { domain: [-5, 5] },
       color: { type: "diverging", domain: [-5, 5], scheme: "RdYlGn" },
+      opacity: { range: [0.2, 1.0] },
       width: 500,
       height: 150,
       marks: [
@@ -55,7 +56,12 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
         }),
         Plot.ruleY([0], { stroke: "black", strokeWidth: 3 }),
         xb_data
-          ? Plot.barY(xb_data, { y: "value", x: "scale", fill: "value" })
+          ? Plot.barY(xb_data, {
+              y: "value",
+              x: "scale",
+              fill: "fill",
+              fillOpacity: (d) => Math.abs(d.value),
+            })
           : null,
       ],
     });
