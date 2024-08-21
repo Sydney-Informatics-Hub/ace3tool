@@ -79,11 +79,15 @@ spec_thresholds <- purrr::map(
 )
 
 # Distribution summary ######
+# Prop-scaled: rescale the proportions so that the maximum for each scale = 1
 dist_summary <- data_long |>
     group_by(dementia, scale, score) |>
     count() |>
     group_by(dementia, scale) |>
-    mutate(prop = n / sum(n) * 100, total = sum(n))
+    mutate(prop = n / sum(n) * 100, total = sum(n)) |>
+    # Group by scale and dementia or just scale when scaling these?
+    # group_by(scale) |>
+    mutate(prop_scaled = prop / max(prop))
 
 
  dist_export <- purrr::map(c("dementia", "control") |> set_names(), function(group) {
@@ -91,7 +95,7 @@ dist_summary <- data_long |>
      df <- dist_summary |>
          group_by(scale) |>
          filter(dementia == level) |>
-         select(scale, score, prop) |>
+         select(scale, score, prop, prop_scaled) |>
          ungroup()
  })
 
