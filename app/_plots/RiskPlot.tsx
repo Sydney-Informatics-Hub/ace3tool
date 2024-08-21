@@ -65,8 +65,10 @@ export default function RiskPlot(props: RiskPlotProps) {
               x1: "lower",
               x2: "upper",
               y: 5,
-              stroke: colours.indigo600,
-              strokeWidth: 1,
+              marker: "tick",
+              stroke: colours.indigo800,
+              strokeOpacity: 0.7,
+              strokeWidth: 2,
             })
           : null,
         // Only show total marker once we have a valid total

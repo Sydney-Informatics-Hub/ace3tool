@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
+import { colours } from "@/app/_utils/colours";
 
 type RiskLabels = "Moderate risk" | "Mild risk" | "Within normal limits";
 
@@ -56,9 +57,9 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
         valid
           ? Plot.tickX([{ score: total }], {
               x: "score",
-              stroke: "black",
-              marker: "circle",
-              strokeWidth: 2,
+              stroke: colours.indigo600,
+              marker: "circle-stroke",
+              strokeWidth: 3,
             })
           : null,
       ],
