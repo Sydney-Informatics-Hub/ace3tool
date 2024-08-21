@@ -33,6 +33,18 @@ describe("Logistic regression", () => {
     expect(xb.study_hours).toBeCloseTo(expected1.study_hours);
   });
 
+  test("We can get coefficient * value for a model with multiple predictors", () => {
+    const model = new LogisticModel({
+      intercept: 1,
+      coefs: { a: 1, b: 2, c: 3 },
+    });
+    const data1 = { a: 1, b: 2, c: 3 };
+    const xb = model.get_xb_values(data1);
+    expect(xb.a).toBe(1);
+    expect(xb.b).toBe(4);
+    expect(xb.c).toBe(9);
+  });
+
   // Currently getting these results/examples from a standalone python script,
   //   explore how to generate examples more easily
   test("More involved example with multiple predictors", () => {
