@@ -3,6 +3,7 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import NormPlot from "@/app/_plots/NormPlot";
 import { HTMLAttributes } from "react";
+import AreaIcon from "@/app/_components/AreaIcon";
 
 type SwarmPlotDisplayProps = CardProps & {
   scores: Partial<AceScaleScores>;
@@ -27,16 +28,34 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
           Current score
         </List.Item>
         <List.Item>
-          <span className="text-orange-500 font-bold p-1 border-2 me-2">
-            ·······
-          </span>
-          2 SDs below the mean for control patients
+          <span className="text-orange-500  p-1 border-2 me-2">·······</span>2
+          SDs below the mean for control patients
         </List.Item>
         <List.Item>
-          <span className="text-red-500 font-bold p-1 border-2 me-2">
+          <span className="text-red-600 font-bold p-1 border-2 me-2">
             - - - -
           </span>
           100% specificity for detecting dementia in our sample
+        </List.Item>
+        <List.Item>
+          <div className="inline p-1 py-2 border-2 me-2">
+            <AreaIcon
+              height={32}
+              width={32}
+              className="inline text-red-500 fill-current stroke-black stroke-2  -rotate-90 align-middle"
+            />
+          </div>
+          Distribution in patients with dementia
+        </List.Item>
+        <List.Item>
+          <span className="p-1 py-2 border-2 me-2">
+            <AreaIcon
+              height={32}
+              width={32}
+              className="inline text-red-500 opacity-50 fill-current stroke-black stroke-2 rotate-90"
+            />
+          </span>
+          Distribution in control patients
         </List.Item>
       </List>
     </div>
