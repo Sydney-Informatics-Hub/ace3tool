@@ -68,18 +68,21 @@ export default function NormPlot(props: NormPlotProps) {
       style: { fontSize: "10pt" },
       width: 800,
       height: 600,
-      y: {
+      x: {
         label: "Score (% of maximum)",
         domain: [0, 100],
       },
-      x: { domain: [-1, 1] },
+      y: { domain: [-1, 1] },
       facet: {
         data: bar_data,
-        x: "scale",
+        y: "scale",
         label: null,
+        marginBottom: 10,
       },
-      fx: {
+      fy: {
         domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
+        label: null,
+        ticks: [],
       },
       color: {
         type: "categorical",
@@ -87,13 +90,13 @@ export default function NormPlot(props: NormPlotProps) {
         domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
       },
       marks: [
-        Plot.axisY({
+        Plot.axisX({
           ticks: [],
           labelAnchor: "center",
           labelArrow: "none",
           fontSize: "12pt",
         }),
-        Plot.axisX({ ticks: [], label: null }),
+        Plot.axisY({ ticks: [], label: null }),
         // Plot.barY(bar_data, {
         //   y: "height",
         //   fill: "scale",
@@ -103,44 +106,55 @@ export default function NormPlot(props: NormPlotProps) {
         //   strokeWidth: 2,
         //   strokeOpacity: 1,
         // }),
-        Plot.areaX(distribution_data.dementia, {
-          x: (d) => -1 * d.prop_scaled,
-          fx: "scale",
+        Plot.areaY(distribution_data.dementia, {
+          y: (d) => -1 * d.prop_scaled,
+          fy: "scale",
           fill: "scale",
           fillOpacity: 1,
           sort: "score",
           stroke: "black",
-          y: (d) => rescale_score(d.score, d.scale.toLowerCase()),
+          x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
         }),
-        Plot.areaX(distribution_data.control, {
-          x: "prop_scaled",
-          fx: "scale",
+        Plot.areaY(distribution_data.control, {
+          y: "prop_scaled",
+          fy: "scale",
           fill: "scale",
           fillOpacity: 0.5,
           sort: "score",
           stroke: "black",
-          y: (d) => rescale_score(d.score, d.scale.toLowerCase()),
+          x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
         }),
-        Plot.ruleX([0], { stroke: "black", strokeWidth: 2 }),
-        Plot.tickY(sd_threshold_data, {
-          fx: "scale",
-          y: "value",
+        Plot.text(
+          distribution_data.control,
+          Plot.selectFirst({
+            text: "scale",
+            fy: "scale",
+            frameAnchor: "top-left",
+            dx: 6,
+            dy: 6,
+            fontSize: "12pt",
+          })
+        ),
+        Plot.ruleY([0], { stroke: "black", strokeWidth: 2 }),
+        Plot.tickX(sd_threshold_data, {
+          fy: "scale",
+          x: "value",
           stroke: colours.orange500,
           strokeDasharray: "1,4",
           strokeLinecap: "round",
           strokeWidth: 3,
         }),
-        Plot.tickY(spec_threshold_data, {
-          fx: "scale",
-          y: "value",
+        Plot.tickX(spec_threshold_data, {
+          fy: "scale",
+          x: "value",
           stroke: colours.red600,
           strokeDasharray: "4,4",
           strokeWidth: 3,
         }),
         scores
-          ? Plot.tickY(score_data, {
-              fx: "scale",
-              y: "value",
+          ? Plot.tickX(score_data, {
+              fy: "scale",
+              x: "value",
               strokeWidth: 3,
               marker: "circle-stroke",
               stroke: colours.indigo600,
