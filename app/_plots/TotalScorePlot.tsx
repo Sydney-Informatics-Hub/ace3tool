@@ -12,13 +12,12 @@ type ScoreRange = {
   label: RiskLabels;
   min: number;
   max: number;
-  width: number;
 };
 
 const Ranges: ScoreRange[] = [
-  { label: "Moderate risk", min: 0, max: 82, width: 82 },
-  { label: "Mild risk", min: 82, max: 88, width: 6 },
-  { label: "Within normal limits", min: 88, max: 100, width: 12 },
+  { label: "Moderate risk", min: 0, max: 82 },
+  { label: "Mild risk", min: 82, max: 88 },
+  { label: "Within normal limits", min: 88, max: 100 },
 ];
 
 interface TotalScorePlotProps {

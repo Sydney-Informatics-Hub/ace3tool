@@ -47,14 +47,14 @@ export default function NormPlot(props: NormPlotProps) {
     const sd_threshold = mean - 2 * sd;
     return {
       scale: InfoWithTotal[key].label,
-      value: rescale_score(sd_threshold, key),
+      value: rescale_score(Math.floor(sd_threshold), key),
     };
   });
   const spec_threshold_data = AceScalesWithTotal.map((key) => {
     const threshold = data_summary.specificity_100[key];
     return {
       scale: InfoWithTotal[key].label,
-      value: rescale_score(threshold, key),
+      value: rescale_score(Math.floor(threshold), key),
     };
   });
   const score_data = AceScalesWithTotal.map((key) => {
