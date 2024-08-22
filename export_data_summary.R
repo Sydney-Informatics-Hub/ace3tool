@@ -24,6 +24,11 @@ data <- data %>%
                fct(levels=levels(dementia)),
            prob = 1 -  predict(model, type="response"))
 
+# Long data format - useful for some summaries
+data_long <- data |>
+    select(dementia, Attention, Memory, Fluency, Language, Visuospatial, Total=TotalScore) |>
+    pivot_longer(cols = -dementia, names_to="scale", values_to="score")
+
 # Data summaries ######
 # Summarize score data by dementia status
 score_summary <- data |>
@@ -73,6 +78,27 @@ spec_thresholds <- purrr::map(
     }
 )
 
+# Distribution summary ######
+# Prop-scaled: rescale the proportions so that the maximum for each scale = 1
+dist_summary <- data_long |>
+    group_by(dementia, scale, score) |>
+    count() |>
+    group_by(dementia, scale) |>
+    mutate(prop = n / sum(n) * 100, total = sum(n)) |>
+    # Group by scale and dementia or just scale when scaling these?
+    # group_by(scale) |>
+    mutate(prop_scaled = prop / max(prop))
+
+
+ dist_export <- purrr::map(c("dementia", "control") |> set_names(), function(group) {
+     level <- ifelse(group == "dementia", "Dementia", "Non-dementia")
+     df <- dist_summary |>
+         group_by(scale) |>
+         filter(dementia == level) |>
+         select(scale, score, prop, prop_scaled) |>
+         ungroup()
+ })
+
 # Export to JSON #######
 final_export <- list(
     control_means = control_means_export,
@@ -81,3 +107,6 @@ final_export <- list(
 )
 final_export |>
     write_json("app/_model/data_summary_v1.json", digits = 20, auto_unbox = TRUE, pretty = TRUE)
+
+dist_export |>
+    write_json("app/_model/dist_summary_v1.json", digits = 2, pretty = TRUE)
