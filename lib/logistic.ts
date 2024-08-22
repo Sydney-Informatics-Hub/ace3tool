@@ -72,6 +72,23 @@ export class LogisticModel<predictors extends string> {
     ) as Data<predictors>;
   }
 
+  /**
+   * Calculate coefficient * data_value for each predictor. This
+   * gives values in the log-odds space, which can be used
+   * as Shapley values for a logistic regression model
+   */
+  get_xb_values(data: Data<predictors>): Data<predictors> {
+    const pred_data = this.center_predictors
+      ? this.get_centered_data(data)
+      : data;
+    return Object.fromEntries(
+      this.predictors.map((key) => {
+        const value = this.coefs.coefs[key] * pred_data[key];
+        return [key, value];
+      })
+    ) as Data<predictors>;
+  }
+
   linear_prediction(data: Data<predictors>): number {
     const pred_data = this.center_predictors
       ? this.get_centered_data(data)

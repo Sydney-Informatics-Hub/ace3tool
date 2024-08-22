@@ -9,4 +9,6 @@ export const colours = {
   indigo500: "#6366f1",
   indigo600: "#4f46e5",
   indigo800: "#3730a3",
+  emerald500: "#10b981",
+  emerald600: "#059669",
 };
