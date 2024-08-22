@@ -53,8 +53,8 @@ export default function ScoreWidget() {
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
           <RiskPlot scores={current_value} model={model} />
+          <RiskPlotTotal scores={current_value} model={total_model} />
           <RiskContributionPlot scores={current_value} model={model} />
-          {/*<RiskPlotTotal scores={current_value} model={total_model} />*/}
           {/*<RiskElements scores={current_value} model={model} />*/}
         </div>
       </Card>
