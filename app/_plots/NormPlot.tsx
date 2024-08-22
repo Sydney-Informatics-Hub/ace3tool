@@ -141,8 +141,8 @@ export default function NormPlot(props: NormPlotProps) {
           ? Plot.tickY(score_data, {
               fx: "scale",
               y: "value",
-              strokeWidth: 2,
-              marker: "circle",
+              strokeWidth: 3,
+              marker: "circle-stroke",
               stroke: colours.indigo600,
             })
           : null,
