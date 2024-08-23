@@ -50,7 +50,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
       },
       marks: [
         Plot.axisY({ ticks: [] }),
-        Plot.axisX({ labelOffset: 40 }),
+        Plot.axisX({ labelOffset: 40, labelAnchor: "center" }),
         Plot.rect(Ranges, {
           x1: "min",
           x2: "max",

@@ -47,7 +47,13 @@ export default function RiskPlot(props: RiskPlotProps) {
       height: HEIGHT,
       style: { fontSize: "10pt" },
       marginBottom: 50,
-      x: { grid: true, label: "Risk (%)", domain: [0, 100], reverse: true },
+      x: {
+        grid: true,
+        label: "Risk (%)",
+        domain: [0, 100],
+        reverse: true,
+        labelAnchor: "center",
+      },
       y: { domain: [0, 10] },
       color: {
         type: "sequential",
