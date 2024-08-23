@@ -48,7 +48,11 @@ export default function ScoreWidget() {
       id="ace-form"
       className="flex flex-col lg:flex-row lg:flex-wrap gap-2 md:gap-4 "
     >
-      <AceForm form={form} />
+      <AceForm
+        form={form}
+        id="score-entry"
+        className="max-w-xl lg:grow transition-all delay-200 ease-in-out"
+      />
       <Card id="risk-plots" className="max-w-xl">
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
@@ -67,7 +71,7 @@ export default function ScoreWidget() {
       </Card>
       <NormPlotDisplay
         id="swarm-plots"
-        className="max-w-full"
+        className="max-w-full w-full"
         scores={current_value}
         model={model}
       />
