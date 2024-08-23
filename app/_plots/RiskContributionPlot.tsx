@@ -66,7 +66,6 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
           labelAnchor: "bottom",
           labelArrow: "down",
         }),
-        Plot.ruleY([0], { stroke: "black", strokeWidth: 3 }),
         xb_data
           ? Plot.barY(xb_data, {
               y: "value",
@@ -75,6 +74,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
               fillOpacity: (d) => Math.abs(d.value),
             })
           : null,
+        Plot.ruleY([0], { stroke: "black", strokeWidth: 3 }),
       ],
     });
     containerRef?.current?.replaceChildren(plot);
