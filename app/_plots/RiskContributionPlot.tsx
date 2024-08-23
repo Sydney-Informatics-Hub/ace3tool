@@ -17,6 +17,9 @@ interface RiskContributionPlotProps {
   model: LogisticModel<keyof AceScaleScores>;
 }
 
+const WIDTH = 500;
+const HEIGHT = 200;
+
 export default function RiskContributionPlot(props: RiskContributionPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { model } = props;
@@ -37,6 +40,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
   useEffect(() => {
     const plot = Plot.plot({
       title: bold_title("Factors affecting predicted risk"),
+      style: { fontSize: "10pt" },
       x: {
         domain: AceScales.map((key) => AceScaleInfo[key].label),
         padding: 0.2,
@@ -44,8 +48,10 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
       y: { domain: [-5, 1] },
       color: { type: "diverging", domain: [-5, 5], scheme: "RdYlGn" },
       opacity: { range: [0.2, 1.0], domain: [-5, 5] },
-      width: 500,
-      height: 150,
+      width: WIDTH,
+      height: HEIGHT,
+      marginBottom: 50,
+      marginTop: 40,
       marks: [
         Plot.axisX({ tickSize: 0, label: null, anchor: "top" }),
         Plot.axisY({
@@ -76,7 +82,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
   }, [xb_data, model, scores]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={150} />
+      <PlotSkeleton width={WIDTH} height={HEIGHT} />
     </div>
   );
 }

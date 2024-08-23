@@ -28,6 +28,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     const plot = Plot.plot({
       width: 500,
       height: 500,
+      style: { fontSize: "10pt" },
       title: bold_title("Subdomain scores"),
       y: {
         label: "Score",
@@ -43,7 +44,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
         domain: AceScales.map((key) => AceScaleInfo[key].label),
       },
       marks: [
-        Plot.axisX({ label: null }),
+        Plot.axisX({ label: null, tickSize: 0 }),
         Plot.barY(score_data, {
           y: "max",
           x: "scale",

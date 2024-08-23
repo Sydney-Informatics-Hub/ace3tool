@@ -13,6 +13,9 @@ interface RiskPlotProps {
   model: LogisticModel<keyof AceScaleScores>;
 }
 
+const WIDTH = 500;
+const HEIGHT = 200;
+
 export default function RiskPlot(props: RiskPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { model } = props;
@@ -40,8 +43,10 @@ export default function RiskPlot(props: RiskPlotProps) {
 
     const plot = Plot.plot({
       title: title,
-      width: 500,
-      height: 150,
+      width: WIDTH,
+      height: HEIGHT,
+      style: { fontSize: "10pt" },
+      marginBottom: 50,
       x: { grid: true, label: "Risk (%)", domain: [0, 100], reverse: true },
       y: { domain: [0, 10] },
       color: {
@@ -91,7 +96,7 @@ export default function RiskPlot(props: RiskPlotProps) {
   }, [risk, model, scores]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={150} />
+      <PlotSkeleton width={WIDTH} height={HEIGHT} />
     </div>
   );
 }
