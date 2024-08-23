@@ -11,6 +11,7 @@ import {
 } from "flowbite-react";
 import { ChartBarIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const NavbarTheme: FlowbiteNavbarTheme = {
   root: {
@@ -24,7 +25,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
       off: "",
     },
     inner: {
-      base: "mx-auto flex flex-wrap items-center justify-between",
+      base: "mx-auto flex flex-wrap items-center justify-around",
       fluid: {
         on: "",
         off: "container",
@@ -43,7 +44,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
     },
   },
   link: {
-    base: "block py-2 pl-3 pr-4 md:p-0",
+    base: "block py-2 pl-3 pr-4 md:p-0 text-base",
     active: {
       on: "bg-indigo-500 text-white md:bg-transparent md:text-white md:hover:text-amber-400",
       off: "border-b border-gray-100 text-gray-300 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-amber-400",
@@ -66,8 +67,24 @@ const navbar_items = [
 
 export default function MainNavbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const scroll_to_form = () => {
+    if (pathname !== "/") {
+      router.push("/");
+    }
+
+    const score_form = document.querySelector("#score-entry");
+    score_form?.scrollTo({ top: 0, behavior: "smooth" });
+    if (score_form !== null) {
+      const current_class = score_form.className;
+      score_form.className += " border-orange-400 border-4";
+      setTimeout(() => {
+        score_form.className = current_class;
+      }, 1000);
+    }
+  };
   return (
-    <Navbar fluid theme={NavbarTheme}>
+    <Navbar theme={NavbarTheme}>
       <NavbarBrand as={Link} href="/">
         <ChartBarIcon className="size-6 me-2" />
         <span className="self-center whitespace-nowrap text-lg font-semibold">
@@ -75,11 +92,13 @@ export default function MainNavbar() {
         </span>
       </NavbarBrand>
       <div className="flex flex-grow-0 md:order-2">
-        <Link href="/#score-entry" passHref legacyBehavior>
-          <Button gradientDuoTone="purpleToPink" className="me-2">
-            Try it!
-          </Button>
-        </Link>
+        <Button
+          gradientDuoTone="purpleToPink"
+          className="me-2"
+          onClick={scroll_to_form}
+        >
+          Try it!
+        </Button>
         <NavbarToggle />
       </div>
       <NavbarCollapse>
