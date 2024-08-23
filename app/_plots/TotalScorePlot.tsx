@@ -5,6 +5,8 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { colours } from "@/app/_utils/colours";
+import { html } from "htl";
+import { bold_title } from "@/app/_plots/plot_utils";
 
 type RiskLabels = "Moderate risk" | "Mild risk" | "Within normal limits";
 
@@ -31,7 +33,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: valid ? `Total score: ${total}` : "Total score",
+      title: bold_title(valid ? `Total score: ${total}` : "Total score"),
       width: 500,
       height: 150,
       x: { grid: true, label: "ACE-III total score" },

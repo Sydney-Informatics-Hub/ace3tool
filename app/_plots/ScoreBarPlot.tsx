@@ -7,6 +7,7 @@ import {
   AceScaleScores,
 } from "@/app/_forms/schemas/ace";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
+import { bold_title } from "@/app/_plots/plot_utils";
 
 interface ScoreBarPlotProps {
   scores: Partial<AceScaleScores>;
@@ -27,7 +28,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     const plot = Plot.plot({
       width: 500,
       height: 500,
-      title: "Subdomain scores",
+      title: bold_title("Subdomain scores"),
       y: {
         label: "Score",
         domain: [0, 27],

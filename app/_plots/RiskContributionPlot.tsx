@@ -10,6 +10,7 @@ import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import * as Plot from "@observablehq/plot";
 import { colours } from "@/app/_utils/colours";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
+import { bold_title } from "@/app/_plots/plot_utils";
 
 interface RiskContributionPlotProps {
   scores: Partial<AceScaleScores>;
@@ -35,7 +36,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: "Factors affecting predicted risk",
+      title: bold_title("Factors affecting predicted risk"),
       x: {
         domain: AceScales.map((key) => AceScaleInfo[key].label),
         padding: 0.2,
