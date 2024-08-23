@@ -1,5 +1,5 @@
 import { number_range } from "@/app/_utils/utils";
-import { svg } from "htl";
+import { html, svg } from "htl";
 import { interpolateMagma } from "d3-scale-chromatic";
 
 /**
@@ -27,4 +27,8 @@ export const create_d3_gradient = (
             ${stops}
           </linearGradient>
         </defs>`;
+};
+
+export const bold_title = (title: string) => {
+  return html`<h2 class="font-semibold">${title}</h2>`;
 };
