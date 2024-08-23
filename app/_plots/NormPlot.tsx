@@ -148,7 +148,7 @@ export default function NormPlot(props: NormPlotProps) {
           fy: "scale",
           x: "value",
           stroke: colours.red600,
-          strokeDasharray: "4,4",
+          strokeDasharray: "8,6",
           strokeWidth: 3,
         }),
         scores
