@@ -91,7 +91,7 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
         healthy controls. <br />
         Scores are shown as a percentage of the maximum for each subdomain.
       </p>
-      <h3 className="text-lg text-indigo-800 font-bold mt-2">Legend</h3>
+      <h3 className="text-base text-indigo-600 font-bold mt-2">Legend</h3>
       <LegendTable items={legend_items} />
     </div>
   );
