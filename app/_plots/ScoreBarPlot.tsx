@@ -40,6 +40,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
       color: {
         type: "categorical",
         scheme: "Tableau10",
+        domain: AceScales.map((key) => AceScaleInfo[key].label),
       },
       marks: [
         Plot.axisX({ label: null }),
