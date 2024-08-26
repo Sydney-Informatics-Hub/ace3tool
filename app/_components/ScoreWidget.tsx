@@ -73,7 +73,6 @@ export default function ScoreWidget() {
         id="swarm-plots"
         className="max-w-full w-full"
         scores={current_value}
-        model={model}
       />
     </div>
   );
