@@ -1,21 +1,21 @@
 "use client";
 import { SubmitHandler, FormProvider, UseFormReturn } from "react-hook-form";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
-import { Card } from "flowbite-react";
+import { Card, CardProps } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
 
-interface AceFormProps {
+type AceFormProps = {
   form: UseFormReturn<AceScaleScores>;
-}
+} & CardProps;
 
 export default function AceForm(props: AceFormProps) {
-  const { form } = props;
+  const { form, ...card_props } = props;
   const { handleSubmit } = form;
 
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
   return (
-    <Card className="max-w-xl" id="score-entry">
-      <h2 className="text-2xl font-bold text-indigo-700">
+    <Card {...card_props}>
+      <h2 className="text-2xl font-bold text-indigo-600">
         Enter ACE-III scale scores
       </h2>
       <FormProvider {...form}>

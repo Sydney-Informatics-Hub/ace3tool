@@ -5,6 +5,7 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { colours } from "@/app/_utils/colours";
+import { bold_title } from "@/app/_plots/plot_utils";
 
 type RiskLabels = "Moderate risk" | "Mild risk" | "Within normal limits";
 
@@ -12,14 +13,16 @@ type ScoreRange = {
   label: RiskLabels;
   min: number;
   max: number;
-  width: number;
 };
 
 const Ranges: ScoreRange[] = [
-  { label: "Moderate risk", min: 0, max: 82, width: 82 },
-  { label: "Mild risk", min: 82, max: 88, width: 6 },
-  { label: "Within normal limits", min: 88, max: 100, width: 12 },
+  { label: "Moderate risk", min: 0, max: 82 },
+  { label: "Mild risk", min: 82, max: 88 },
+  { label: "Within normal limits", min: 88, max: 100 },
 ];
+
+const WIDTH = 500;
+const HEIGHT = 200;
 
 interface TotalScorePlotProps {
   scores: Partial<AceScaleScores>;
@@ -32,9 +35,11 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: valid ? `Total score: ${total}` : "Total score",
-      width: 500,
-      height: 150,
+      title: bold_title(valid ? `Total score: ${total}` : "Total score"),
+      width: WIDTH,
+      height: HEIGHT,
+      style: { fontSize: "10pt" },
+      marginBottom: 50,
       x: { grid: true, label: "ACE-III total score" },
       color: {
         type: "categorical",
@@ -45,6 +50,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
       },
       marks: [
         Plot.axisY({ ticks: [] }),
+        Plot.axisX({ labelOffset: 40, labelAnchor: "center" }),
         Plot.rect(Ranges, {
           x1: "min",
           x2: "max",
@@ -69,7 +75,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
   }, [valid, total]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={150} />
+      <PlotSkeleton width={WIDTH} height={HEIGHT} />
     </div>
   );
 }

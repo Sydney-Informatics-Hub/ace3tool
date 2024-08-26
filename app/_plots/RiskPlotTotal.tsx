@@ -5,7 +5,7 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
-import { create_d3_gradient } from "@/app/_plots/plot_utils";
+import { bold_title, create_d3_gradient } from "@/app/_plots/plot_utils";
 import { colours } from "@/app/_utils/colours";
 
 interface RiskPlotTotalProps {
@@ -30,11 +30,14 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
     //   conf_int_reversed !== undefined
     //     ? { upper: 1 - conf_int_reversed[0], lower: 1 - conf_int_reversed[1] }
     //     : undefined;
+    const title = bold_title(
+      risk
+        ? `Predicted risk of dementia (total score model): ${Math.round(risk)}%`
+        : "Predicted risk of dementia (total score model)"
+    );
 
     const plot = Plot.plot({
-      title: risk
-        ? `Predicted risk of dementia (total score model): ${Math.round(risk)}%`
-        : "Predicted risk of dementia (total score model)",
+      title: title,
       width: 500,
       height: 150,
       x: { grid: true, label: "Risk (%)", reverse: true },

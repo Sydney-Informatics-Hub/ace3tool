@@ -11,6 +11,7 @@ import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskElements from "@/app/_components/RiskElements";
 import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
+import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -47,12 +48,17 @@ export default function ScoreWidget() {
       id="ace-form"
       className="flex flex-col lg:flex-row lg:flex-wrap gap-2 md:gap-4 "
     >
-      <AceForm form={form} />
+      <AceForm
+        form={form}
+        id="score-entry"
+        className="max-w-xl lg:grow transition-all delay-200 ease-in-out"
+      />
       <Card id="risk-plots" className="max-w-xl">
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
           <RiskPlot scores={current_value} model={model} />
           <RiskPlotTotal scores={current_value} model={total_model} />
+          <RiskContributionPlot scores={current_value} model={model} />
           {/*<RiskElements scores={current_value} model={model} />*/}
         </div>
       </Card>
@@ -65,7 +71,7 @@ export default function ScoreWidget() {
       </Card>
       <NormPlotDisplay
         id="swarm-plots"
-        className="max-w-full"
+        className="max-w-full w-full"
         scores={current_value}
         model={model}
       />

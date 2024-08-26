@@ -9,6 +9,7 @@ import {
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import data_summary from "@/app/_model/data_summary_v1.json";
+import distribution_data from "@/app/_model/dist_summary_v1.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import { colours } from "@/app/_utils/colours";
@@ -46,14 +47,14 @@ export default function NormPlot(props: NormPlotProps) {
     const sd_threshold = mean - 2 * sd;
     return {
       scale: InfoWithTotal[key].label,
-      value: rescale_score(sd_threshold, key),
+      value: rescale_score(Math.floor(sd_threshold), key),
     };
   });
   const spec_threshold_data = AceScalesWithTotal.map((key) => {
     const threshold = data_summary.specificity_100[key];
     return {
       scale: InfoWithTotal[key].label,
-      value: rescale_score(threshold, key),
+      value: rescale_score(Math.floor(threshold), key),
     };
   });
   const score_data = AceScalesWithTotal.map((key) => {
@@ -64,19 +65,24 @@ export default function NormPlot(props: NormPlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      width: 500,
-      height: 500,
-      y: {
+      style: { fontSize: "10pt" },
+      width: 800,
+      height: 600,
+      x: {
         label: "Score (% of maximum)",
         domain: [0, 100],
       },
+      y: { domain: [-1, 1] },
       facet: {
         data: bar_data,
-        x: "scale",
+        y: "scale",
         label: null,
+        marginBottom: 10,
       },
-      fx: {
+      fy: {
         domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
+        label: null,
+        ticks: [],
       },
       color: {
         type: "categorical",
@@ -84,36 +90,73 @@ export default function NormPlot(props: NormPlotProps) {
         domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
       },
       marks: [
-        Plot.axisY({ ticks: [], labelAnchor: "center", labelArrow: "none" }),
-        Plot.barY(bar_data, {
-          y: "height",
+        Plot.axisX({
+          ticks: [],
+          labelAnchor: "center",
+          labelArrow: "none",
+          fontSize: "12pt",
+        }),
+        Plot.axisY({ ticks: [], label: null }),
+        // Plot.barY(bar_data, {
+        //   y: "height",
+        //   fill: "scale",
+        //   fx: "scale",
+        //   fillOpacity: 0.2,
+        //   stroke: "black",
+        //   strokeWidth: 2,
+        //   strokeOpacity: 1,
+        // }),
+        Plot.areaY(distribution_data.dementia, {
+          y: (d) => -1 * d.prop_scaled,
+          fy: "scale",
           fill: "scale",
-          fx: "scale",
-          fillOpacity: 0.5,
+          fillOpacity: 1,
+          sort: "score",
           stroke: "black",
-          strokeWidth: 2,
-          strokeOpacity: 1,
+          x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
         }),
-        Plot.tickY(sd_threshold_data, {
-          fx: "scale",
-          y: "value",
+        Plot.areaY(distribution_data.control, {
+          y: "prop_scaled",
+          fy: "scale",
+          fill: "scale",
+          fillOpacity: 0.5,
+          sort: "score",
+          stroke: "black",
+          x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
+        }),
+        Plot.text(
+          distribution_data.control,
+          Plot.selectFirst({
+            text: "scale",
+            fy: "scale",
+            frameAnchor: "top-left",
+            dx: 6,
+            dy: 6,
+            fontSize: "12pt",
+          })
+        ),
+        Plot.ruleY([0], { stroke: "black", strokeWidth: 2 }),
+        Plot.tickX(sd_threshold_data, {
+          fy: "scale",
+          x: "value",
           stroke: colours.orange500,
-          strokeDasharray: "1,1",
-          strokeWidth: 2,
+          strokeDasharray: "1,4",
+          strokeLinecap: "round",
+          strokeWidth: 3,
         }),
-        Plot.tickY(spec_threshold_data, {
-          fx: "scale",
-          y: "value",
-          stroke: colours.red500,
-          strokeDasharray: "4,4",
-          strokeWidth: 2,
+        Plot.tickX(spec_threshold_data, {
+          fy: "scale",
+          x: "value",
+          stroke: colours.red600,
+          strokeDasharray: "8,6",
+          strokeWidth: 3,
         }),
         scores
-          ? Plot.tickY(score_data, {
-              fx: "scale",
-              y: "value",
-              strokeWidth: 2,
-              marker: "circle",
+          ? Plot.tickX(score_data, {
+              fy: "scale",
+              x: "value",
+              strokeWidth: 3,
+              marker: "circle-stroke",
               stroke: colours.indigo600,
             })
           : null,

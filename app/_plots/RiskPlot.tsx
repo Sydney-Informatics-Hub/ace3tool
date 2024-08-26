@@ -5,13 +5,16 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import { create_d3_gradient } from "@/app/_plots/plot_utils";
+import { bold_title, create_d3_gradient } from "@/app/_plots/plot_utils";
 import { colours } from "@/app/_utils/colours";
 
 interface RiskPlotProps {
   scores: Partial<AceScaleScores>;
   model: LogisticModel<keyof AceScaleScores>;
 }
+
+const WIDTH = 500;
+const HEIGHT = 200;
 
 export default function RiskPlot(props: RiskPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,14 +35,25 @@ export default function RiskPlot(props: RiskPlotProps) {
             lower: (1 - conf_int_reversed[1]) * 100,
           }
         : undefined;
+    const title = bold_title(
+      risk
+        ? `Predicted risk of dementia (subdomain model): ${Math.round(risk)}%`
+        : "Predicted risk of dementia (subdomain model)"
+    );
 
     const plot = Plot.plot({
-      title: risk
-        ? `Predicted risk of dementia (subdomain model): ${Math.round(risk)}%`
-        : "Predicted risk of dementia (subdomain model)",
-      width: 500,
-      height: 150,
-      x: { grid: true, label: "Risk (%)", domain: [0, 100], reverse: true },
+      title: title,
+      width: WIDTH,
+      height: HEIGHT,
+      style: { fontSize: "10pt" },
+      marginBottom: 50,
+      x: {
+        grid: true,
+        label: "Risk (%)",
+        domain: [0, 100],
+        reverse: true,
+        labelAnchor: "center",
+      },
       y: { domain: [0, 10] },
       color: {
         type: "sequential",
@@ -88,7 +102,7 @@ export default function RiskPlot(props: RiskPlotProps) {
   }, [risk, model, scores]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={150} />
+      <PlotSkeleton width={WIDTH} height={HEIGHT} />
     </div>
   );
 }
