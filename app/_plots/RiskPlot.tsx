@@ -51,7 +51,6 @@ export default function RiskPlot(props: RiskPlotProps) {
         grid: true,
         label: "Risk (%)",
         domain: [0, 100],
-        reverse: true,
         labelAnchor: "center",
       },
       y: { domain: [0, 10] },
