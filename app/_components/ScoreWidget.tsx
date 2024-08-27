@@ -51,24 +51,26 @@ export default function ScoreWidget() {
       <AceForm
         form={form}
         id="score-entry"
-        className="max-w-xl lg:grow transition-all delay-200 ease-in-out"
+        className="lg:grow max-w-xl transition-all delay-200 ease-in-out"
       />
-      <Card id="risk-plots" className="max-w-xl">
+      <Card
+        id="total-score-plots"
+        className="max-w-xl"
+        theme={NoPaddingCardTheme}
+      >
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
           <TotalScoreLegend />
           <RiskPlot scores={current_value} model={model} />
-          <RiskPlotTotal scores={current_value} model={total_model} />
           <RiskContributionPlot scores={current_value} model={model} />
-          {/*<RiskElements scores={current_value} model={model} />*/}
         </div>
       </Card>
-      <Card
-        id="data-display-simple"
-        className="flex-col max-w-xl space-y-4 min-w-96"
-        theme={NoPaddingCardTheme}
-      >
-        <ScoreBarPlot scores={current_value} />
+      <Card id="risk-plots" className="max-w-xl" theme={NoPaddingCardTheme}>
+        <div className="flex flex-col justify-start space-y-4">
+          <ScoreBarPlot scores={current_value} />
+          <RiskPlotTotal scores={current_value} model={total_model} />
+          {/*<RiskElements scores={current_value} model={model} />*/}
+        </div>
       </Card>
       <NormPlotDisplay
         id="swarm-plots"
