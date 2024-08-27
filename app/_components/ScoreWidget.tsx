@@ -9,7 +9,6 @@ import RiskPlot from "@/app/_plots/RiskPlot";
 import model, { total_model } from "@/app/_model/model";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
-import RiskElements from "@/app/_components/RiskElements";
 import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
 import TotalScoreLegend from "@/app/_components/TotalScoreLegend";
