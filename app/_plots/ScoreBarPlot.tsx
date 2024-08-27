@@ -10,6 +10,9 @@ import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { bold_title } from "@/app/_plots/plot_utils";
 import { ace_colour_scale } from "@/app/_utils/colours";
 
+const WIDTH = 500;
+const HEIGHT = 450;
+
 interface ScoreBarPlotProps {
   scores: Partial<AceScaleScores>;
 }
@@ -27,8 +30,8 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      width: 500,
-      height: 500,
+      width: WIDTH,
+      height: HEIGHT,
       style: { fontSize: "10pt" },
       title: bold_title("Subdomain scores"),
       y: {
@@ -73,7 +76,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
   }, [score_data]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={500} />
+      <PlotSkeleton width={WIDTH} height={HEIGHT} />
     </div>
   );
 }
