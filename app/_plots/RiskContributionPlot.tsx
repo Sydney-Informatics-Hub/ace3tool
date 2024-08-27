@@ -8,7 +8,7 @@ import data_summary from "@/app/_model/data_summary_v1.json";
 import React, { useEffect, useRef } from "react";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import * as Plot from "@observablehq/plot";
-import { colours } from "@/app/_utils/colours";
+import { ace_colour_scale, colours } from "@/app/_utils/colours";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { bold_title } from "@/app/_plots/plot_utils";
 
@@ -32,7 +32,6 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
         return {
           scale: AceScaleInfo[key].label,
           value: xb_vs_control,
-          fill: xb_vs_control > 0 ? colours.emerald600 : colours.red600,
         };
       })
     : undefined;
@@ -46,8 +45,8 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
         padding: 0.2,
       },
       y: { domain: [-5, 1] },
-      color: { type: "diverging", domain: [-5, 5], scheme: "RdYlGn" },
-      opacity: { range: [0.2, 1.0], domain: [-5, 5] },
+      color: { type: "categorical", ...ace_colour_scale },
+      opacity: { range: [0.1, 1.0], domain: [-3, 3] },
       width: WIDTH,
       height: HEIGHT,
       marginBottom: 50,
@@ -70,7 +69,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
           ? Plot.barY(xb_data, {
               y: "value",
               x: "scale",
-              fill: "fill",
+              fill: "scale",
               fillOpacity: (d) => Math.abs(d.value),
             })
           : null,
