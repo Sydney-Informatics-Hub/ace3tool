@@ -1,6 +1,8 @@
+"use client";
 import { ReactNode } from "react";
 import AreaIcon from "@/app/_components/AreaIcon";
-import { Table } from "flowbite-react";
+import { Button, Popover, Table } from "flowbite-react";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 interface LegendTableItem {
   icon: ReactNode;
@@ -53,7 +55,7 @@ const legend_items = [
  */
 function LegendTable(props: { items: LegendTableItem[] }) {
   return (
-    <Table className="table-fixed">
+    <Table className="table-auto">
       <Table.Body>
         {props.items.map((item, index) => {
           return (
@@ -77,8 +79,11 @@ function LegendTable(props: { items: LegendTableItem[] }) {
 export default function TotalScoreLegend() {
   return (
     <>
-      <h3 className="text-base text-indigo-600 font-bold mt-2">Legend</h3>
-      <LegendTable items={legend_items} />
+      <Popover trigger="click" content={<LegendTable items={legend_items} />}>
+        <Button className="align-middle max-w-40" color="blue" outline>
+          Legend <QuestionMarkCircleIcon className="mx-2 size-5" />
+        </Button>
+      </Popover>
     </>
   );
 }
