@@ -10,7 +10,7 @@ import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import data_summary from "@/app/_model/data_summary_v1.json";
 import distribution_data from "@/app/_model/dist_summary_v1.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import { colours } from "@/app/_utils/colours";
+import { ace_colour_scale, colours } from "@/app/_utils/colours";
 
 const rescale_score = (score: number, scale: keyof AceScaleScores) => {
   console.log(scale);
@@ -72,8 +72,7 @@ export default function NormPlot(props: NormPlotProps) {
       },
       color: {
         type: "categorical",
-        scheme: "Tableau10",
-        domain: AceScales.map((key) => AceScaleInfo[key].label),
+        ...ace_colour_scale,
       },
       marks: [
         Plot.axisX({

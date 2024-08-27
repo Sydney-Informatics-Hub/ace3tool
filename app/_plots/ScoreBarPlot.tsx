@@ -8,6 +8,7 @@ import {
 } from "@/app/_forms/schemas/ace";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { bold_title } from "@/app/_plots/plot_utils";
+import { ace_colour_scale } from "@/app/_utils/colours";
 
 interface ScoreBarPlotProps {
   scores: Partial<AceScaleScores>;
@@ -40,8 +41,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
       },
       color: {
         type: "categorical",
-        scheme: "Tableau10",
-        domain: AceScales.map((key) => AceScaleInfo[key].label),
+        ...ace_colour_scale,
       },
       marks: [
         Plot.axisX({ label: null, tickSize: 0 }),
