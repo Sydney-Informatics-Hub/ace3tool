@@ -25,3 +25,14 @@ export const tableau10_colours = {
   brown: "#967662",
   grey: "#b8b0ac",
 };
+
+export const ace_colour_scale = {
+  range: [
+    tableau10_colours.red,
+    tableau10_colours.orange,
+    tableau10_colours.teal,
+    tableau10_colours.green,
+    tableau10_colours.blue,
+  ],
+  domain: ["Attention", "Memory", "Fluency", "Language", "Visuospatial"],
+};
