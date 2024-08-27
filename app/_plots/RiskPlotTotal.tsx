@@ -40,7 +40,7 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
       title: title,
       width: 500,
       height: 150,
-      x: { grid: true, label: "Risk (%)", reverse: true },
+      x: { grid: true, label: "Risk (%)" },
       color: {
         type: "sequential",
         scheme: "magma",

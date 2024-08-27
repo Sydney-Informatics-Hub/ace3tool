@@ -6,61 +6,47 @@ import {
   AceScales,
   AceScaleScores,
 } from "@/app/_forms/schemas/ace";
-import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import data_summary from "@/app/_model/data_summary_v1.json";
 import distribution_data from "@/app/_model/dist_summary_v1.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import { useTotalScore } from "@/app/_hooks/useTotalScore";
-import { colours } from "@/app/_utils/colours";
+import { ace_colour_scale, colours } from "@/app/_utils/colours";
 
-const AceScalesWithTotal = [...AceScales, "total"] as const;
-const InfoWithTotal = { ...AceScaleInfo, total: { max: 100, label: "Total" } };
-
-const rescale_score = (
-  score: number,
-  scale: keyof AceScaleScores | "total"
-) => {
-  return (score / InfoWithTotal[scale].max) * 100;
+const rescale_score = (score: number, scale: keyof AceScaleScores) => {
+  console.log(scale);
+  return (score / AceScaleInfo[scale].max) * 100;
 };
 
 interface NormPlotProps {
   scores: Partial<AceScaleScores>;
-  model: LogisticModel<keyof AceScaleScores>;
 }
 
 export default function NormPlot(props: NormPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { model } = props;
   const { scores } = useValidatedScores(props.scores);
-  const { total } = useTotalScore(props.scores);
-  const scores_with_total = scores ? { ...scores, total } : undefined;
-  // NOTE: the model is currently coded with "non-dementia" as the *positive*
-  //   outcome, so we need 1 - risk for the risk of dementia
-  const risk = scores ? 1 - model.predict(scores) : undefined;
-  const bar_data = AceScalesWithTotal.map((key) => {
-    return { scale: InfoWithTotal[key].label, height: 100 };
+  const bar_data = AceScales.map((key) => {
+    return { scale: AceScaleInfo[key].label, height: 100 };
   });
-  const sd_threshold_data = AceScalesWithTotal.map((key) => {
+  const sd_threshold_data = AceScales.map((key) => {
     const mean = data_summary.control_means[key];
     const sd = data_summary.control_sds[key];
     const sd_threshold = mean - 2 * sd;
     return {
-      scale: InfoWithTotal[key].label,
+      scale: AceScaleInfo[key].label,
       value: rescale_score(Math.floor(sd_threshold), key),
     };
   });
-  const spec_threshold_data = AceScalesWithTotal.map((key) => {
+  const spec_threshold_data = AceScales.map((key) => {
     const threshold = data_summary.specificity_100[key];
     return {
-      scale: InfoWithTotal[key].label,
+      scale: AceScaleInfo[key].label,
       value: rescale_score(Math.floor(threshold), key),
     };
   });
-  const score_data = AceScalesWithTotal.map((key) => {
-    const score = scores_with_total ? scores_with_total[key] : undefined;
+  const score_data = AceScales.map((key) => {
+    const score = scores ? scores[key] : undefined;
     const scaled_score = score ? rescale_score(score, key) : undefined;
-    return { scale: InfoWithTotal[key].label, value: scaled_score };
+    return { scale: AceScaleInfo[key].label, value: scaled_score };
   });
 
   useEffect(() => {
@@ -80,14 +66,13 @@ export default function NormPlot(props: NormPlotProps) {
         marginBottom: 10,
       },
       fy: {
-        domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
+        domain: AceScales.map((key) => AceScaleInfo[key].label),
         label: null,
         ticks: [],
       },
       color: {
         type: "categorical",
-        scheme: "Tableau10",
-        domain: [...AceScales.map((key) => AceScaleInfo[key].label), "Total"],
+        ...ace_colour_scale,
       },
       marks: [
         Plot.axisX({
@@ -97,33 +82,30 @@ export default function NormPlot(props: NormPlotProps) {
           fontSize: "12pt",
         }),
         Plot.axisY({ ticks: [], label: null }),
-        // Plot.barY(bar_data, {
-        //   y: "height",
-        //   fill: "scale",
-        //   fx: "scale",
-        //   fillOpacity: 0.2,
-        //   stroke: "black",
-        //   strokeWidth: 2,
-        //   strokeOpacity: 1,
-        // }),
-        Plot.areaY(distribution_data.dementia, {
-          y: (d) => -1 * d.prop_scaled,
-          fy: "scale",
-          fill: "scale",
-          fillOpacity: 1,
-          sort: "score",
-          stroke: "black",
-          x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
-        }),
-        Plot.areaY(distribution_data.control, {
-          y: "prop_scaled",
-          fy: "scale",
-          fill: "scale",
-          fillOpacity: 0.5,
-          sort: "score",
-          stroke: "black",
-          x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
-        }),
+        Plot.areaY(
+          distribution_data.dementia.filter((x) => x.scale !== "Total"),
+          {
+            y: (d) => -1 * d.prop_scaled,
+            fy: "scale",
+            fill: "scale",
+            fillOpacity: 1,
+            sort: "score",
+            stroke: "black",
+            x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
+          }
+        ),
+        Plot.areaY(
+          distribution_data.control.filter((x) => x.scale !== "Total"),
+          {
+            y: "prop_scaled",
+            fy: "scale",
+            fill: "scale",
+            fillOpacity: 0.5,
+            sort: "score",
+            stroke: "black",
+            x: (d) => rescale_score(d.score, d.scale.toLowerCase()),
+          }
+        ),
         Plot.text(
           distribution_data.control,
           Plot.selectFirst({
@@ -164,14 +146,7 @@ export default function NormPlot(props: NormPlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [
-    risk,
-    bar_data,
-    score_data,
-    sd_threshold_data,
-    spec_threshold_data,
-    scores,
-  ]);
+  }, [bar_data, score_data, sd_threshold_data, spec_threshold_data, scores]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={500} height={500} />

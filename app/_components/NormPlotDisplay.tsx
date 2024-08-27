@@ -1,13 +1,11 @@
 import { Card, CardProps, Table } from "flowbite-react";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
-import { LogisticModel } from "@/lib/logistic";
 import NormPlot from "@/app/_plots/NormPlot";
 import { HTMLAttributes, ReactNode } from "react";
 import AreaIcon from "@/app/_components/AreaIcon";
 
 type NormPlotDisplayProps = CardProps & {
   scores: Partial<AceScaleScores>;
-  model: LogisticModel<keyof AceScaleScores>;
 };
 
 interface LegendTableItem {
@@ -91,7 +89,7 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
         healthy controls. <br />
         Scores are shown as a percentage of the maximum for each subdomain.
       </p>
-      <h3 className="text-base text-indigo-600 font-bold mt-2">Legend</h3>
+      <h3 className="text-base text-indigo-600 font-bold my-2">Legend</h3>
       <LegendTable items={legend_items} />
     </div>
   );
@@ -104,12 +102,12 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
  * @constructor
  */
 export function NormPlotDisplay(props: NormPlotDisplayProps) {
-  const { scores, model, ...card_props } = props;
+  const { scores, ...card_props } = props;
   return (
     <Card {...card_props}>
       <div className="flex flex-col lg:flex-row">
         <div className="lg:basis-1/2">
-          <NormPlot scores={scores} model={model} />
+          <NormPlot scores={scores} />
         </div>
         <NormPlotLegend
           id="swarm-legend"
