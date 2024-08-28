@@ -54,9 +54,13 @@ export default function NormPlot(props: NormPlotProps) {
       style: { fontSize: "10pt" },
       width: 800,
       height: 600,
+      marginBottom: 50,
       x: {
         label: "Score (% of maximum)",
         domain: [0, 100],
+        reverse: true,
+        grid: true,
+        ticks: 10,
       },
       y: { domain: [-1, 1] },
       facet: {
@@ -76,7 +80,8 @@ export default function NormPlot(props: NormPlotProps) {
       },
       marks: [
         Plot.axisX({
-          ticks: [],
+          tickSize: 0,
+          ticks: [0, 20, 40, 60, 80, 100],
           labelAnchor: "center",
           labelArrow: "none",
           fontSize: "12pt",
