@@ -13,7 +13,6 @@ import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { ace_colour_scale, colours } from "@/app/_utils/colours";
 
 const rescale_score = (score: number, scale: keyof AceScaleScores) => {
-  console.log(scale);
   return (score / AceScaleInfo[scale].max) * 100;
 };
 
