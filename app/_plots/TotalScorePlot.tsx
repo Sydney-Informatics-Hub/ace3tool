@@ -52,9 +52,10 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
       marginBottom: 50,
       x: {
         grid: true,
-        label: "ACE-III total score",
+        label: "ACE-III total score (/100)",
         domain: [0, 100],
         reverse: true,
+        labelArrow: "none",
       },
       y: { domain: [-1, 1], label: null },
       color: {
@@ -66,7 +67,11 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
       },
       marks: [
         Plot.axisY({ ticks: [] }),
-        Plot.axisX({ labelOffset: 40, labelAnchor: "center" }),
+        Plot.axisX({
+          labelOffset: 40,
+          labelAnchor: "center",
+          labelArrow: "none",
+        }),
         Plot.rect(Ranges, {
           x1: "min",
           x2: "max",
