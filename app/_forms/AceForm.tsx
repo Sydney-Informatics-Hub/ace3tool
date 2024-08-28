@@ -1,6 +1,10 @@
 "use client";
 import { SubmitHandler, FormProvider, UseFormReturn } from "react-hook-form";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import {
+  AceScaleInfo,
+  AceScales,
+  AceScaleScores,
+} from "@/app/_forms/schemas/ace";
 import { Card, CardProps } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
 
@@ -23,11 +27,12 @@ export default function AceForm(props: AceFormProps) {
           className="flex flex-col max-w-lg gap-4 my-2"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <ScoreInput label="Attention" name="attention" />
-          <ScoreInput label="Memory" name="memory" />
-          <ScoreInput label="Fluency" name="fluency" />
-          <ScoreInput label="Language" name="language" />
-          <ScoreInput label="Visuospatial" name="visuospatial" />
+          {AceScales.map((scale) => {
+            const label = AceScaleInfo[scale].label;
+            const max = AceScaleInfo[scale].max;
+            const full_label = `${label} (/${max})`;
+            return <ScoreInput key={scale} label={full_label} name={scale} />;
+          })}
         </form>
       </FormProvider>
     </Card>
