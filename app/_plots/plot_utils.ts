@@ -2,6 +2,8 @@ import { number_range } from "@/app/_utils/utils";
 import { html, svg } from "htl";
 import { interpolateMagma } from "d3-scale-chromatic";
 
+type InterpolateFunction = (t: number) => string;
+
 /**
  * Gradients in Observable Plot currently require some manual
  * creation using SVG gradients, see:
@@ -15,7 +17,7 @@ import { interpolateMagma } from "d3-scale-chromatic";
 export const create_d3_gradient = (
   n: number,
   gradient_id: string = "gradient",
-  scale: (t: number) => string = interpolateMagma
+  scale: InterpolateFunction = interpolateMagma
 ) => {
   const width = 100 / n;
   const offsets = number_range(n + 1).map((x) => x * width);

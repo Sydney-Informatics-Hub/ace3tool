@@ -121,7 +121,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [valid, total]);
+  }, [valid, total, sd_threshold, spec_threshold]);
   return (
     <div ref={containerRef}>
       <PlotSkeleton width={WIDTH} height={HEIGHT} />

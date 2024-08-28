@@ -8,7 +8,7 @@ import data_summary from "@/app/_model/data_summary_v1.json";
 import React, { useEffect, useRef } from "react";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import * as Plot from "@observablehq/plot";
-import { ace_colour_scale, colours } from "@/app/_utils/colours";
+import { ace_colour_scale } from "@/app/_utils/colours";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { bold_title } from "@/app/_plots/plot_utils";
 
