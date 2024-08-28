@@ -19,8 +19,8 @@ export default function AceForm(props: AceFormProps) {
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
   return (
     <Card {...card_props}>
-      <h2 className="text-2xl font-bold text-indigo-600">
-        Enter ACE-III scale scores
+      <h2 className="text-xl font-bold text-indigo-600">
+        Enter ACE-III subdomain scores
       </h2>
       <FormProvider {...form}>
         <form
