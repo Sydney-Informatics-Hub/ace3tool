@@ -13,16 +13,21 @@ type InterpolateFunction = (t: number) => string;
  * @param n number of offsets to create, increase this for a smoother gradient
  * @param gradient_id ID to use for the linearGradient element (reference this ID in plot marks)
  * @param scale scale interpolate function from d3, e.g. interpolateMagma
+ * @param reverse reverse direction
  */
 export const create_d3_gradient = (
   n: number,
   gradient_id: string = "gradient",
-  scale: InterpolateFunction = interpolateMagma
+  scale: InterpolateFunction = interpolateMagma,
+  reverse: boolean = false
 ) => {
   const width = 100 / n;
   const offsets = number_range(n + 1).map((x) => x * width);
   const stops = offsets.map(
-    (x) => svg.fragment`<stop offset=${x}% stop-color="${scale(x / 100)}">`
+    (x) =>
+      svg.fragment`<stop offset=${x}% stop-color="${scale(
+        (reverse ? 100 - x : x) / 100
+      )}">`
   );
   return () => svg`<defs>
           <linearGradient id=${`${gradient_id}`}>

@@ -48,7 +48,7 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
         reverse: true,
       },
       marks: [
-        create_d3_gradient(10, "total_risk_gradient"),
+        create_d3_gradient(10, "total_risk_gradient", undefined, true),
         Plot.axisY({ ticks: [] }),
         // TODO: Might be better to use an SVG gradient for this?
         //   https://observablehq.com/@observablehq/plot-gradient-bars

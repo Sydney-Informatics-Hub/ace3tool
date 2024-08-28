@@ -61,7 +61,7 @@ export default function RiskPlot(props: RiskPlotProps) {
         reverse: true,
       },
       marks: [
-        create_d3_gradient(10, "risk_gradient"),
+        create_d3_gradient(10, "risk_gradient", undefined, true),
         Plot.axisY({ ticks: [] }),
         Plot.rect([{ min: 0, max: 100 }], {
           x1: "min",
