@@ -87,7 +87,8 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
       <p className="text-gray-800">
         This plot compares the current scores for each subdomain to scores from
         healthy controls. <br />
-        Scores are shown as a percentage of the maximum for each subdomain.
+        Scores are shown as a percentage of the maximum for each subdomain,
+        plotted right-to-left so they are consistent with other plots.
       </p>
       <h3 className="text-base text-indigo-600 font-bold my-2">Legend</h3>
       <LegendTable items={legend_items} />
