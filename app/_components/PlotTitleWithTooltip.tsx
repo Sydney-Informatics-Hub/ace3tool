@@ -15,7 +15,7 @@ export default function PlotTitleWithTooltip(props: PlotTitleWithTooltipProps) {
       <h2 className="font-semibold text-indigo-600">{title}</h2>
       <Popover
         content={
-          <div className="w-80 p-2 justify-center">{tooltip_content}</div>
+          <div className="w-96 p-2 justify-center">{tooltip_content}</div>
         }
         trigger="hover"
       >
