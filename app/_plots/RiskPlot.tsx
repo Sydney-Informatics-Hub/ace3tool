@@ -5,8 +5,9 @@ import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import { bold_title, create_d3_gradient } from "@/app/_plots/plot_utils";
+import { create_d3_gradient } from "@/app/_plots/plot_utils";
 import { colours } from "@/app/_utils/colours";
+import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskPlotProps {
   scores: Partial<AceScaleScores>;
@@ -35,14 +36,8 @@ export default function RiskPlot(props: RiskPlotProps) {
             lower: (1 - conf_int_reversed[1]) * 100,
           }
         : undefined;
-    const title = bold_title(
-      risk
-        ? `Predicted risk of dementia (subdomain model): ${Math.round(risk)}%`
-        : "Predicted risk of dementia (subdomain model)"
-    );
 
     const plot = Plot.plot({
-      title: title,
       width: WIDTH,
       height: HEIGHT,
       style: { fontSize: "10pt" },
@@ -100,8 +95,14 @@ export default function RiskPlot(props: RiskPlotProps) {
     return () => plot.remove();
   }, [risk, model, scores]);
   return (
-    <div ref={containerRef}>
-      <PlotSkeleton width={WIDTH} height={HEIGHT} />
+    <div>
+      <PlotTitleWithTooltip
+        title={risk ? `Dementia risk: ${Math.round(risk)}%` : "Dementia risk"}
+        tooltip_content="The predicted risk of dementia from a logistic regression model fitted to our sample"
+      />
+      <div ref={containerRef}>
+        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+      </div>
     </div>
   );
 }
