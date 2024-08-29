@@ -11,6 +11,7 @@ import * as Plot from "@observablehq/plot";
 import { ace_colour_scale } from "@/app/_utils/colours";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { bold_title } from "@/app/_plots/plot_utils";
+import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskContributionPlotProps {
   scores: Partial<AceScaleScores>;
@@ -19,6 +20,18 @@ interface RiskContributionPlotProps {
 
 const WIDTH = 500;
 const HEIGHT = 200;
+
+const Tooltip = () => {
+  return (
+    <>
+      This plot shows the current patient&apos;s weights for each subdomain in
+      the logistic regression model, compared to the average weight for control
+      participants. <br />
+      Weights are on the log-odds scale, so don&apos;t correspond directly to
+      probability, but you can compare the relative size of each weight.
+    </>
+  );
+};
 
 export default function RiskContributionPlot(props: RiskContributionPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,7 +51,6 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: bold_title("Factors affecting predicted risk"),
       style: { fontSize: "10pt" },
       x: {
         domain: AceScales.map((key) => AceScaleInfo[key].label),
@@ -80,8 +92,14 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
     return () => plot.remove();
   }, [xb_data, model, scores]);
   return (
-    <div ref={containerRef}>
-      <PlotSkeleton width={WIDTH} height={HEIGHT} />
+    <div>
+      <PlotTitleWithTooltip
+        title={"Factors affecting risk"}
+        tooltip_content={<Tooltip />}
+      />
+      <div ref={containerRef}>
+        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+      </div>
     </div>
   );
 }
