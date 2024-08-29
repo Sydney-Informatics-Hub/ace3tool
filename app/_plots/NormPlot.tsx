@@ -12,6 +12,9 @@ import distribution_data from "@/app/_model/dist_summary_v1.json";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { ace_colour_scale, colours } from "@/app/_utils/colours";
 
+const WIDTH = 800;
+const HEIGHT = 700;
+
 const rescale_score = (score: number, scale: keyof AceScaleScores) => {
   return (score / AceScaleInfo[scale].max) * 100;
 };
@@ -51,9 +54,10 @@ export default function NormPlot(props: NormPlotProps) {
   useEffect(() => {
     const plot = Plot.plot({
       style: { fontSize: "10pt" },
-      width: 800,
-      height: 600,
+      width: WIDTH,
+      height: HEIGHT,
       marginBottom: 50,
+      marginTop: 20,
       x: {
         label: "Score (% of maximum)",
         domain: [0, 100],
@@ -115,9 +119,9 @@ export default function NormPlot(props: NormPlotProps) {
           Plot.selectFirst({
             text: "scale",
             fy: "scale",
-            frameAnchor: "top-left",
-            dx: 6,
-            dy: 6,
+            frameAnchor: "top-right",
+            dx: -5,
+            dy: 0,
             fontSize: "12pt",
           })
         ),
@@ -153,7 +157,7 @@ export default function NormPlot(props: NormPlotProps) {
   }, [bar_data, score_data, sd_threshold_data, spec_threshold_data, scores]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={500} />
+      <PlotSkeleton width={WIDTH} height={HEIGHT} />
     </div>
   );
 }
