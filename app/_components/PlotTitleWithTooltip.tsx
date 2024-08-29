@@ -19,7 +19,7 @@ export default function PlotTitleWithTooltip(props: PlotTitleWithTooltipProps) {
         }
         trigger="hover"
       >
-        <Button className="ms-auto" color="blue" outline>
+        <Button className="ms-auto" color="dark" outline>
           {props.button_content || (
             <QuestionMarkCircleIcon className="size-5" />
           )}
