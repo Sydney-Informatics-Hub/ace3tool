@@ -7,7 +7,6 @@ import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { colours, tableau10_colours } from "@/app/_utils/colours";
 import data_summary from "@/app/_model/data_summary_v1.json";
 import distribution_data from "@/app/_model/dist_summary_v1.json";
-import HorizontalLegend from "@/app/_components/HorizontalLegend";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 import TotalScoreLegend from "@/app/_components/TotalScoreLegend";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
