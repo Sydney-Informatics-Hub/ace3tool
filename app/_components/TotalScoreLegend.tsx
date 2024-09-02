@@ -77,13 +77,5 @@ function LegendTable(props: { items: LegendTableItem[] }) {
 }
 
 export default function TotalScoreLegend() {
-  return (
-    <>
-      <Popover trigger="click" content={<LegendTable items={legend_items} />}>
-        <Button className="align-middle max-w-40" color="blue" outline>
-          Legend <QuestionMarkCircleIcon className="mx-2 size-5" />
-        </Button>
-      </Popover>
-    </>
-  );
+  return <LegendTable items={legend_items} />;
 }
