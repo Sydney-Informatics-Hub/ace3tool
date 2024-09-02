@@ -1,20 +1,36 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import * as Plot from "@observablehq/plot";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { colours, tableau10_colours } from "@/app/_utils/colours";
-import { bold_title } from "@/app/_plots/plot_utils";
 import data_summary from "@/app/_model/data_summary_v1.json";
 import distribution_data from "@/app/_model/dist_summary_v1.json";
 import HorizontalLegend from "@/app/_components/HorizontalLegend";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 import TotalScoreLegend from "@/app/_components/TotalScoreLegend";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import { LegendTable } from "@/app/_components/VerticalLegend";
 
 const WIDTH = 500;
 const HEIGHT = 250;
+
+interface LegendItem {
+  icon: ReactNode;
+  label: string;
+}
+
+const legend_items: LegendItem[] = [
+  {
+    icon: <span className="text-orange-500 font-bold text-lg">······</span>,
+    label: "2 SDs below the mean for control patients",
+  },
+  {
+    icon: <span className="text-red-600 font-extrabold text-lg">- - -</span>,
+    label: "100% specificity for detecting dementia in our sample",
+  },
+];
 
 interface TotalScorePlotProps {
   scores: Partial<AceScaleScores>;
@@ -35,7 +51,6 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
 
   useEffect(() => {
     const plot = Plot.plot({
-      title: bold_title(valid ? `Total score: ${total}` : "Total score"),
       width: WIDTH,
       height: HEIGHT,
       style: { fontSize: "10pt" },
@@ -113,7 +128,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
           </>
         }
       />
-      <HorizontalLegend />
+      <LegendTable items={legend_items} />
       <div ref={containerRef}>
         <PlotSkeleton width={WIDTH} height={HEIGHT} />
       </div>
