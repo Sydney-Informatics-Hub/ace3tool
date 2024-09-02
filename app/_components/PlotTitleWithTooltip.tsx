@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Button, Popover } from "flowbite-react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import PlotTitle from "@/app/_components/PlotTitle";
 
 interface PlotTitleWithTooltipProps {
   title: string;
@@ -12,7 +13,7 @@ export default function PlotTitleWithTooltip(props: PlotTitleWithTooltipProps) {
   const { title, tooltip_content } = props;
   return (
     <div className="flex w-full items-center">
-      <h2 className="font-semibold text-indigo-600">{title}</h2>
+      <PlotTitle>{title}</PlotTitle>
       <Popover
         content={
           <div className="w-96 p-2 justify-center">{tooltip_content}</div>
