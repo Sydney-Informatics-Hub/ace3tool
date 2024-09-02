@@ -8,20 +8,10 @@ import { colours, tableau10_colours } from "@/app/_utils/colours";
 import { bold_title } from "@/app/_plots/plot_utils";
 import data_summary from "@/app/_model/data_summary_v1.json";
 import distribution_data from "@/app/_model/dist_summary_v1.json";
-
-type RiskLabels = "Moderate risk" | "Mild risk" | "Within normal limits";
-
-type ScoreRange = {
-  label: RiskLabels;
-  min: number;
-  max: number;
-};
-
-const Ranges: ScoreRange[] = [
-  { label: "Moderate risk", min: 0, max: 82 },
-  { label: "Mild risk", min: 82, max: 88 },
-  { label: "Within normal limits", min: 88, max: 100 },
-];
+import HorizontalLegend from "@/app/_components/HorizontalLegend";
+import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
+import TotalScoreLegend from "@/app/_components/TotalScoreLegend";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 const WIDTH = 500;
 const HEIGHT = 250;
@@ -58,27 +48,12 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
         labelArrow: "none",
       },
       y: { domain: [-1, 1], label: null },
-      color: {
-        type: "categorical",
-        scheme: "RdYlGn",
-        range: [0, 1, 2],
-        domain: ["Moderate risk", "Mild risk", "Within normal limits"],
-        legend: true,
-      },
       marks: [
         Plot.axisY({ ticks: [] }),
         Plot.axisX({
           labelOffset: 40,
           labelAnchor: "center",
           labelArrow: "none",
-        }),
-        Plot.rect(Ranges, {
-          x1: "min",
-          x2: "max",
-          y1: 0.9,
-          y2: 1.0,
-          fillOpacity: 0.7,
-          fill: "label",
         }),
         Plot.areaY(
           distribution_data.dementia.filter((x) => x.scale === "Total"),
@@ -128,8 +103,20 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
     return () => plot.remove();
   }, [valid, total, sd_threshold, spec_threshold]);
   return (
-    <div ref={containerRef}>
-      <PlotSkeleton width={WIDTH} height={HEIGHT} />
+    <div>
+      <PlotTitleWithTooltip
+        title="Total score"
+        tooltip_content={<TotalScoreLegend />}
+        button_content={
+          <>
+            Legend <QuestionMarkCircleIcon className="size-5 ms-2" />
+          </>
+        }
+      />
+      <HorizontalLegend />
+      <div ref={containerRef}>
+        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+      </div>
     </div>
   );
 }
