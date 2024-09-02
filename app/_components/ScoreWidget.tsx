@@ -61,7 +61,6 @@ export default function ScoreWidget() {
       >
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
-          <TotalScoreLegend />
           <RiskPlot scores={current_value} model={model} />
           <RiskContributionPlot scores={current_value} model={model} />
         </div>
