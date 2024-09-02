@@ -1,13 +1,6 @@
 "use client";
-import { ReactNode } from "react";
 import AreaIcon from "@/app/_components/AreaIcon";
-import { Button, Popover, Table } from "flowbite-react";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-
-interface LegendTableItem {
-  icon: ReactNode;
-  label: string;
-}
+import { LegendTable } from "@/app/_components/VerticalLegend";
 
 const legend_items = [
   {
@@ -47,34 +40,6 @@ const legend_items = [
     label: "100% specificity for detecting dementia in our sample",
   },
 ];
-
-/**
- * Create the plot legend as table, where each row has an icon (can be any
- * React element) and a label.
- * @param props list of LegendTableItems, in order
- */
-function LegendTable(props: { items: LegendTableItem[] }) {
-  return (
-    <Table className="table-auto">
-      <Table.Body>
-        {props.items.map((item, index) => {
-          return (
-            <Table.Row key={index}>
-              <Table.Cell
-                className={
-                  "p-2 w-12 h-10 border-2 align-middle justify-center items-center text-center"
-                }
-              >
-                {item.icon}
-              </Table.Cell>
-              <Table.Cell className="p-2 h-10 text-sm">{item.label}</Table.Cell>
-            </Table.Row>
-          );
-        })}
-      </Table.Body>
-    </Table>
-  );
-}
 
 export default function TotalScoreLegend() {
   return <LegendTable items={legend_items} />;
