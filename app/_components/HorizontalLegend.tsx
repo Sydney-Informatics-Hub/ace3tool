@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Table } from "flowbite-react";
 
 interface LegendItem {
@@ -26,25 +26,25 @@ function chunk<T>(arr: T[], size: number): T[][] {
 export default function HorizontalLegend() {
   const groups = chunk(legend_items, 2);
   return (
-    <Table className="table-auto">
+    <Table className="table-auto text-sm">
       <Table.Body>
         {groups.map((group, index) => {
           return (
             <Table.Row key={index}>
               {group.map((item, item_index) => {
                 return (
-                  <div key={item_index}>
+                  <React.Fragment key={item_index}>
                     <Table.Cell
                       className={
-                        "p-2 w-12 h-8 border-2 align-middle justify-center items-center text-center"
+                        "p-0.5 w-10 h-8 border-2 align-middle justify-center items-center text-center"
                       }
                     >
                       {item.icon}
                     </Table.Cell>
-                    <Table.Cell className="p-2 h-8 text-sm">
+                    <Table.Cell className="p-0.5 h-8 text-sm">
                       {item.label}
                     </Table.Cell>
-                  </div>
+                  </React.Fragment>
                 );
               })}
             </Table.Row>
