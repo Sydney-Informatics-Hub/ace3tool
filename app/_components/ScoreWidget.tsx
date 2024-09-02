@@ -11,7 +11,6 @@ import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
-import TotalScoreLegend from "@/app/_components/TotalScoreLegend";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -69,7 +68,6 @@ export default function ScoreWidget() {
         <div className="flex flex-col justify-start space-y-4">
           <ScoreBarPlot scores={current_value} />
           <RiskPlotTotal scores={current_value} model={total_model} />
-          {/*<RiskElements scores={current_value} model={model} />*/}
         </div>
       </Card>
       <NormPlotDisplay
