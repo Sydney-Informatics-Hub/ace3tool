@@ -51,7 +51,8 @@ export default function ScoreWidget() {
       <AceForm
         form={form}
         id="score-entry"
-        className="lg:grow max-w-xl transition-all delay-200 ease-in-out"
+        className="lg:grow max-w-sm transition-all delay-200 ease-in-out"
+        theme={NoPaddingCardTheme}
       />
       <Card
         id="total-score-plots"
