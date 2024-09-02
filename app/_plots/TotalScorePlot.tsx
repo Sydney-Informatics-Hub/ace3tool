@@ -45,8 +45,9 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scores } = props;
   const { valid, total } = useTotalScore(scores);
-  const sd_threshold = get_sd_threshold();
-  const spec_threshold = data_summary.specificity_100["total"];
+  // NOTE: round thresholds down to nearest integer
+  const sd_threshold = Math.floor(get_sd_threshold());
+  const spec_threshold = Math.floor(data_summary.specificity_100["total"]);
 
   useEffect(() => {
     const plot = Plot.plot({
