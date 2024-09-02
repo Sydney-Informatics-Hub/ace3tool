@@ -7,8 +7,8 @@ import {
   AceScaleScores,
 } from "@/app/_forms/schemas/ace";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import { bold_title } from "@/app/_plots/plot_utils";
 import { ace_colour_scale } from "@/app/_utils/colours";
+import PlotTitle from "@/app/_components/PlotTitle";
 
 const WIDTH = 500;
 const HEIGHT = 450;
@@ -33,7 +33,6 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
       width: WIDTH,
       height: HEIGHT,
       style: { fontSize: "10pt" },
-      title: bold_title("Subdomain scores"),
       y: {
         label: "Score",
         domain: [0, 27],
@@ -75,8 +74,11 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     return () => plot.remove();
   }, [score_data]);
   return (
-    <div ref={containerRef}>
-      <PlotSkeleton width={WIDTH} height={HEIGHT} />
-    </div>
+    <>
+      <PlotTitle>Subdomain scores</PlotTitle>
+      <div ref={containerRef}>
+        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+      </div>
+    </>
   );
 }

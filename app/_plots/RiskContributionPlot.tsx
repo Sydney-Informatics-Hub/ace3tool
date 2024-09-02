@@ -10,7 +10,6 @@ import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import * as Plot from "@observablehq/plot";
 import { ace_colour_scale } from "@/app/_utils/colours";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import { bold_title } from "@/app/_plots/plot_utils";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskContributionPlotProps {
