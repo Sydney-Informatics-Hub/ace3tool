@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Button, Popover } from "flowbite-react";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 
 interface PlotTitleWithTooltipProps {
   title: string;
@@ -19,7 +19,7 @@ export default function PlotTitleWithTooltip(props: PlotTitleWithTooltipProps) {
         }
         trigger="hover"
       >
-        <Button className="ms-auto" color="dark" outline>
+        <Button className="ms-auto" size="sm" outline gradientMonochrome="info">
           {props.button_content || (
             <QuestionMarkCircleIcon className="size-5" />
           )}
