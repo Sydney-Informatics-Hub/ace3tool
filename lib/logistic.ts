@@ -25,11 +25,16 @@ export type Data<predictors extends string = string> = Readonly<
   Record<predictors, number>
 >;
 
-// TOOD: Need to optionally set means here
 interface LogisticModelOptions<predictors extends string> {
   vcov?: number[][];
   center_predictors?: boolean;
   predictor_means?: Data<predictors>;
+}
+
+export function get_predictors<predictors extends string>(
+  data: Data<predictors>
+): predictors[] {
+  return Object.keys(data) as predictors[];
 }
 
 export class LogisticModel<predictors extends string> {
@@ -43,7 +48,7 @@ export class LogisticModel<predictors extends string> {
     coefs: ModelCoefs<predictors>,
     options?: LogisticModelOptions<predictors>
   ) {
-    this.predictors = Object.keys(coefs.coefs) as predictors[];
+    this.predictors = get_predictors(coefs.coefs);
     this.coefs = coefs;
     this.vcov = options?.vcov ? math.matrix(options.vcov) : undefined;
     this.center_predictors = options?.center_predictors || false;
