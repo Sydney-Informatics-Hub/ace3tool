@@ -38,8 +38,9 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
 
     const plot = Plot.plot({
       title: title,
-      width: 500,
-      height: 150,
+      width: 400,
+      height: 100,
+      style: { opacity: "70%" },
       x: { grid: true, label: "Risk (%)" },
       color: {
         type: "sequential",
@@ -58,7 +59,7 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
           y1: 0,
           y2: 10,
           fill: "url(#total_risk_gradient)",
-          fillOpacity: 0.7,
+          fillOpacity: 0.5,
           stroke: "black",
           strokeWidth: 1,
         }),
@@ -88,7 +89,7 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
   }, [risk, model, valid, total]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={500} height={150} />
+      <PlotSkeleton width={400} height={100} />
     </div>
   );
 }
