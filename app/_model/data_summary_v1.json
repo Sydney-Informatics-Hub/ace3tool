@@ -15,6 +15,22 @@
     "visuospatial": 0.74030137395476014,
     "total": 3.3228481257620257
   },
+  "dementia_means": {
+    "attention": 12.848341232227494,
+    "memory": 14.72274881516587,
+    "fluency": 5.5699052132701397,
+    "language": 18.592417061611357,
+    "visuospatial": 12.516587677725122,
+    "total": 64.25
+  },
+  "dementia_sds": {
+    "attention": 4.1852970457874328,
+    "memory": 6.7522785770366767,
+    "fluency": 3.5176011574968413,
+    "language": 6.0041298034397235,
+    "visuospatial": 3.5081277890403473,
+    "total": 19.271557847622454
+  },
   "specificity_100": {
     "attention": 12.5,
     "memory": 16.5,

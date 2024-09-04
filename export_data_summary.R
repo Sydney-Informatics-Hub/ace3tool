@@ -51,6 +51,21 @@ control_sds_export <- control_sds$value |>
     set_names(control_sds$score |> str_to_lower()) |>
     as.list()
 
+dementia_means <- score_summary |>
+    filter(dementia == "Dementia", stat == "mean")
+
+dementia_means_export <- dementia_means$value |>
+    set_names(dementia_means$score |> str_to_lower()) |>
+    as.list()
+
+dementia_sds <- score_summary |>
+    filter(dementia == "Dementia", stat == "sd")
+
+dementia_sds_export <- dementia_sds$value |>
+    set_names(dementia_sds$score |> str_to_lower()) |>
+    as.list()
+
+
 # ROC Thresholds ######
 tidy_roc <- function(roc_obj) {
     tibble(
@@ -103,6 +118,8 @@ dist_summary <- data_long |>
 final_export <- list(
     control_means = control_means_export,
     control_sds = control_sds_export,
+    dementia_means = dementia_means_export,
+    dementia_sds = dementia_sds_export,
     specificity_100 = spec_thresholds
 )
 final_export |>
