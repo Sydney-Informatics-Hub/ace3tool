@@ -3,6 +3,7 @@ import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import MainNavbar from "@/app/_components/MainNavbar";
+import AceFormProvider from "@/app/_forms/AceFormProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head></head>
       <body>
         <MainNavbar />
-        {children}
+        <AceFormProvider>{children}</AceFormProvider>
       </body>
     </html>
   );

@@ -38,8 +38,7 @@ type Difference<predictors extends string> = {
 };
 
 function get_largest_differences<predictors extends string>(
-  z_scores: Data<predictors>,
-  summary: DataSummary<predictors>
+  z_scores: Data<predictors>
 ): Record<predictors, Difference<predictors>> {
   const predictor_names = get_predictors(z_scores);
   const largest_diffs = predictor_names.map(
@@ -74,12 +73,11 @@ export function get_extreme_scores<predictors extends string>(
   summary: DataSummary<predictors>,
   threshold: number = -2
 ): Record<predictors, Difference<predictors>> {
-  const predictor_names = get_predictors(scores);
   const z_scores = get_z_scores(scores, summary);
-  const largest_diffs = get_largest_differences(z_scores, summary);
+  const largest_diffs = get_largest_differences(z_scores);
   const extreme_diffs = Object.entries<Difference<predictors>>(
     largest_diffs
-  ).filter(([scale, difference]) => {
+  ).filter(([_, difference]) => {
     return difference.diff < threshold;
   });
   return Object.fromEntries(extreme_diffs) as Record<

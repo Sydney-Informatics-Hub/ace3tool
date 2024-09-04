@@ -1,7 +1,5 @@
 "use client";
-import { useForm, useWatch } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
+import { useFormContext, useWatch } from "react-hook-form";
 import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 import AceForm from "@/app/_forms/AceForm";
 import { Card, FlowbiteCardTheme } from "flowbite-react";
@@ -11,6 +9,7 @@ import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
+import { AceScaleScores } from "@/app/_forms/schemas/ace";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -31,12 +30,13 @@ const NoPaddingCardTheme: FlowbiteCardTheme = {
   },
 };
 
+/** Component that setups the ACE-III score form, creates the
+ *  input form
+ *  and passes its values to the different plots/visualisation components
+ */
 export default function ScoreWidget() {
-  const form = useForm<AceScaleScores>({
-    mode: "all",
-    defaultValues: AceScaleScoresSchema.getDefault(),
-    resolver: yupResolver(AceScaleScoresSchema),
-  });
+  // Form context is set up in the root layout via AceFormProvider
+  const form = useFormContext<AceScaleScores>();
   const { control, formState } = form;
   // Need to subscribe to errors to get instant error validation
   const { errors } = formState;
