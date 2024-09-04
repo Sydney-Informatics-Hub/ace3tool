@@ -1,6 +1,5 @@
 import {
   create,
-  matrix,
   Matrix,
   matrixDependencies,
   multiplyDependencies,
@@ -9,7 +8,7 @@ import {
 } from "mathjs";
 import erfinv from "@stdlib/math-base-special-erfinv";
 
-const math = create({
+const { matrix, multiply, transpose, sqrt } = create({
   matrixDependencies,
   multiplyDependencies,
   sqrtDependencies,
@@ -50,7 +49,7 @@ export class LogisticModel<predictors extends string> {
   ) {
     this.predictors = get_predictors(coefs.coefs);
     this.coefs = coefs;
-    this.vcov = options?.vcov ? math.matrix(options.vcov) : undefined;
+    this.vcov = options?.vcov ? matrix(options.vcov) : undefined;
     this.center_predictors = options?.center_predictors || false;
     this.predictor_means = options?.predictor_means || undefined;
   }
@@ -130,10 +129,10 @@ export class LogisticModel<predictors extends string> {
     // @ts-expect-error: math.js's types seem to be wrong here, if the result
     //   is scalar it will just be a number
     const variance: number = math.multiply(
-      math.multiply(pred_matrix, this.vcov),
-      math.transpose(pred_matrix)
+      multiply(pred_matrix, this.vcov),
+      transpose(pred_matrix)
     );
-    const std_error: number = math.sqrt(variance) as number;
+    const std_error: number = sqrt(variance) as number;
     const xb = this.linear_prediction(data);
     const xb_upper = xb + std_error * z;
     const xb_lower = xb - std_error * z;
