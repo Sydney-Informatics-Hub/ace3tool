@@ -79,9 +79,8 @@ export function get_extreme_scores<predictors extends string>(
   const largest_diffs = get_largest_differences(z_scores, summary);
   const extreme_diffs = Object.entries<Difference<predictors>>(
     largest_diffs
-  ).filter((entry) => {
-    const diff = entry[1].diff;
-    return diff < threshold;
+  ).filter(([scale, difference]) => {
+    return difference.diff < threshold;
   });
   return Object.fromEntries(extreme_diffs) as Record<
     predictors,
