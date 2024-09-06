@@ -99,7 +99,7 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
             y: "total",
             fill: "dementia",
             r: 3.5,
-            opacity: (d) => (d.excluded ? 0.1 : 1),
+            opacity: (d) => (d.excluded ? 0.25 : 1),
           })
         ),
       ],

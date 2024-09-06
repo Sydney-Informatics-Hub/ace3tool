@@ -24,7 +24,7 @@ export default function RadioInput<Data extends FieldValues>(
     : undefined;
 
   return (
-    <fieldset>
+    <fieldset className="p-2">
       <legend className="mb-2 font-semibold text-base">{label}</legend>
       {options.map((option, index) => {
         const option_id = `${name}-option-${index}`;

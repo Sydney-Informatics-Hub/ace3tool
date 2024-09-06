@@ -21,7 +21,7 @@ export default function Explore() {
   });
   return (
     <main className="container mx-auto min-h-screen md:p-2">
-      <div className="flex justify-start items-center gap-2 md:gap-4">
+      <div className="flex flex-col md:flex-row md:flex-wrap justify-start items-center gap-2 md:gap-4">
         <Card className="max-w-md">
           <h2 className="text-lg text-indigo-600 font-bold">
             Explore our sample
@@ -37,7 +37,7 @@ export default function Explore() {
           <h2 className="text-lg text-indigo-600 font-bold">Filters</h2>
           <ExplorerForm form_return={form} />
         </Card>
-        <Card>
+        <Card className="min-w-96">
           <ExplorerPlot form_return={form} />
         </Card>
       </div>
