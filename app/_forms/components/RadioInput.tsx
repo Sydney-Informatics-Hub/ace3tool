@@ -1,10 +1,10 @@
 "use client";
 import { Label, Radio } from "flowbite-react";
-import { ComponentProps } from "react";
+import { HTMLProps } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface RadioInputProps<Data extends FieldValues>
-  extends ComponentProps<typeof Radio> {
+  extends HTMLProps<HTMLFieldSetElement> {
   label: string;
   name: Path<Data>;
   options: string[];
@@ -14,7 +14,7 @@ interface RadioInputProps<Data extends FieldValues>
 export default function RadioInput<Data extends FieldValues>(
   props: RadioInputProps<Data>
 ) {
-  const { label, name, options, form_return, ...inputProps } = props;
+  const { label, name, options, form_return, ...fieldset_props } = props;
   const { register, getFieldState } = form_return;
   const state = getFieldState(name);
   const colour = state.isDirty
@@ -24,7 +24,7 @@ export default function RadioInput<Data extends FieldValues>(
     : undefined;
 
   return (
-    <fieldset className="p-2">
+    <fieldset className="p-2" {...fieldset_props}>
       <legend className="mb-2 font-semibold text-base">{label}</legend>
       {options.map((option, index) => {
         const option_id = `${name}-option-${index}`;
