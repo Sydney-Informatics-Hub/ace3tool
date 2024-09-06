@@ -21,6 +21,7 @@ export const ExplorerFilterSchema = object({
   age_group: string().oneOf(FilterOptions.age_group).default("All"),
 });
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ExplorerFilters
   extends yup.InferType<typeof ExplorerFilterSchema> {}
 
