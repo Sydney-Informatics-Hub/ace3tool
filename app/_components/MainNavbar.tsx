@@ -63,6 +63,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
 const navbar_items = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Explore our data", href: "/explore" },
 ];
 
 export default function MainNavbar() {

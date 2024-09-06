@@ -1,12 +1,13 @@
 "use client";
-import { SubmitHandler, FormProvider, UseFormReturn } from "react-hook-form";
+import { SubmitHandler, UseFormReturn } from "react-hook-form";
 import {
   AceScaleInfo,
   AceScales,
   AceScaleScores,
 } from "@/app/_forms/schemas/ace";
-import { Card, CardProps } from "flowbite-react";
+import { Button, Card, CardProps } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
+import Link from "next/link";
 
 type AceFormProps = {
   form: UseFormReturn<AceScaleScores>;
@@ -38,19 +39,21 @@ export default function AceForm(props: AceFormProps) {
       <h2 className="text-xl font-bold text-indigo-600">
         Enter ACE-III subdomain scores
       </h2>
-      <FormProvider {...form}>
-        <form
-          className="flex flex-col max-w-lg gap-4 my-2"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {AceScales.map((scale) => {
-            const label = AceScaleInfo[scale].label;
-            const max = AceScaleInfo[scale].max;
-            const full_label = `${label} (/${max})`;
-            return <ScoreInput key={scale} label={full_label} name={scale} />;
-          })}
-        </form>
-      </FormProvider>
+      <form
+        className="flex flex-col max-w-lg gap-4 my-2"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        {AceScales.map((scale) => {
+          const label = AceScaleInfo[scale].label;
+          const max = AceScaleInfo[scale].max;
+          const full_label = `${label} (/${max})`;
+          return <ScoreInput key={scale} label={full_label} name={scale} />;
+        })}
+      </form>
+      <p>See how this patient compares to our sample:</p>
+      <Link href="/explore">
+        <Button>Explore sample</Button>
+      </Link>
     </Card>
   );
 }
