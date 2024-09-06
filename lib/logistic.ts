@@ -128,7 +128,7 @@ export class LogisticModel<predictors extends string> {
     const pred_matrix = matrix([1, ...Object.values<number>(pred_data)]);
     // @ts-expect-error: math.js's types seem to be wrong here, if the result
     //   is scalar it will just be a number
-    const variance: number = math.multiply(
+    const variance: number = multiply(
       multiply(pred_matrix, this.vcov),
       transpose(pred_matrix)
     );
