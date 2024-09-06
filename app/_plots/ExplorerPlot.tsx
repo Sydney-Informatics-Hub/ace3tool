@@ -106,7 +106,7 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
     });
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
-  }, [data, filtered_data]);
+  }, [data, filtered_data, total, valid]);
 
   return (
     <>
