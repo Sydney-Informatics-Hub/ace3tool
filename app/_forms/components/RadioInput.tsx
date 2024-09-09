@@ -24,17 +24,19 @@ export default function RadioInput<Data extends FieldValues>(
     : undefined;
 
   return (
-    <fieldset className="p-2" {...fieldset_props}>
-      <legend className="mb-2 font-semibold text-sm">{label}</legend>
-      {options.map((option, index) => {
-        const option_id = `${name}-option-${index}`;
-        return (
-          <div key={index} className="flex items-center gap-2">
-            <Radio value={option} id={option_id} {...register(name)} />
-            <Label htmlFor={option_id}>{option}</Label>
-          </div>
-        );
-      })}
-    </fieldset>
+    <div className="bg-gray-100 p-1 rounded-md">
+      <fieldset className="p-2" {...fieldset_props}>
+        <legend className="mb-1 font-semibold text-sm">{label}</legend>
+        {options.map((option, index) => {
+          const option_id = `${name}-option-${index}`;
+          return (
+            <div key={index} className="flex items-center gap-2">
+              <Radio value={option} id={option_id} {...register(name)} />
+              <Label htmlFor={option_id}>{option}</Label>
+            </div>
+          );
+        })}
+      </fieldset>
+    </div>
   );
 }
