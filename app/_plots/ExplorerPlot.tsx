@@ -19,8 +19,11 @@ const HEIGHT = 800;
 type DataRow = {
   dementia: string;
   total: number;
+  visit_number: string;
+  education: string;
   sex: string;
   learning_difficulties: string;
+  goldman_score: string;
   age_group: string;
 };
 
@@ -32,7 +35,7 @@ type DataRowWithFilter = DataRowWithJitter & {
   excluded: boolean;
 };
 
-function filter_data(
+export function filter_data(
   data: DataRowWithJitter[],
   filters: ExplorerFilters
 ): DataRowWithFilter[] {
