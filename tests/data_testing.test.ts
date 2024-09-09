@@ -20,6 +20,7 @@ describe("Data filtering schemas", () => {
 
   test.for(ExplorerFilterNames)("'All' is a valid value for %s", (field) => {
     const schema = yup.reach(ExplorerFilterSchema, field);
+    // @ts-expect-error something off with the types for yup.reach
     expect(schema.validateSync("All")).toEqual("All");
   });
 
