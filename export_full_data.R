@@ -76,7 +76,6 @@ data |>
     select(VisitNumber, Education, GoldmanScore) |>
     gtsummary::tbl_summary()
 
-# TODO: don't seem to have some variables: Goldman score, education
 exported_data <- data %>%
     select(dementia, total=TotalScore, sex=Sex,
            learning_difficulties=LearningDifficulties,
