@@ -11,6 +11,7 @@ import { useFormContext, UseFormReturn } from "react-hook-form";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import { AceScaleScores } from "@/app/_forms/schemas/ace";
 import { colours } from "@/app/_utils/colours";
+import uniform from "@stdlib/random-base-uniform";
 
 const WIDTH = 800;
 const HEIGHT = 800;
@@ -23,12 +24,16 @@ type DataRow = {
   age_group: string;
 };
 
-type DataRowWithFilter = DataRow & {
+type DataRowWithJitter = DataRow & {
+  jitter: number;
+};
+
+type DataRowWithFilter = DataRowWithJitter & {
   excluded: boolean;
 };
 
 function filter_data(
-  data: DataRow[],
+  data: DataRowWithJitter[],
   filters: ExplorerFilters
 ): DataRowWithFilter[] {
   return data.map((row) => {
@@ -49,17 +54,23 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
   const { watch: watch_scores } = score_form;
   const scores = watch_scores();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [data, setData] = useState<DataRow[]>([]);
+  const [data, setData] = useState<DataRowWithJitter[]>([]);
   const { valid, total } = useTotalScore(scores);
 
   const { watch } = form_return;
   const filters = watch();
   const filtered_data = filter_data(data, filters);
 
+  // We want to jitter the points, but keep them in a consistent spot as
+  //   we filter etc., so apply jitter from a seeded RNG when loading
   useEffect(() => {
     const loadData = async () => {
+      const rng = uniform.factory(0.0, 1.0, { seed: 12345 });
       const full_data = await import("@/app/_model/full_data_v1.json");
-      setData(full_data.data);
+      const with_jitter = full_data.data.map((row) => {
+        return { ...row, jitter: rng() };
+      });
+      setData(with_jitter);
     };
     loadData();
   }, []);
@@ -72,8 +83,11 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
       marginTop: 50,
       style: { fontSize: "10pt" },
       y: { domain: [0, 105], label: "ACE-III total score" },
+      x: { domain: [-0.1, 1.1] },
       fx: { padding: 0, label: null, axis: "top" },
+      color: { type: "categorical", scheme: "pastel1" },
       marks: [
+        Plot.axisX({ ticks: [], label: null }),
         Plot.axisY({
           ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
           tickSize: 0,
@@ -90,18 +104,14 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
               fill: colours.indigo600,
             })
           : null,
-        Plot.dot(
-          filtered_data,
-          Plot.stackX({
-            offset: "center",
-            fx: "dementia",
-            padding: 0.5,
-            y: "total",
-            fill: "dementia",
-            r: 3.5,
-            opacity: (d) => (d.excluded ? 0.25 : 1),
-          })
-        ),
+        Plot.dot(filtered_data, {
+          fx: "dementia",
+          x: "jitter",
+          y: "total",
+          fill: "dementia",
+          r: 3.5,
+          opacity: (d) => (d.excluded ? 0.0 : 0.9),
+        }),
       ],
     });
     containerRef?.current?.replaceChildren(plot);
