@@ -99,14 +99,6 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
           fontSize: "12pt",
           labelOffset: 50,
         }),
-        valid
-          ? Plot.tickY([total], {
-              stroke: colours.indigo600,
-              marker: "circle-stroke",
-              strokeWidth: 3,
-              fill: colours.indigo600,
-            })
-          : null,
         Plot.dot(filtered_data, {
           fx: "dementia",
           x: "jitter",
@@ -115,6 +107,14 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
           r: 3.5,
           opacity: (d) => (d.excluded ? 0.0 : 0.9),
         }),
+        valid
+          ? Plot.tickY([total], {
+              stroke: colours.indigo600,
+              marker: "circle-stroke",
+              strokeWidth: 3,
+              fill: colours.indigo600,
+            })
+          : null,
       ],
     });
     containerRef?.current?.replaceChildren(plot);
