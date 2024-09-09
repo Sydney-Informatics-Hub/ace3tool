@@ -61,7 +61,7 @@ data <- data |>
         VisitNumber = raw_data$Visit_order |>
             case_match(
                 1 ~ "1",
-                c(2, 3) ~ "2 - 3",
+                c(2, 3) ~ "2-3",
                 4 ~ "4+",
                 .default = "4+"
             ) |> as.factor(),
