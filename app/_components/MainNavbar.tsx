@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 const NavbarTheme: FlowbiteNavbarTheme = {
   root: {
-    base: "bg-indigo-600 text-gray-200 px-2 py-2.5 sm:px-4",
+    base: "bg-indigo-600 text-white px-2 py-2.5 sm:px-4 font-heading",
     rounded: {
       on: "rounded",
       off: "",
@@ -46,7 +46,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
   link: {
     base: "block py-2 pl-3 pr-4 md:p-0 text-base",
     active: {
-      on: "bg-indigo-700 text-white font-bold md:bg-transparent md:hover:text-amber-300",
+      on: "bg-indigo-700 text-white font-bold md:bg-transparent md:hover:text-amber-300 md:underline md:underline-offset-8 md:decoration-4 md:decoration-orange-400",
       off: "border-b border-gray-100 font-medium text-slate-300 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-amber-300",
     },
     disabled: {
@@ -88,7 +88,7 @@ export default function MainNavbar() {
     <Navbar theme={NavbarTheme}>
       <NavbarBrand as={Link} href="/">
         <ChartBarIcon className="size-6 me-2" />
-        <span className="self-center whitespace-nowrap text-lg font-semibold">
+        <span className="self-center whitespace-nowrap text-lg">
           ACE-III risk calculator
         </span>
       </NavbarBrand>
