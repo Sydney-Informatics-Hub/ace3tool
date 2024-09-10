@@ -22,7 +22,7 @@ export default function Explore() {
   return (
     <main className="container mx-auto min-h-screen md:p-2">
       <div className="flex flex-col md:flex-row md:flex-wrap justify-start items-center gap-2 md:gap-4">
-        <Card className="max-w-md">
+        <Card className="md:max-w-md">
           <h2 className="text-lg text-indigo-600 font-bold">
             Explore our sample
           </h2>
