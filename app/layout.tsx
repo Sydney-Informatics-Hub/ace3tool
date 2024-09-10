@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans } from "next/font/google";
+import { Noto_Sans, Ubuntu } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import MainNavbar from "@/app/_components/MainNavbar";
@@ -19,12 +19,18 @@ const sans_font = Noto_Sans({
   display: "swap",
   variable: "--font-sans",
 });
+const ubuntu_font = Ubuntu({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+  variable: "--heading-font",
+});
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       suppressHydrationWarning
-      className={`${sans_font.variable}`}
+      className={`${sans_font.variable} ${ubuntu_font.variable}`}
       lang="en"
     >
       <head></head>
