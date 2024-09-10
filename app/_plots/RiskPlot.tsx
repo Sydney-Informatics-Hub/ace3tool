@@ -94,11 +94,18 @@ export default function RiskPlot(props: RiskPlotProps) {
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
   }, [risk, model, scores]);
+  const Tooltip = () => (
+    <span>
+      The predicted risk of dementia from a logistic regression model fitted to
+      our sample
+    </span>
+  );
   return (
     <div>
       <PlotTitleWithTooltip
         title={risk ? `Dementia risk: ${Math.round(risk)}%` : "Dementia risk"}
-        tooltip_content="The predicted risk of dementia from a logistic regression model fitted to our sample"
+        tooltip_content={<Tooltip />}
+        popover_id="risk_plot_tooltip"
       />
       <div ref={containerRef}>
         <PlotSkeleton width={WIDTH} height={HEIGHT} />
