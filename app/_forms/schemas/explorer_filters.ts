@@ -30,7 +30,6 @@ export const ExplorerFilterSchema = object({
   goldman_score: string().oneOf(FilterOptions.goldman_score).default("All"),
 });
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ExplorerFilters
   extends yup.InferType<typeof ExplorerFilterSchema> {}
 
