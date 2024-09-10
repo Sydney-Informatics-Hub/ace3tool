@@ -27,7 +27,7 @@ export const AceScaleInfo: Record<
 } as const;
 
 const max_score_message: Message = (data) => {
-  return `The score for ${data.label} should be less than ${data.max}`;
+  return `The score for ${data.label} should be between 0 and ${data.max}`;
 };
 
 export const AceScaleScoresSchema = object({
