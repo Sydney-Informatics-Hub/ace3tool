@@ -127,6 +127,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
             Legend <QuestionMarkCircleIcon className="size-5 ms-2" />
           </>
         }
+        padding={0}
       />
       <LegendTable items={legend_items} />
       <div ref={containerRef}>
