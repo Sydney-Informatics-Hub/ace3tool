@@ -41,6 +41,7 @@ export default function PlotTitleWithTooltip(props: PlotTitleWithTooltipProps) {
           outline
           color="indigo"
           theme={customButtonTheme}
+          aria-label="Information about this plot"
         >
           {props.button_content || (
             <QuestionMarkCircleIcon className="size-5" />
