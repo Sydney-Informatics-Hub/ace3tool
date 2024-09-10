@@ -32,7 +32,7 @@ export default function PlotTitleWithTooltip(props: PlotTitleWithTooltipProps) {
             {tooltip_content}
           </div>
         }
-        trigger="click"
+        trigger="hover"
         id={props.popover_id || undefined}
       >
         <Button
