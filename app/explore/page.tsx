@@ -28,9 +28,9 @@ export default function Explore() {
           </h2>
           <p>
             Use the filters here to explore the sample based on various
-            characteristics. If you enter scores for a patient{" "}
+            characteristics. If you{" "}
             <Link className="text-indigo-600 inline" href="/">
-              here
+              enter scores for a patient
             </Link>{" "}
             their score will be plotted so you can compare them to the sample.
           </p>
