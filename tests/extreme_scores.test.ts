@@ -83,9 +83,7 @@ describe("Test on actual data from our sample", () => {
       visuospatial: 11,
     };
     const z_scores = get_z_scores(data, dementia_data_summary);
-    console.log(z_scores);
     const extreme_scores = get_extreme_scores(data, dementia_data_summary, -2);
-    console.log(extreme_scores);
     expect(extreme_scores).toHaveProperty("attention");
     expect(extreme_scores.attention.predictor).toEqual("memory");
     expect(extreme_scores.attention.diff).toBeLessThan(-2);
