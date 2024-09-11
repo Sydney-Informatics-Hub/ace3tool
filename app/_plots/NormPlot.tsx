@@ -157,7 +157,7 @@ export default function NormPlot(props: NormPlotProps) {
   }, [bar_data, score_data, sd_threshold_data, spec_threshold_data, scores]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={WIDTH} height={HEIGHT} />
+      <PlotSkeleton className="w-800px h-700px" />
     </div>
   );
 }

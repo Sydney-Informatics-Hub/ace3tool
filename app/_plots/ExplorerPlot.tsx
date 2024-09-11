@@ -126,7 +126,7 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
       <PlotTitle>Explore ACE-III scores</PlotTitle>
       {data.length === 0 && <>Loading...</>}
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-800px h-800px" />
       </div>
     </>
   );

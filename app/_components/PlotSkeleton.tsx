@@ -1,17 +1,12 @@
-interface PlotSkeletonProps {
-  width: number;
-  height: number;
-}
+import React from "react";
 
-// TODO: this currently requires custom CSS classes, defined in globals.css
-//   not sure if there is a better way to do exact sizes
+interface PlotSkeletonProps extends React.HTMLProps<HTMLDivElement> {}
+
 export default function PlotSkeleton(props: PlotSkeletonProps) {
-  const { width, height } = props;
+  const { className } = props;
+  const combined_class = `${className || ""} p-4 animate-pulse md:p-6`;
   return (
-    <div
-      role="status"
-      className={`w-${width}px h-${height}px p-4 animate-pulse md:p-6`}
-    >
+    <div role="status" className={combined_class}>
       <div className="h-2.5 bg-gray-200 rounded-full  w-1/2 mb-2.5"></div>
       <div className="w-3/4 h-2 mb-10 bg-gray-200 rounded-full "></div>
       <div className="h-full flex items-baseline mt-4">

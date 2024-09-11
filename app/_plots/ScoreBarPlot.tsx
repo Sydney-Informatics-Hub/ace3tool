@@ -77,7 +77,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     <>
       <PlotTitle>Subdomain scores</PlotTitle>
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-450px" />
       </div>
     </>
   );

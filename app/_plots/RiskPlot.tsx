@@ -110,7 +110,7 @@ export default function RiskPlot(props: RiskPlotProps) {
         popover_id="risk_plot_tooltip"
       />
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-200px" />
       </div>
     </div>
   );

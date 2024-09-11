@@ -89,7 +89,7 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
   }, [risk, model, valid, total]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={400} height={100} />
+      <PlotSkeleton className="w-400px h-100px" />
     </div>
   );
 }

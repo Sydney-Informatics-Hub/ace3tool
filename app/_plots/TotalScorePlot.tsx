@@ -131,7 +131,7 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
       />
       <LegendTable items={legend_items} />
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-250px" />
       </div>
     </div>
   );

@@ -106,7 +106,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
         tooltip_content={<Tooltip />}
       />
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-200px" />
       </div>
     </div>
   );
