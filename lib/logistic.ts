@@ -1,19 +1,5 @@
-import {
-  create,
-  Matrix,
-  matrixDependencies,
-  multiplyDependencies,
-  sqrtDependencies,
-  transposeDependencies,
-} from "mathjs";
+import { Matrix } from "ml-matrix";
 import erfinv from "@stdlib/math-base-special-erfinv";
-
-const { matrix, multiply, transpose, sqrt } = create({
-  matrixDependencies,
-  multiplyDependencies,
-  sqrtDependencies,
-  transposeDependencies,
-});
 
 export type ModelCoefs<predictors extends string = string> = {
   intercept: number;
@@ -49,7 +35,7 @@ export class LogisticModel<predictors extends string> {
   ) {
     this.predictors = get_predictors(coefs.coefs);
     this.coefs = coefs;
-    this.vcov = options?.vcov ? matrix(options.vcov) : undefined;
+    this.vcov = options?.vcov ? new Matrix(options.vcov) : undefined;
     this.center_predictors = options?.center_predictors || false;
     this.predictor_means = options?.predictor_means || undefined;
   }
@@ -125,14 +111,12 @@ export class LogisticModel<predictors extends string> {
       : data;
     const tail = 1 - ci;
     const z = qnorm(1 - tail / 2);
-    const pred_matrix = matrix([1, ...Object.values<number>(pred_data)]);
-    // @ts-expect-error: math.js's types seem to be wrong here, if the result
-    //   is scalar it will just be a number
-    const variance: number = multiply(
-      multiply(pred_matrix, this.vcov),
-      transpose(pred_matrix)
-    );
-    const std_error: number = sqrt(variance) as number;
+    const pred_matrix = new Matrix([[1, ...Object.values<number>(pred_data)]]);
+    const variance: number = pred_matrix
+      .mmul(this.vcov)
+      .mmul(pred_matrix.transpose())
+      .get(0, 0);
+    const std_error: number = Math.sqrt(variance);
     const xb = this.linear_prediction(data);
     const xb_upper = xb + std_error * z;
     const xb_lower = xb - std_error * z;
