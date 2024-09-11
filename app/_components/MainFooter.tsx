@@ -1,4 +1,4 @@
-import { CustomFlowbiteTheme, Footer, FooterProps } from "flowbite-react";
+import { Footer, FooterProps } from "flowbite-react";
 
 export interface MainFooterProps extends FooterProps {}
 
