@@ -13,6 +13,7 @@ export function useValidatedScores(score_input: Partial<AceScaleScores>) {
       })
       .catch((err) => {
         setValid(false);
+        setScores(undefined);
         return;
       });
   }, [score_input]);
