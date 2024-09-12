@@ -10,7 +10,7 @@ import TermsModal from "@/app/_components/TermsModal";
 export const metadata: Metadata = {
   title: {
     template: "%s | FRONTIER Research",
-    default: "ACE-III risk calculator",
+    default: "ACE-III online dementia screening tool",
   },
   description:
     "A tool to interpret ACE-III scores and how they relate to dementia",
