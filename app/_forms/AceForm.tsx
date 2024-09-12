@@ -23,20 +23,20 @@ export default function AceForm(props: AceFormProps) {
       <h1 className="text-xl font-bold text-indigo-600">
         ACE-III online dementia screening tool
       </h1>
+      {/*TODO: add link to the paper here*/}
       <p className="text-base max-w-sm">
-        This tool is based on data from{" "}
-        <a
-          href="https://doi.org/10.1016/S1474-4422(23)00414-3"
-          className="text-blue-700"
-        >
-          Foxe (2024)
-        </a>
-        :{" "}
+        This tool is based on data from Foxe et al.{" "}
         <i>
-          Demographic, clinical, biomarker, and neuropathological correlates of
-          posterior cortical atrophy: an international cohort study and
-          individual participant data meta-analysis
+          Utility of the Addenbrooke’s Cognitive Examination-III Online Dementia
+          Screening Tool
         </i>
+        .<br />
+        It is intended for use by clinicians experienced in administering the
+        ACE-III. Please review the{" "}
+        <Link className="text-indigo-600" href="/about">
+          About
+        </Link>{" "}
+        section before proceeding.
       </p>
       <h2 className="text-xl font-bold text-indigo-600">
         Enter ACE-III subdomain scores
