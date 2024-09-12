@@ -4,6 +4,7 @@ import {
   AceScaleInfo,
   AceScales,
   AceScaleScores,
+  AceScaleScoresSchema,
 } from "@/app/_forms/schemas/ace";
 import { Button, Card, CardProps } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
@@ -15,7 +16,7 @@ type AceFormProps = {
 
 export default function AceForm(props: AceFormProps) {
   const { form, ...card_props } = props;
-  const { handleSubmit } = form;
+  const { handleSubmit, reset } = form;
 
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
   return (
@@ -51,6 +52,12 @@ export default function AceForm(props: AceFormProps) {
           const full_label = `${label} (/${max})`;
           return <ScoreInput key={scale} label={full_label} name={scale} />;
         })}
+        <Button
+          color="blue"
+          onClick={() => reset(AceScaleScoresSchema.getDefault())}
+        >
+          Reset
+        </Button>
       </form>
       <p>See how this patient compares to our sample:</p>
       <Link href="/explore">
