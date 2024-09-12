@@ -20,7 +20,9 @@ export default function AceForm(props: AceFormProps) {
   const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
   return (
     <Card {...card_props}>
-      <h1 className="text-xl font-bold text-indigo-600">ACE-III risk tool</h1>
+      <h1 className="text-xl font-bold text-indigo-600">
+        ACE-III online dementia screening tool
+      </h1>
       <p className="text-base max-w-sm">
         This tool is based on data from{" "}
         <a
