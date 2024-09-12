@@ -25,7 +25,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
       off: "",
     },
     inner: {
-      base: "mx-auto flex flex-wrap items-center justify-around",
+      base: "mx-auto flex items-center justify-around",
       fluid: {
         on: "",
         off: "container",
@@ -88,14 +88,14 @@ export default function MainNavbar() {
     <Navbar theme={NavbarTheme}>
       <NavbarBrand as={Link} href="/">
         <ChartBarIcon className="size-6 me-2" />
-        <span className="self-center whitespace-nowrap text-lg">
-          ACE-III risk calculator
+        <span className="self-center text-base text-wrap md:text-lg md:whitespace-nowrap">
+          ACE-III online dementia screening tool
         </span>
       </NavbarBrand>
       <div className="flex flex-grow-0 md:order-2">
         <Button
           gradientDuoTone="purpleToPink"
-          className="me-2"
+          className="me-2 text-nowrap"
           onClick={scroll_to_form}
         >
           Try it!
