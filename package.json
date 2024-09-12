@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "knip": "knip"
+    "knip": "knip",
+    "cy:run": "cypress run --browser firefox",
+    "e2e": "start-server-and-test dev http://localhost:3000/informatics/PIPE-5195-dementia-risk cy:run"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
