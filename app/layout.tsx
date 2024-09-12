@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import MainNavbar from "@/app/_components/MainNavbar";
 import AceFormProvider from "@/app/_forms/AceFormProvider";
 import MainFooter from "@/app/_components/MainFooter";
+import TermsModal from "@/app/_components/TermsModal";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head></head>
       <body>
+        <TermsModal />
         <MainNavbar />
         <AceFormProvider>{children}</AceFormProvider>
         <MainFooter className="mt-12 p-6 bg-gray-100" />
