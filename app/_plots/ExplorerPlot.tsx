@@ -25,6 +25,7 @@ type DataRow = {
   learning_difficulties: string;
   goldman_score: string;
   age_group: string;
+  dementia_type: string;
 };
 
 type DataRowWithJitter = DataRow & {

@@ -68,7 +68,10 @@ data <- data |>
         Education = raw_data$EducationYearsTotal %>%
             group_education(),
         GoldmanScore = raw_data$GoldmanScore %>%
-            group_goldman_score()
+            group_goldman_score(),
+        DementiaType = raw_data$dementia_raw %>%
+            as_factor() %>%
+            fct_recode(Major = "Major neurocognitive disorder", Minor = "Minor", Control="Non-dementia")
     )
 
 # Check grouped variables
@@ -82,7 +85,8 @@ exported_data <- data %>%
            age_group=AgeGroup,
            visit_number = VisitNumber,
            education = Education,
-           goldman_score = GoldmanScore
+           goldman_score = GoldmanScore,
+           dementia_type = DementiaType
            )
 
 list(data = exported_data) |>
