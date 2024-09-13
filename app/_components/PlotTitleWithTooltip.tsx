@@ -13,7 +13,7 @@ const customButtonTheme: CustomFlowbiteTheme["button"] = {
 };
 
 interface PlotTitleWithTooltipProps {
-  title: string;
+  title: string | ReactNode;
   tooltip_content: ReactNode;
   button_content?: ReactNode;
   popover_id?: string;
