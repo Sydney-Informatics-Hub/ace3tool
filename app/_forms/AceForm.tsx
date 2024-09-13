@@ -4,6 +4,9 @@ import {
   AceScaleInfo,
   AceScales,
   AceScaleScores,
+  AceScaleScoresDefaultInputs,
+  AceScaleScoresInput,
+  AceScaleScoresInputSchema,
   AceScaleScoresSchema,
 } from "@/app/_forms/schemas/ace";
 import { Button, Card, CardProps } from "flowbite-react";
@@ -11,14 +14,15 @@ import ScoreInput from "@/app/_forms/components/ScoreInput";
 import Link from "next/link";
 
 type AceFormProps = {
-  form: UseFormReturn<AceScaleScores>;
+  form: UseFormReturn<AceScaleScoresInput>;
 } & CardProps;
 
 export default function AceForm(props: AceFormProps) {
   const { form, ...card_props } = props;
   const { handleSubmit, reset } = form;
 
-  const onSubmit: SubmitHandler<AceScaleScores> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<AceScaleScoresInput> = (data) =>
+    console.log(data);
   return (
     <Card {...card_props}>
       <h1 className="text-xl font-bold text-indigo-600">
@@ -54,7 +58,9 @@ export default function AceForm(props: AceFormProps) {
         })}
         <Button
           color="blue"
-          onClick={() => reset(AceScaleScoresSchema.getDefault())}
+          className="mx-auto"
+          size="lg"
+          onClick={() => reset(AceScaleScoresDefaultInputs)}
         >
           Reset
         </Button>
