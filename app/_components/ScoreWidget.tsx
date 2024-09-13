@@ -2,13 +2,14 @@
 import { useFormContext, useWatch } from "react-hook-form";
 import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 import AceForm from "@/app/_forms/AceForm";
-import { Card, FlowbiteCardTheme } from "flowbite-react";
+import { Button, Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
 import model from "@/app/_model/model";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
 import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
+import Link from "next/link";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -59,6 +60,10 @@ export default function ScoreWidget() {
       >
         <div className="flex flex-col justify-start space-y-4">
           <ScoreBarPlot scores={current_value} />
+          <p className="max-w-md text-center">
+            See the density plots below to compare these subdomain scores to the
+            distribution in dementia and control patients
+          </p>
           <RiskPlot scores={current_value} model={model} />
           <RiskContributionPlot scores={current_value} model={model} />
         </div>
@@ -66,6 +71,12 @@ export default function ScoreWidget() {
       <Card id="risk-plots" className="max-w-xl" theme={NoPaddingCardTheme}>
         <div className="flex flex-col justify-start space-y-4">
           <TotalScorePlot scores={current_value} />
+          <Link className="mx-auto mt-4" href="/explore">
+            <Button size="lg">Explore sample</Button>
+          </Link>
+          <p className="text-center">
+            See how this patient compares to our sample:
+          </p>
         </div>
       </Card>
       <NormPlotDisplay
