@@ -9,7 +9,7 @@ import {
 } from "@/app/_forms/schemas/explorer_filters";
 import { useFormContext, UseFormReturn } from "react-hook-form";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScores, AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { colours } from "@/app/_utils/colours";
 import uniform from "@stdlib/random-base-uniform";
 
@@ -53,7 +53,7 @@ interface ExplorerPlotProps {
 
 export default function ExplorerPlot(props: ExplorerPlotProps) {
   const { form_return } = props;
-  const score_form = useFormContext<AceScaleScores>();
+  const score_form = useFormContext<AceScaleScoresInput>();
   const { watch: watch_scores } = score_form;
   const scores = watch_scores();
   const containerRef = useRef<HTMLDivElement>(null);
