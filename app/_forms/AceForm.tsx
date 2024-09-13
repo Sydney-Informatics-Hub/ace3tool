@@ -62,10 +62,6 @@ export default function AceForm(props: AceFormProps) {
           Reset
         </Button>
       </form>
-      <p>See how this patient compares to our sample:</p>
-      <Link href="/explore">
-        <Button>Explore sample</Button>
-      </Link>
     </Card>
   );
 }
