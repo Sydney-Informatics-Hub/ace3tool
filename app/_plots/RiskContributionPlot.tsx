@@ -103,7 +103,7 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
   const Title = () => {
     return (
       <>
-        <span className="me-3">Dementia risk value</span>
+        <span className="me-3">Factors affecting risk</span>
         <span className="text-gray-500 font-light">
           (binomial logistic regression)
         </span>
