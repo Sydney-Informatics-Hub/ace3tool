@@ -1,7 +1,11 @@
-import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
+import {
+  AceScaleScores,
+  AceScaleScoresInput,
+  AceScaleScoresSchema,
+} from "@/app/_forms/schemas/ace";
 import { useEffect, useState } from "react";
 
-export function useValidatedScores(score_input: Partial<AceScaleScores>) {
+export function useValidatedScores(score_input: Partial<AceScaleScoresInput>) {
   const [valid, setValid] = useState(false);
   const [scores, setScores] = useState<AceScaleScores | undefined>(undefined);
 

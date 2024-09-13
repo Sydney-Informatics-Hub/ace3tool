@@ -4,7 +4,7 @@ import * as Plot from "@observablehq/plot";
 import {
   AceScaleInfo,
   AceScales,
-  AceScaleScores,
+  AceScaleScoresInput,
 } from "@/app/_forms/schemas/ace";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { ace_colour_scale } from "@/app/_utils/colours";
@@ -14,7 +14,7 @@ const WIDTH = 500;
 const HEIGHT = 450;
 
 interface ScoreBarPlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
 }
 
 export default function ScoreBarPlot(props: ScoreBarPlotProps) {

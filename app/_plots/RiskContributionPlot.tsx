@@ -2,6 +2,7 @@ import {
   AceScaleInfo,
   AceScales,
   AceScaleScores,
+  AceScaleScoresInput,
 } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import data_summary from "@/app/_model/data_summary_v1.json";
@@ -13,7 +14,7 @@ import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskContributionPlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
   model: LogisticModel<keyof AceScaleScores>;
 }
 

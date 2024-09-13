@@ -9,7 +9,7 @@ import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -36,7 +36,7 @@ const NoPaddingCardTheme: FlowbiteCardTheme = {
  */
 export default function ScoreWidget() {
   // Form context is set up in the root layout via AceFormProvider
-  const form = useFormContext<AceScaleScores>();
+  const form = useFormContext<AceScaleScoresInput>();
   const { control, formState } = form;
   // Need to subscribe to errors to get instant error validation
   const { errors } = formState;

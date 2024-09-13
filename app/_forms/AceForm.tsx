@@ -3,11 +3,8 @@ import { SubmitHandler, UseFormReturn } from "react-hook-form";
 import {
   AceScaleInfo,
   AceScales,
-  AceScaleScores,
   AceScaleScoresDefaultInputs,
   AceScaleScoresInput,
-  AceScaleScoresInputSchema,
-  AceScaleScoresSchema,
 } from "@/app/_forms/schemas/ace";
 import { Button, Card, CardProps } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";

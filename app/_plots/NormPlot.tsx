@@ -5,6 +5,7 @@ import {
   AceScaleInfo,
   AceScales,
   AceScaleScores,
+  AceScaleScoresInput,
 } from "@/app/_forms/schemas/ace";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import data_summary from "@/app/_model/data_summary_v1.json";
@@ -20,7 +21,7 @@ const rescale_score = (score: number, scale: keyof AceScaleScores) => {
 };
 
 interface NormPlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
 }
 
 export default function NormPlot(props: NormPlotProps) {

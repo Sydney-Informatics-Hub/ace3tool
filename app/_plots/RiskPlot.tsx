@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import * as Plot from "@observablehq/plot";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScores, AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
@@ -10,7 +10,7 @@ import { colours } from "@/app/_utils/colours";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskPlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
   model: LogisticModel<keyof AceScaleScores>;
 }
 
