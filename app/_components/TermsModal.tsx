@@ -19,9 +19,6 @@ export default function TermsModal() {
   const [cookies, setCookie, removeCookie] = useCookies(["accepted_terms"]);
   const accepted = cookies.accepted_terms === true;
   const [open, setOpen] = React.useState(false);
-  console.log(cookies);
-  console.log(accepted);
-  console.log();
 
   useEffect(() => {
     setOpen(!accepted);
