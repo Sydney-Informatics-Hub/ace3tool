@@ -100,12 +100,19 @@ export default function RiskContributionPlot(props: RiskContributionPlotProps) {
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
   }, [xb_data, model, scores]);
+  const Title = () => {
+    return (
+      <>
+        <span className="me-3">Dementia risk value</span>
+        <span className="text-gray-500 font-light">
+          (binomial logistic regression)
+        </span>
+      </>
+    );
+  };
   return (
     <div>
-      <PlotTitleWithTooltip
-        title={"Factors affecting risk"}
-        tooltip_content={<Tooltip />}
-      />
+      <PlotTitleWithTooltip title={<Title />} tooltip_content={<Tooltip />} />
       <div ref={containerRef}>
         <PlotSkeleton className="w-500px h-200px" />
       </div>

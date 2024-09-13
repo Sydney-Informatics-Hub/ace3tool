@@ -102,10 +102,31 @@ export default function RiskPlot(props: RiskPlotProps) {
       The horizontal line represents the 95% prediction interval for risk.
     </span>
   );
+  const Title = (props: { risk: number | undefined }) => {
+    if (risk !== undefined) {
+      return (
+        <>
+          <span className="me-3">Dementia risk value: {Math.round(risk)}%</span>
+          <span className="text-gray-500 font-light">
+            (binomial logistic regression)
+          </span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <span className="me-3">Dementia risk value</span>
+          <span className="text-gray-500 font-light">
+            (binomial logistic regression)
+          </span>
+        </>
+      );
+    }
+  };
   return (
     <div>
       <PlotTitleWithTooltip
-        title={risk ? `Dementia risk: ${Math.round(risk)}%` : "Dementia risk"}
+        title={<Title risk={risk} />}
         tooltip_content={<Tooltip />}
         popover_id="risk_plot_tooltip"
       />

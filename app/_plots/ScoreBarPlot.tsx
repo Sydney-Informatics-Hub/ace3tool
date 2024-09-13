@@ -75,7 +75,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
   }, [score_data]);
   return (
     <>
-      <PlotTitle>Subdomain scores</PlotTitle>
+      <PlotTitle>Subdomain raw scores</PlotTitle>
       <div ref={containerRef}>
         <PlotSkeleton className="w-500px h-450px" />
       </div>
