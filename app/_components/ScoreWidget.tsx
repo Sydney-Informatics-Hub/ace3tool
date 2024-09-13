@@ -10,6 +10,7 @@ import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
 import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import Link from "next/link";
+import DistPlotSmall from "@/app/_plots/DistPlotSmall";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -74,9 +75,13 @@ export default function ScoreWidget() {
           <Link className="mx-auto mt-4" href="/explore">
             <Button size="lg">Explore sample</Button>
           </Link>
-          <p className="text-center">
-            See how this patient compares to our sample:
+          <p className="max-w-md">
+            See how this patient compares to our sample -{" "}
+            <Link className="text-indigo-600" href="/explore">
+              explore this in more detail here
+            </Link>
           </p>
+          <DistPlotSmall />
         </div>
       </Card>
       <NormPlotDisplay
