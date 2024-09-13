@@ -1,15 +1,10 @@
 "use client";
 import * as Plot from "@observablehq/plot";
 import React, { useEffect, useRef, useState } from "react";
-import PlotTitle from "@/app/_components/PlotTitle";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
-import {
-  ExplorerFilterNames,
-  ExplorerFilters,
-} from "@/app/_forms/schemas/explorer_filters";
-import { useFormContext, UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
-import { AceScaleScores, AceScaleScoresInput } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { colours } from "@/app/_utils/colours";
 import uniform from "@stdlib/random-base-uniform";
 

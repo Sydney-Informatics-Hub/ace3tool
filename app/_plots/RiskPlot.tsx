@@ -103,6 +103,7 @@ export default function RiskPlot(props: RiskPlotProps) {
     </span>
   );
   const Title = (props: { risk: number | undefined }) => {
+    const risk = props.risk;
     if (risk !== undefined) {
       return (
         <>

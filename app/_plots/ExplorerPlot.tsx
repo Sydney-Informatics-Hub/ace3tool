@@ -9,7 +9,7 @@ import {
 } from "@/app/_forms/schemas/explorer_filters";
 import { useFormContext, UseFormReturn } from "react-hook-form";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
-import { AceScaleScores, AceScaleScoresInput } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { colours } from "@/app/_utils/colours";
 import uniform from "@stdlib/random-base-uniform";
 
