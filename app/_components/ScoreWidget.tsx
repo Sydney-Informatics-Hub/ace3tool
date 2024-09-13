@@ -4,10 +4,9 @@ import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 import AceForm from "@/app/_forms/AceForm";
 import { Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
-import model, { total_model } from "@/app/_model/model";
+import model from "@/app/_model/model";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
-import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
 import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 
@@ -59,15 +58,14 @@ export default function ScoreWidget() {
         theme={NoPaddingCardTheme}
       >
         <div className="flex flex-col justify-start space-y-4">
-          <TotalScorePlot scores={current_value} />
+          <ScoreBarPlot scores={current_value} />
           <RiskPlot scores={current_value} model={model} />
           <RiskContributionPlot scores={current_value} model={model} />
         </div>
       </Card>
       <Card id="risk-plots" className="max-w-xl" theme={NoPaddingCardTheme}>
         <div className="flex flex-col justify-start space-y-4">
-          <ScoreBarPlot scores={current_value} />
-          <RiskPlotTotal scores={current_value} model={total_model} />
+          <TotalScorePlot scores={current_value} />
         </div>
       </Card>
       <NormPlotDisplay
