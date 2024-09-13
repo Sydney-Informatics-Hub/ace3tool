@@ -11,7 +11,7 @@ import { ace_colour_scale } from "@/app/_utils/colours";
 import PlotTitle from "@/app/_components/PlotTitle";
 
 const WIDTH = 500;
-const HEIGHT = 450;
+const HEIGHT = 400;
 
 interface ScoreBarPlotProps {
   scores: Partial<AceScaleScoresInput>;
@@ -77,7 +77,7 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
     <>
       <PlotTitle>Subdomain raw scores</PlotTitle>
       <div ref={containerRef}>
-        <PlotSkeleton className="w-500px h-450px" />
+        <PlotSkeleton className="w-500px h-400px" />
       </div>
     </>
   );
