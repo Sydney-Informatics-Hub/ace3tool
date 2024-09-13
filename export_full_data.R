@@ -76,7 +76,7 @@ data <- data |>
 
 # Check grouped variables
 data |>
-    select(VisitNumber, Education, GoldmanScore) |>
+    select(VisitNumber, Education, GoldmanScore, DementiaType) |>
     gtsummary::tbl_summary()
 
 exported_data <- data %>%
