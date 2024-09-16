@@ -8,21 +8,20 @@ import {
 import real_data_with_total from "@/app/_model/data_summary_v1.json";
 import * as _ from "radash";
 
-const real_data_summary = {
-  control_sds: _.omit(real_data_with_total.control_sds, ["total"]),
-  control_means: _.omit(real_data_with_total.control_means, ["total"]),
+const control_data_summary = {
+  sds: _.omit(real_data_with_total.control_sds, ["total"]),
+  means: _.omit(real_data_with_total.control_means, ["total"]),
 };
-// TODO: this shouldn't be "control" if we want to base it on dementia
 const dementia_data_summary = {
-  control_sds: _.omit(real_data_with_total.dementia_sds, ["total"]),
-  control_means: _.omit(real_data_with_total.dementia_means, ["total"]),
+  sds: _.omit(real_data_with_total.dementia_sds, ["total"]),
+  means: _.omit(real_data_with_total.dementia_means, ["total"]),
 };
 
 describe("Identifying extreme scores", () => {
   test("We can calculate z-scores for each predictor", () => {
     const data_summary: DataSummary<"a" | "b" | "c"> = {
-      control_means: { a: 5, b: 10, c: 20 },
-      control_sds: { a: 1, b: 2, c: 3 },
+      means: { a: 5, b: 10, c: 20 },
+      sds: { a: 1, b: 2, c: 3 },
     };
     const data: Data<"a" | "b" | "c"> = {
       a: 2,
@@ -41,8 +40,8 @@ describe("Identifying extreme scores", () => {
 
   test("We can find the biggest differences in z-scores for each predictor", () => {
     const data_summary: DataSummary<"a" | "b" | "c"> = {
-      control_means: { a: 5, b: 10, c: 20 },
-      control_sds: { a: 1, b: 2, c: 3 },
+      means: { a: 5, b: 10, c: 20 },
+      sds: { a: 1, b: 2, c: 3 },
     };
     const data: Data<"a" | "b" | "c"> = {
       a: 2,
@@ -50,9 +49,7 @@ describe("Identifying extreme scores", () => {
       c: 20,
     };
     //
-    const expected_diffs = {
-      a: { predictor: "b", diff: -4 },
-    };
+    const expected_diffs = [{ predictor: "a", diff: -4, other_predictor: "b" }];
     const extreme_scores = get_extreme_scores(data, data_summary, -2);
     expect(extreme_scores).toEqual(expected_diffs);
   });
@@ -67,12 +64,15 @@ describe("Test on actual data from our sample", () => {
       language: 20,
       visuospatial: 11,
     };
-    const z_scores = get_z_scores(data, real_data_summary);
-    console.log(z_scores);
-    const extreme_scores = get_extreme_scores(data, real_data_summary, -5);
-    expect(extreme_scores).toHaveProperty("attention");
-    expect(extreme_scores.attention.predictor).toEqual("memory");
-    expect(extreme_scores.attention.diff).toBeLessThan(-5);
+    const z_scores = get_z_scores(data, control_data_summary);
+    const extreme_scores = get_extreme_scores(data, control_data_summary, -5);
+    expect(extreme_scores).toHaveLength(2);
+    const attention = extreme_scores.filter(
+      (item) => item.predictor === "attention"
+    )[0];
+    expect(attention.predictor).toEqual("attention");
+    expect(attention.other_predictor).toEqual("memory");
+    expect(attention.diff).toBeLessThan(-5);
   });
   test("Low attention compared to memory etc., based on dementia mean/sd", () => {
     const data = {
@@ -84,8 +84,11 @@ describe("Test on actual data from our sample", () => {
     };
     const z_scores = get_z_scores(data, dementia_data_summary);
     const extreme_scores = get_extreme_scores(data, dementia_data_summary, -2);
-    expect(extreme_scores).toHaveProperty("attention");
-    expect(extreme_scores.attention.predictor).toEqual("memory");
-    expect(extreme_scores.attention.diff).toBeLessThan(-2);
+    const attention = extreme_scores.filter(
+      (item) => item.predictor === "attention"
+    )[0];
+    expect(attention.predictor).toEqual("attention");
+    expect(attention.other_predictor).toEqual("memory");
+    expect(attention.diff).toBeLessThan(-2);
   });
 });
