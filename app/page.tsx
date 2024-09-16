@@ -2,8 +2,8 @@ import ScoreWidget from "@/app/_components/ScoreWidget";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ACE-III risk calculator | FRONTIER Research",
-  description: "Predict risk of impairment based on ACE-III scores",
+  title: "ACE-III online dementia screening tool | FRONTIER Research",
+  description: "Predict and visualize the impact of ACE-III scores",
 };
 
 export default function Home() {

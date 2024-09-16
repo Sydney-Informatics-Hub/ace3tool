@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useEffect, useRef } from "react";
 import * as Plot from "@observablehq/plot";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { colours, tableau10_colours } from "@/app/_utils/colours";
@@ -32,7 +32,7 @@ const legend_items: LegendItem[] = [
 ];
 
 interface TotalScorePlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
 }
 
 const get_sd_threshold = () => {
@@ -120,17 +120,18 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
   return (
     <div>
       <PlotTitleWithTooltip
-        title="Total score"
+        title="ACE-III Total score"
         tooltip_content={<TotalScoreLegend />}
         button_content={
           <>
             Legend <QuestionMarkCircleIcon className="size-5 ms-2" />
           </>
         }
+        padding={0}
       />
       <LegendTable items={legend_items} />
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-250px" />
       </div>
     </div>
   );

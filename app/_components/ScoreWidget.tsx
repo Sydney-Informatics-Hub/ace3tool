@@ -2,14 +2,15 @@
 import { useFormContext, useWatch } from "react-hook-form";
 import TotalScorePlot from "@/app/_plots/TotalScorePlot";
 import AceForm from "@/app/_forms/AceForm";
-import { Card, FlowbiteCardTheme } from "flowbite-react";
+import { Button, Card, FlowbiteCardTheme } from "flowbite-react";
 import RiskPlot from "@/app/_plots/RiskPlot";
-import model, { total_model } from "@/app/_model/model";
+import model from "@/app/_model/model";
 import ScoreBarPlot from "@/app/_plots/ScoreBarPlot";
 import { NormPlotDisplay } from "@/app/_components/NormPlotDisplay";
-import RiskPlotTotal from "@/app/_plots/RiskPlotTotal";
 import RiskContributionPlot from "@/app/_plots/RiskContributionPlot";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
+import Link from "next/link";
+import DistPlotSmall from "@/app/_plots/DistPlotSmall";
 
 const NoPaddingCardTheme: FlowbiteCardTheme = {
   root: {
@@ -36,7 +37,7 @@ const NoPaddingCardTheme: FlowbiteCardTheme = {
  */
 export default function ScoreWidget() {
   // Form context is set up in the root layout via AceFormProvider
-  const form = useFormContext<AceScaleScores>();
+  const form = useFormContext<AceScaleScoresInput>();
   const { control, formState } = form;
   // Need to subscribe to errors to get instant error validation
   const { errors } = formState;
@@ -59,15 +60,28 @@ export default function ScoreWidget() {
         theme={NoPaddingCardTheme}
       >
         <div className="flex flex-col justify-start space-y-4">
-          <TotalScorePlot scores={current_value} />
+          <ScoreBarPlot scores={current_value} />
+          <p className="max-w-md text-center">
+            See the density plots below to compare these subdomain scores to the
+            distribution in dementia and control patients
+          </p>
           <RiskPlot scores={current_value} model={model} />
           <RiskContributionPlot scores={current_value} model={model} />
         </div>
       </Card>
       <Card id="risk-plots" className="max-w-xl" theme={NoPaddingCardTheme}>
         <div className="flex flex-col justify-start space-y-4">
-          <ScoreBarPlot scores={current_value} />
-          <RiskPlotTotal scores={current_value} model={total_model} />
+          <TotalScorePlot scores={current_value} />
+          <Link className="mx-auto mt-4" href="/explore">
+            <Button size="lg">Explore sample</Button>
+          </Link>
+          <p className="max-w-md">
+            See how this patient compares to our sample -{" "}
+            <Link className="text-indigo-600" href="/explore">
+              explore this in more detail here
+            </Link>
+          </p>
+          <DistPlotSmall />
         </div>
       </Card>
       <NormPlotDisplay

@@ -4,17 +4,17 @@ import * as Plot from "@observablehq/plot";
 import {
   AceScaleInfo,
   AceScales,
-  AceScaleScores,
+  AceScaleScoresInput,
 } from "@/app/_forms/schemas/ace";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { ace_colour_scale } from "@/app/_utils/colours";
 import PlotTitle from "@/app/_components/PlotTitle";
 
 const WIDTH = 500;
-const HEIGHT = 450;
+const HEIGHT = 400;
 
 interface ScoreBarPlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
 }
 
 export default function ScoreBarPlot(props: ScoreBarPlotProps) {
@@ -75,9 +75,9 @@ export default function ScoreBarPlot(props: ScoreBarPlotProps) {
   }, [score_data]);
   return (
     <>
-      <PlotTitle>Subdomain scores</PlotTitle>
+      <PlotTitle>Subdomain raw scores</PlotTitle>
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-400px" />
       </div>
     </>
   );

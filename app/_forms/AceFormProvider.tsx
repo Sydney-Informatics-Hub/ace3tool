@@ -1,6 +1,10 @@
 "use client";
 import { FormProvider, useForm } from "react-hook-form";
-import { AceScaleScores, AceScaleScoresSchema } from "@/app/_forms/schemas/ace";
+import {
+  AceScaleScoresDefaultInputs,
+  AceScaleScoresInput,
+  AceScaleScoresInputSchema,
+} from "@/app/_forms/schemas/ace";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactNode } from "react";
 
@@ -21,10 +25,10 @@ interface AceFormProviderProps {
  * the form's values/methods
  */
 export default function AceFormProvider({ children }: AceFormProviderProps) {
-  const form = useForm<AceScaleScores>({
+  const form = useForm<AceScaleScoresInput>({
     mode: "all",
-    defaultValues: AceScaleScoresSchema.getDefault(),
-    resolver: yupResolver(AceScaleScoresSchema),
+    defaultValues: AceScaleScoresDefaultInputs,
+    resolver: yupResolver(AceScaleScoresInputSchema),
   });
   return <FormProvider {...form}>{children}</FormProvider>;
 }

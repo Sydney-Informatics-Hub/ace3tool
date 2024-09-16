@@ -11,6 +11,7 @@ export default function ScoreInput(props: ScoreInputProps) {
   const { label, name, ...input_props } = props;
   const { register, getFieldState } = useFormContext();
   const state = getFieldState(name);
+  const input_id = `${name}_input`;
   const colour = state.isDirty
     ? state.invalid
       ? "failure"
@@ -19,8 +20,9 @@ export default function ScoreInput(props: ScoreInputProps) {
 
   return (
     <div>
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={input_id}>{label}</Label>
       <TextInput
+        id={input_id}
         type="number"
         color={colour}
         {...register(name)}

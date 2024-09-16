@@ -2,6 +2,7 @@ library(tidyverse)
 library(jsonlite)
 library(readr)
 library(stringr)
+library(readxl)
 
 
 # Read in and clean data ######
@@ -23,6 +24,7 @@ data <- data %>%
            predicted = levels(dementia)[model$y + 1] %>%
                fct(levels=levels(dementia)),
            prob = 1 -  predict(model, type="response"))
+
 
 # Long data format - useful for some summaries
 data_long <- data |>

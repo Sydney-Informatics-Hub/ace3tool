@@ -1,11 +1,11 @@
 import { Card, CardProps, Table } from "flowbite-react";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import NormPlot from "@/app/_plots/NormPlot";
 import { HTMLAttributes, ReactNode } from "react";
 import AreaIcon from "@/app/_components/AreaIcon";
 
 type NormPlotDisplayProps = CardProps & {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
 };
 
 interface LegendTableItem {

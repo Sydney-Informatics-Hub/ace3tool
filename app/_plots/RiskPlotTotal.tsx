@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import * as Plot from "@observablehq/plot";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
@@ -9,7 +9,7 @@ import { bold_title, create_d3_gradient } from "@/app/_plots/plot_utils";
 import { colours } from "@/app/_utils/colours";
 
 interface RiskPlotTotalProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
   model: LogisticModel<"total">;
 }
 
@@ -89,7 +89,7 @@ export default function RiskPlotTotal(props: RiskPlotTotalProps) {
   }, [risk, model, valid, total]);
   return (
     <div ref={containerRef}>
-      <PlotSkeleton width={400} height={100} />
+      <PlotSkeleton className="w-400px h-100px" />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import * as Plot from "@observablehq/plot";
-import { AceScaleScores } from "@/app/_forms/schemas/ace";
+import { AceScaleScores, AceScaleScoresInput } from "@/app/_forms/schemas/ace";
 import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
@@ -10,7 +10,7 @@ import { colours } from "@/app/_utils/colours";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskPlotProps {
-  scores: Partial<AceScaleScores>;
+  scores: Partial<AceScaleScoresInput>;
   model: LogisticModel<keyof AceScaleScores>;
 }
 
@@ -94,14 +94,45 @@ export default function RiskPlot(props: RiskPlotProps) {
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
   }, [risk, model, scores]);
+  const Tooltip = () => (
+    <span>
+      The predicted risk of dementia value is obtained from a logistic
+      regression model fitted to our sample.
+      <br />
+      The horizontal line represents the 95% prediction interval for risk.
+    </span>
+  );
+  const Title = (props: { risk: number | undefined }) => {
+    const risk = props.risk;
+    if (risk !== undefined) {
+      return (
+        <>
+          <span className="me-3">Dementia risk value: {Math.round(risk)}%</span>
+          <span className="text-gray-500 font-light">
+            (binomial logistic regression)
+          </span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <span className="me-3">Dementia risk value</span>
+          <span className="text-gray-500 font-light">
+            (binomial logistic regression)
+          </span>
+        </>
+      );
+    }
+  };
   return (
     <div>
       <PlotTitleWithTooltip
-        title={risk ? `Dementia risk: ${Math.round(risk)}%` : "Dementia risk"}
-        tooltip_content="The predicted risk of dementia from a logistic regression model fitted to our sample"
+        title={<Title risk={risk} />}
+        tooltip_content={<Tooltip />}
+        popover_id="risk_plot_tooltip"
       />
       <div ref={containerRef}>
-        <PlotSkeleton width={WIDTH} height={HEIGHT} />
+        <PlotSkeleton className="w-500px h-200px" />
       </div>
     </div>
   );
