@@ -1,4 +1,5 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
+import createMDX from '@next/mdx'
 
 const withBundleAnalyzer = bundleAnalyzer({enabled: process.env.ANALYZE === 'true'});
 
@@ -7,7 +8,12 @@ const nextConfig = {
   output: "export",
   basePath: "/informatics/PIPE-5195-dementia-risk",
   trailingSlash: true,
-  images: {unoptimized: true}
+  images: {unoptimized: true},
+  pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
 };
 
-export default withBundleAnalyzer(nextConfig);
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+})
+
+export default withMDX(withBundleAnalyzer(nextConfig));
