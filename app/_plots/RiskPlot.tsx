@@ -96,8 +96,8 @@ export default function RiskPlot(props: RiskPlotProps) {
   }, [risk, model, scores]);
   const Tooltip = () => (
     <span>
-      The predicted risk of dementia from a logistic regression model fitted to
-      our sample.
+      The predicted risk of dementia value is obtained from a logistic
+      regression model fitted to our sample.
       <br />
       The horizontal line represents the 95% prediction interval for risk.
     </span>
