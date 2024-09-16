@@ -8,10 +8,9 @@ const logistic_model = new LogisticModel(model_data.coefs, {
 });
 export default logistic_model;
 
-// TODO: should this be based on the dementia means instead?
 export interface DataSummary<predictors extends string> {
-  control_means: Data<predictors>;
-  control_sds: Data<predictors>;
+  means: Data<predictors>;
+  sds: Data<predictors>;
 }
 
 export function get_z_scores<predictors extends string>(
@@ -20,8 +19,8 @@ export function get_z_scores<predictors extends string>(
 ): Data<predictors> {
   const predictor_names = get_predictors(scores);
   const z_scores: [predictors, number][] = predictor_names.map((predictor) => {
-    const diff = scores[predictor] - summary.control_means[predictor];
-    return [predictor, diff / summary.control_sds[predictor]];
+    const diff = scores[predictor] - summary.means[predictor];
+    return [predictor, diff / summary.sds[predictor]];
   });
   return Object.fromEntries(z_scores) as Data<predictors>;
 }
@@ -29,6 +28,12 @@ export function get_z_scores<predictors extends string>(
 type Difference<predictors extends string> = {
   predictor: predictors;
   diff: number;
+};
+
+type ExtremeScoreEntry<predictors extends string> = {
+  predictor: predictors;
+  diff: number;
+  other_predictor: predictors;
 };
 
 function get_largest_differences<predictors extends string>(
@@ -66,16 +71,18 @@ export function get_extreme_scores<predictors extends string>(
   scores: Data<predictors>,
   summary: DataSummary<predictors>,
   threshold: number = -2
-): Record<predictors, Difference<predictors>> {
+): ExtremeScoreEntry<predictors>[] {
   const z_scores = get_z_scores(scores, summary);
   const largest_diffs = get_largest_differences(z_scores);
-  const extreme_diffs = Object.entries<Difference<predictors>>(
-    largest_diffs
-  ).filter(([_, difference]) => {
-    return difference.diff < threshold;
-  });
-  return Object.fromEntries(extreme_diffs) as Record<
-    predictors,
-    Difference<predictors>
-  >;
+  return Object.entries<Difference<predictors>>(largest_diffs)
+    .filter(([_, difference]) => {
+      return difference.diff < threshold;
+    })
+    .map(([predictor, difference]) => {
+      return {
+        predictor: predictor as predictors,
+        diff: difference.diff,
+        other_predictor: difference.predictor,
+      };
+    });
 }
