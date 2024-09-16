@@ -42,8 +42,13 @@ export const ExplorerFilterSchema = object({
   age_group: string().oneOf(FilterOptions.age_group).default("All"),
   education: string().oneOf(FilterOptions.education).default("All"),
   goldman_score: string().oneOf(FilterOptions.goldman_score).default("All"),
-  dementia_type: string().oneOf(FilterOptions.dementia_type).default("All"),
-  diagnosis: string().oneOf(FilterOptions.diagnosis).default("All"),
+  // Allow 'Control' for data validation/testing, but don't include it as an option in UI
+  dementia_type: string()
+    .oneOf([...FilterOptions.dementia_type, "Control"])
+    .default("All"),
+  diagnosis: string()
+    .oneOf([...FilterOptions.diagnosis, "Control"])
+    .default("All"),
 });
 
 export interface ExplorerFilters
