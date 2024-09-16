@@ -9,6 +9,17 @@ export const FilterOptions = {
   education: ["All", "9 or less", "10-12", "13+"],
   goldman_score: ["All", "1-2", "3+", "Unknown"],
   dementia_type: ["All", "Major", "Minor"],
+  diagnosis: [
+    "All",
+    "AD and amnestic MCI",
+    "bvFTD and FTD undefined",
+    "CBS and CBS + PPA",
+    "VD, DLB and Dementia NOS",
+    "FTD-MND and MND",
+    "PPA",
+    "PCA",
+    "PSP",
+  ],
 };
 
 export const FilterLabels = {
@@ -19,6 +30,7 @@ export const FilterLabels = {
   education: "Years of education",
   goldman_score: "Goldman score",
   dementia_type: "Neurocognitive disorder",
+  diagnosis: "Diagnosis",
 };
 
 export const ExplorerFilterSchema = object({
@@ -31,6 +43,7 @@ export const ExplorerFilterSchema = object({
   education: string().oneOf(FilterOptions.education).default("All"),
   goldman_score: string().oneOf(FilterOptions.goldman_score).default("All"),
   dementia_type: string().oneOf(FilterOptions.dementia_type).default("All"),
+  diagnosis: string().oneOf(FilterOptions.diagnosis).default("All"),
 });
 
 export interface ExplorerFilters
@@ -44,4 +57,5 @@ export const ExplorerFilterNames: (keyof ExplorerFilters)[] = [
   "education",
   "goldman_score",
   "dementia_type",
+  "diagnosis",
 ];
