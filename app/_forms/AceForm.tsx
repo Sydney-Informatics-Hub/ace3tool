@@ -11,14 +11,14 @@ import { Alert, Button, Card, CardProps, List } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
 import Link from "next/link";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
-import { get_extreme_scores } from "@/app/_model/model";
+import { DataSummary, get_extreme_scores } from "@/app/_model/model";
 import real_data_with_total from "@/app/_model/data_summary_v1.json";
 import * as _ from "radash";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
-const real_data_summary = {
-  control_sds: _.omit(real_data_with_total.control_sds, ["total"]),
-  control_means: _.omit(real_data_with_total.control_means, ["total"]),
+const dementia_data_summary: DataSummary<keyof AceScaleScores> = {
+  sds: _.omit(real_data_with_total.dementia_sds, ["total"]),
+  means: _.omit(real_data_with_total.dementia_means, ["total"]),
 };
 
 type AceFormProps = {
@@ -30,11 +30,10 @@ function ExtremeScoreWarning(props: { scores: Partial<AceScaleScoresInput> }) {
   const validated_scores: Readonly<AceScaleScores> | undefined =
     useValidatedScores(scores).scores;
   const extreme_scores = validated_scores
-    ? get_extreme_scores(validated_scores, real_data_summary, -3)
+    ? get_extreme_scores(validated_scores, dementia_data_summary, -2)
     : undefined;
-  const has_extreme_score = AceScales.filter((scale) => {
-    return extreme_scores ? extreme_scores[scale] !== undefined : false;
-  }).some((x) => x);
+  const has_extreme_score =
+    extreme_scores !== undefined && extreme_scores.length > 0;
   if (!has_extreme_score) {
     return <></>;
   }
@@ -42,13 +41,10 @@ function ExtremeScoreWarning(props: { scores: Partial<AceScaleScoresInput> }) {
     <Alert color="info" icon={InformationCircleIcon}>
       This looks like an unusual score profile:
       <List className="text-inherit my-2">
-        {AceScales.filter((scale) => {
-          return extreme_scores ? extreme_scores[scale] !== undefined : false;
-        }).map((scale) => {
-          const diff = extreme_scores![scale];
+        {extreme_scores.map((entry, index) => {
           return (
-            <List.Item key={scale}>
-              Low {scale} compared to {diff.predictor}
+            <List.Item key={index}>
+              Low {entry.predictor} compared to {entry.other_predictor}
             </List.Item>
           );
         })}
