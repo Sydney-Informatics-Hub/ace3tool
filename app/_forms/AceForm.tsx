@@ -3,20 +3,66 @@ import { SubmitHandler, UseFormReturn } from "react-hook-form";
 import {
   AceScaleInfo,
   AceScales,
+  AceScaleScores,
   AceScaleScoresDefaultInputs,
   AceScaleScoresInput,
 } from "@/app/_forms/schemas/ace";
-import { Button, Card, CardProps } from "flowbite-react";
+import { Alert, Button, Card, CardProps, List } from "flowbite-react";
 import ScoreInput from "@/app/_forms/components/ScoreInput";
 import Link from "next/link";
+import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
+import { get_extreme_scores } from "@/app/_model/model";
+import real_data_with_total from "@/app/_model/data_summary_v1.json";
+import * as _ from "radash";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+
+const real_data_summary = {
+  control_sds: _.omit(real_data_with_total.control_sds, ["total"]),
+  control_means: _.omit(real_data_with_total.control_means, ["total"]),
+};
 
 type AceFormProps = {
   form: UseFormReturn<AceScaleScoresInput>;
 } & CardProps;
 
+function ExtremeScoreWarning(props: { scores: Partial<AceScaleScoresInput> }) {
+  const { scores } = props;
+  const validated_scores: Readonly<AceScaleScores> | undefined =
+    useValidatedScores(scores).scores;
+  const extreme_scores = validated_scores
+    ? get_extreme_scores(validated_scores, real_data_summary, -3)
+    : undefined;
+  const has_extreme_score = AceScales.filter((scale) => {
+    return extreme_scores ? extreme_scores[scale] !== undefined : false;
+  }).some((x) => x);
+  if (!has_extreme_score) {
+    return <></>;
+  }
+  return (
+    <Alert color="info" icon={InformationCircleIcon}>
+      This looks like an unusual score profile:
+      <List className="text-inherit my-2">
+        {AceScales.filter((scale) => {
+          return extreme_scores ? extreme_scores[scale] !== undefined : false;
+        }).map((scale) => {
+          const diff = extreme_scores![scale];
+          return (
+            <List.Item key={scale}>
+              Low {scale} compared to {diff.predictor}
+            </List.Item>
+          );
+        })}
+      </List>
+      Check that you&apos;ve entered scores correctly, and be aware that the
+      model may not give good predictions for unusual/extreme score profiles
+    </Alert>
+  );
+}
+
 export default function AceForm(props: AceFormProps) {
   const { form, ...card_props } = props;
-  const { handleSubmit, reset } = form;
+  const { handleSubmit, reset, watch } = form;
+  const current_scores = watch();
 
   const onSubmit: SubmitHandler<AceScaleScoresInput> = (data) =>
     console.log(data);
@@ -53,6 +99,7 @@ export default function AceForm(props: AceFormProps) {
           const full_label = `${label} (/${max})`;
           return <ScoreInput key={scale} label={full_label} name={scale} />;
         })}
+        <ExtremeScoreWarning scores={current_scores} />
         <Button
           color="blue"
           className="mx-auto"
