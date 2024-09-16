@@ -16,17 +16,7 @@ import uniform from "@stdlib/random-base-uniform";
 const WIDTH = 800;
 const HEIGHT = 800;
 
-type DataRow = {
-  dementia: string;
-  total: number;
-  visit_number: string;
-  education: string;
-  sex: string;
-  learning_difficulties: string;
-  goldman_score: string;
-  age_group: string;
-  dementia_type: string;
-};
+type DataRow = ExplorerFilters;
 
 type DataRowWithJitter = DataRow & {
   jitter: number;

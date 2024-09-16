@@ -22,7 +22,7 @@ export default function SelectInput<Data extends FieldValues>(
           {label}
         </Label>
       </div>
-      <Select defaultValue={"All"} {...register(name)}>
+      <Select defaultValue={"All"} {...register(name)} {...select_props}>
         {options.map((option) => {
           return (
             <option key={option} value={option}>
