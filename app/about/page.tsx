@@ -33,8 +33,10 @@ export default function About() {
             <AboutContent />
           </div>
         </Card>
-        <Card className="min-w-96 max-w-xl">
-          <h2 className="text-lg font-bold">References</h2>
+        <Card className="min-w-96 max-w-2xl">
+          <h2 className="text-lg font-semibold text-indigo-600">
+            References/Resources
+          </h2>
           <ul className="text-base max-w-prose list-disc">
             <li>Reference 1</li>
           </ul>
