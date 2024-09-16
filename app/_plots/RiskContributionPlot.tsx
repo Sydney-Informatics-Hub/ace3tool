@@ -25,19 +25,20 @@ const Tooltip = () => {
   return (
     <>
       This plot shows the current patient&apos;s weights for each subdomain in
-      the logistic regression model, compared to the average weight for control
-      participants. <br />
-      These weights correspond to the{" "}
+      the logistic regression model compared to the average weight for control
+      participants.
+      <br />
+      These weights correspond to the model&apos;s{" "}
       <a
         className="text-blue-600"
         href="https://christophm.github.io/interpretable-ml-book/shapley.html"
       >
         Shapley values
-      </a>{" "}
-      for the model.
+      </a>
+      .
       <br />
-      Weights are on the log-odds scale, so don&apos;t correspond directly to
-      probability, but you can compare the relative size of each weight.
+      Weights are on the log-odds scale, so they don&apos;t correspond directly
+      to probability, but their relative sizes can be compared.
     </>
   );
 };
