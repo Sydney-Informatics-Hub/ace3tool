@@ -3,6 +3,7 @@ import { Card } from "flowbite-react";
 import Image from "next/image";
 import React from "react";
 import AboutContent from "@/app/about/AboutContent.mdx";
+import { NoPaddingCardTheme } from "@/app/_components/ScoreWidget";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,7 +14,7 @@ export default function About() {
   return (
     <main className="container mx-auto min-h-screen md:p-2">
       <div className="flex flex-col justify-start items-center gap-2 md:gap-4">
-        <Card className="min-w-96 max-w-2xl">
+        <Card className="min-w-96 max-w-2xl" theme={NoPaddingCardTheme}>
           <div className="flex items-center justify-between">
             <h2 className="text-lg text-indigo-600 font-semibold">
               Welcome to the Addenbrooke’s Cognitive Examination-III (ACE-III)
