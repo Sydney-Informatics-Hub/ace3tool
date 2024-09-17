@@ -23,7 +23,7 @@ export default function About() {
             <Image
               className="inline"
               // NOTE: need to manually prefix this with the base path
-              src="/informatics/PIPE-5195-dementia-risk/img/frontier_logo.png"
+              src="/img/frontier_logo.png"
               alt="FRONTIER Logo"
               width={150}
               height={100}
