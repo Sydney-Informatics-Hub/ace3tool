@@ -6,7 +6,6 @@ const withBundleAnalyzer = bundleAnalyzer({enabled: process.env.ANALYZE === 'tru
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/informatics/PIPE-5195-dementia-risk",
   trailingSlash: true,
   images: {unoptimized: true},
   pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
