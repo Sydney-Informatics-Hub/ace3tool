@@ -85,8 +85,8 @@ function NormPlotLegend(props: HTMLAttributes<HTMLDivElement>) {
     <div {...props}>
       <h2 className="text-indigo-600 font-bold text-lg">Subdomain scores</h2>
       <p className="text-gray-800">
-        This plot compares the current scores for each subdomain to scores from
-        healthy controls. <br />
+        This plot compares the current scores for each subdomain in patients
+        with dementia to scores from healthy controls. <br />
         Scores are shown as a percentage of the maximum for each subdomain,
         plotted so that risk/impairment increases from left to right, consistent
         with other plots.
