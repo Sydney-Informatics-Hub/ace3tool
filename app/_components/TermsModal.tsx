@@ -26,7 +26,9 @@ export default function TermsModal() {
   }, [accepted]);
 
   const accept_terms = () => {
-    setCookie("accepted_terms", "true");
+    const one_year = new Date();
+    one_year.setFullYear(one_year.getFullYear() + 1);
+    setCookie("accepted_terms", "true", { expires: one_year });
     setOpen(false);
   };
 
