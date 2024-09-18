@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     template: "%s | FRONTIER Research",
     default: "ACE-III online dementia screening tool",
   },
+  metadataBase: new URL("https://sydney-informatics-hub.github.io/ace3tool/"),
   description:
     "A tool to interpret ACE-III scores and how they relate to dementia",
 };
