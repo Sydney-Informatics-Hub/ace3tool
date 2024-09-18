@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set BASE_PATH environment variable for static assets
+        run: echo "BASE_PATH=/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
       - name: Create Next config for GH pages
         run: mv next_ghpages.config.mjs next.config.mjs
       - name: Setup pnpm
