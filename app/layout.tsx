@@ -24,7 +24,7 @@ const sans_font = Noto_Sans({
 const ubuntu_font = Ubuntu({
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
+  weight: ["400", "700"],
   variable: "--heading-font",
 });
 
