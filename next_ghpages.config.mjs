@@ -7,6 +7,7 @@ const withBundleAnalyzer = bundleAnalyzer({enabled: process.env.ANALYZE === 'tru
 const nextConfig = {
   output: "export",
   basePath: "/ace3tool",
+  assetPrefix: "https://sydney-informatics-hub.github.io/ace3tool/",
   trailingSlash: true,
   images: {unoptimized: true},
   pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
