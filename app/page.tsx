@@ -3,7 +3,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "ACE-III online dementia screening tool | FRONTIER Research",
-  description: "Predict and visualize the impact of ACE-III scores",
+  description:
+    "This tool is designed to assist clinicians in screening patients for dementia. The tool was developed by the FRONTIER Research Group at the University of Sydney, and implemented by the Sydney Informatics Hub.",
 };
 
 export default function Home() {
