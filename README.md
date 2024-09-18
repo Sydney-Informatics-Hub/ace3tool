@@ -1,5 +1,10 @@
 # PIPE-5195: ACE-III online screening tool
 
+![Pages build status](https://img.shields.io/github/actions/workflow/status/sydney-informatics-hub/ace3tool/nextjs.yml)
+![Test status](https://img.shields.io/github/actions/workflow/status/sydney-informatics-hub/ace3tool/test.yml?label=tests)
+![End-to-end test status](https://img.shields.io/github/actions/workflow/status/sydney-informatics-hub/ace3tool/cypress.yml?label=ui%20tests)
+
+
 **Note**: the primary repository for this code is now at https://github.com/Sydney-Informatics-Hub/ace3tool.
 
 This repo contains the code for <https://sydney-informatics-hub.github.io/ace3tool/>.
