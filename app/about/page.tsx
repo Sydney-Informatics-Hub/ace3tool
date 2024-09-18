@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import AboutContent from "@/app/about/AboutContent.mdx";
 import { NoPaddingCardTheme } from "@/app/_components/ScoreWidget";
-import { base_path_prefix } from "@/app/_utils/utils";
+import frontier_logo from "@/app/_images/frontier_logo.png";
 
 export const metadata: Metadata = {
   title: "About",
@@ -24,7 +24,7 @@ export default function About() {
             <Image
               className="inline"
               // NOTE: need to manually prefix this with the base path
-              src={`${base_path_prefix}/img/frontier_logo.png`}
+              src={frontier_logo}
               alt="FRONTIER Logo"
               width={150}
               height={100}

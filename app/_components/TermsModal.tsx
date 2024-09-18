@@ -3,7 +3,7 @@ import { Button, CustomFlowbiteTheme, Modal } from "flowbite-react";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import Image from "next/image";
-import { base_path_prefix } from "@/app/_utils/utils";
+import frontier_logo from "@/app/_images/frontier_logo.png";
 
 const customTheme: CustomFlowbiteTheme["modal"] = {
   header: {
@@ -52,7 +52,7 @@ export default function TermsModal() {
           <Image
             className="inline"
             // NOTE: need to manually prefix this with the base path
-            src={`${base_path_prefix}/img/frontier_logo.png`}
+            src={frontier_logo}
             alt="FRONTIER Logo"
             width={200}
             height={150}
