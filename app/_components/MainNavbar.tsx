@@ -47,7 +47,7 @@ const NavbarTheme: FlowbiteNavbarTheme = {
     base: "block py-2 pl-3 pr-4 md:p-0 text-base",
     active: {
       on: "bg-indigo-700 text-white font-bold md:bg-transparent md:hover:text-amber-300 md:underline md:underline-offset-8 md:decoration-4 md:decoration-orange-400",
-      off: "border-b border-gray-100 font-medium text-slate-300 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-amber-300",
+      off: "border-b border-gray-100 font-medium text-indigo-100 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-amber-300",
     },
     disabled: {
       on: "text-gray-400 hover:cursor-not-allowed dark:text-gray-600",
