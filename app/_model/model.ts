@@ -63,10 +63,17 @@ function get_largest_differences<predictors extends string>(
   >;
 }
 
-// Find any scores where the predictor/column's z-score differs from
-// other scores by 2 SDs
 // TODO: should this be scores that differ from *all* other scores by
 //   at least 2 SDs, i.e. find the smallest difference rather than largest?
+/**
+ * Find any scores where the predictor/column's z-score differs from
+ * other scores by multiple standard deviations (as determined by threshold)
+ *
+ * @param scores scores for each predictor
+ * @param summary a DataSummary object containing the relevant means and SDs to compare against
+ * @param threshold number of SDs to consider an extreme difference. Use a negative number
+ *    to find scores that are *lower* than other predictors by that many SDs
+ */
 export function get_extreme_scores<predictors extends string>(
   scores: Data<predictors>,
   summary: DataSummary<predictors>,
