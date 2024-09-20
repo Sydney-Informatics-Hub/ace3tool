@@ -71,10 +71,13 @@ export default function AceForm(props: AceFormProps) {
       {/*TODO: add link to the paper here*/}
       <p className="text-base max-w-sm">
         This tool is based on data from Foxe et al.{" "}
-        <i>
+        <a
+          href="https://osf.io/6hpax/"
+          className="text-indigo-600 hover:text-indigo-800"
+        >
           Utility of the Addenbrooke’s Cognitive Examination-III Online Dementia
           Screening Tool
-        </i>
+        </a>
         .<br />
         It is intended for use by clinicians experienced in administering the
         ACE-III. Please review the{" "}
