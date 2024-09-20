@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import AboutContent from "@/app/about/AboutContent.mdx";
 import { NoPaddingCardTheme } from "@/app/_components/ScoreWidget";
-import frontier_logo from "@/app/_images/frontier_logo.png";
+import frontier_logo from "@/app/_images/frontier_logo_small.png";
 
 export const metadata: Metadata = {
   title: "About",
@@ -26,8 +26,7 @@ export default function About() {
               // NOTE: need to manually prefix this with the base path
               src={frontier_logo}
               alt="FRONTIER Logo"
-              width={150}
-              height={100}
+              width={100}
               priority
             />
           </div>

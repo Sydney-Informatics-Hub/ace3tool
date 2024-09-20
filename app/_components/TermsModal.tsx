@@ -3,7 +3,7 @@ import { Button, CustomFlowbiteTheme, Modal } from "flowbite-react";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import Image from "next/image";
-import frontier_logo from "@/app/_images/frontier_logo.png";
+import frontier_logo from "@/app/_images/frontier_logo_small.png";
 
 const customTheme: CustomFlowbiteTheme["modal"] = {
   header: {
@@ -57,7 +57,7 @@ export default function TermsModal() {
             src={frontier_logo}
             alt="FRONTIER Logo"
             width={200}
-            height={150}
+            height={135}
             priority
           />
         </div>
