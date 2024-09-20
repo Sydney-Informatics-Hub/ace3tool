@@ -35,7 +35,3 @@ export const create_d3_gradient = (
           </linearGradient>
         </defs>`;
 };
-
-export const bold_title = (title: string) => {
-  return html`<h2 class="font-semibold">${title}</h2>`;
-};
