@@ -15,6 +15,7 @@ import { DataSummary, get_extreme_scores } from "@/app/_model/model";
 import real_data_with_total from "@/app/_model/data_summary_v1.json";
 import * as _ from "radash";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 const dementia_data_summary: DataSummary<keyof AceScaleScores> = {
   sds: _.omit(real_data_with_total.dementia_sds, ["total"]),
@@ -82,9 +83,10 @@ export default function AceForm(props: AceFormProps) {
         </Link>{" "}
         section before proceeding.
       </p>
-      <h2 className="text-xl font-bold text-indigo-600">
-        Enter ACE-III subdomain scores
-      </h2>
+      <PlotTitleWithTooltip
+        title="Enter ACE-III subdomain scores"
+        tooltip_content="Scores entered here are not sent to our servers. All calculations are done locally in your browser"
+      />
       <form
         className="flex flex-col max-w-lg gap-4 my-2"
         onSubmit={handleSubmit(onSubmit)}
