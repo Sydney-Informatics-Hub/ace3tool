@@ -20,6 +20,7 @@ export function useTotalScore(scores: Partial<AceScaleScoresInput>) {
       })
       .catch((err) => {
         setValid(false);
+        setTotal(0);
         return;
       });
   }, [scores]);
