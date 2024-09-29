@@ -48,7 +48,9 @@ export default function TotalScorePlot(props: TotalScorePlotProps) {
   // NOTE: round thresholds down to nearest integer
   const sd_threshold = Math.floor(get_sd_threshold());
   const spec_threshold = Math.floor(data_summary.specificity_100["total"]);
-  const plot_title = `ACE-III total score (${total || ""}/100)`;
+  const plot_title = total
+    ? `ACE-III total score (/100): ${total}`
+    : "ACE-III total score (/100)";
 
   useEffect(() => {
     const plot = Plot.plot({
