@@ -6,13 +6,15 @@ interface SelectInputProps<Data extends FieldValues> extends SelectProps {
   label: string;
   name: Path<Data>;
   options: string[];
+  extra_content?: React.ReactNode;
   form_return: UseFormReturn<Data>;
 }
 
 export default function SelectInput<Data extends FieldValues>(
   props: SelectInputProps<Data>
 ) {
-  const { label, name, options, form_return, ...select_props } = props;
+  const { label, name, options, form_return, extra_content, ...select_props } =
+    props;
   const { register } = form_return;
   const input_id = `${name}_input`;
   return (
@@ -31,6 +33,7 @@ export default function SelectInput<Data extends FieldValues>(
           );
         })}
       </Select>
+      {extra_content}
     </div>
   );
 }

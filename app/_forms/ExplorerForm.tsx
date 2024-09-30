@@ -44,6 +44,12 @@ export default function ExplorerForm(props: ExplorerFormProps) {
           name={"diagnosis"}
           options={FilterOptions["diagnosis"]}
           form_return={form_return}
+          extra_content={
+            <p className="mt-2 text-sm text-gray-500">
+              *The bvFTD group included four patients with an undefined FTD
+              syndrome
+            </p>
+          }
         />
       </div>
       <Button
