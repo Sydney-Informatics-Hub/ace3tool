@@ -124,6 +124,20 @@ export class LogisticModel<predictors extends string> {
     const p_upper = inverse_logit(xb_upper);
     return [p_lower, p_upper];
   }
+
+  get_equation(): string {
+    const coef_strings = this.predictors.map((predictor) => {
+      if (this.center_predictors) {
+        return `(${predictor} - ${this.predictor_means![predictor].toFixed(
+          2
+        )}) * ${this.coefs.coefs[predictor].toFixed(2)}`;
+      } else {
+        return `${predictor} * ${this.coefs.coefs[predictor].toFixed(2)}`;
+      }
+    });
+    const intercept = this.coefs.intercept.toFixed(2);
+    return intercept + " + " + coef_strings.join(" + ");
+  }
 }
 
 function inverse_logit(x: number): number {

@@ -45,6 +45,29 @@ describe("Logistic regression", () => {
     expect(xb.c).toBe(9);
   });
 
+  test("We can get the regression equation for a model", () => {
+    const model = new LogisticModel({
+      intercept: 1,
+      coefs: { a: 1, b: 2, c: 3 },
+    });
+    const equation = model.get_equation();
+    expect(equation).toEqual("1.00 + a * 1.00 + b * 2.00 + c * 3.00");
+  });
+
+  test("We can get the regression equation for a model with centered predictors", () => {
+    const model = new LogisticModel(
+      {
+        intercept: 1,
+        coefs: { a: 1, b: 2, c: 3 },
+      },
+      { center_predictors: true, predictor_means: { a: 5, b: 10, c: 15 } }
+    );
+    const equation = model.get_equation();
+    expect(equation).toEqual(
+      "1.00 + (a - 5.00) * 1.00 + (b - 10.00) * 2.00 + (c - 15.00) * 3.00"
+    );
+  });
+
   // Currently getting these results/examples from a standalone python script,
   //   explore how to generate examples more easily
   test("More involved example with multiple predictors", () => {
