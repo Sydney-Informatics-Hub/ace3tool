@@ -95,12 +95,16 @@ export default function RiskPlot(props: RiskPlotProps) {
     return () => plot.remove();
   }, [risk, model, scores]);
   const Tooltip = () => (
-    <span>
-      The predicted risk of dementia value is obtained from a logistic
-      regression model fitted to our sample.
-      <br />
-      The horizontal line represents the 95% prediction interval for risk.
-    </span>
+    <>
+      <p className="mb-2">
+        The predicted risk of dementia value is obtained from a logistic
+        regression model based on the ACE-III subdomain scores, fitted to our
+        sample.
+      </p>
+      <p>
+        The horizontal line represents the 95% prediction interval for risk.
+      </p>
+    </>
   );
   const Title = (props: { risk: number | undefined }) => {
     const risk = props.risk;
