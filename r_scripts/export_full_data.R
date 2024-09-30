@@ -69,15 +69,13 @@ data <- data |>
             group_education(),
         GoldmanScore = raw_data$GoldmanScore %>%
             group_goldman_score(),
-        DementiaType = raw_data$dementia_raw %>%
-            as_factor() %>%
-            fct_recode(Major = "Major neurocognitive disorder", Minor = "Minor", Control="Non-dementia"),
-        Diagnosis = raw_data$SummaryPrimaryDiagnosis_grouped
+        Diagnosis = raw_data$SummaryPrimaryDiagnosis_grouped %>%
+            str_replace("bvFTD and FTD undefined", "bvFTD*")
     )
 
 # Check grouped variables
 data |>
-    select(VisitNumber, Education, GoldmanScore, DementiaType, Diagnosis) |>
+    select(VisitNumber, Education, GoldmanScore, Diagnosis) |>
     gtsummary::tbl_summary()
 
 exported_data <- data %>%
@@ -87,7 +85,6 @@ exported_data <- data %>%
            visit_number = VisitNumber,
            education = Education,
            goldman_score = GoldmanScore,
-           dementia_type = DementiaType,
            diagnosis = Diagnosis
            )
 
