@@ -9,6 +9,7 @@ import {
 } from "@/app/_forms/schemas/explorer_filters";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import PlotTitle from "@/app/_components/PlotTitle";
 
 export default function Explore() {
   // NOTE: not using form context/form provider here as we use it
@@ -34,7 +35,7 @@ export default function Explore() {
             </Link>{" "}
             their score will be plotted so you can compare them to the sample.
           </p>
-          <h2 className="text-lg text-indigo-600 font-bold">Filters</h2>
+          <PlotTitle>Filters</PlotTitle>
           <ExplorerForm form_return={form} />
         </Card>
         <Card className="min-w-96">
