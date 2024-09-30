@@ -6,6 +6,7 @@ import MainNavbar from "@/app/_components/MainNavbar";
 import AceFormProvider from "@/app/_forms/AceFormProvider";
 import MainFooter from "@/app/_components/MainFooter";
 import TermsModal from "@/app/_components/TermsModal";
+import AnalyticsScript from "@/app/_components/AnalyticsScript";
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +38,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${sans_font.variable} ${ubuntu_font.variable}`}
       lang="en"
     >
-      <head></head>
+      <head>
+        <AnalyticsScript />
+      </head>
       <body>
         <TermsModal />
         <MainNavbar />
