@@ -16,6 +16,8 @@ declare global {
  */
 export default function AnalyticsUpdate() {
   const pathname = usePathname();
+  const goatcounter_state =
+    typeof window !== "undefined" ? window.goatcounter : undefined;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -23,7 +25,7 @@ export default function AnalyticsUpdate() {
         path: pathname,
       });
     }
-  }, [pathname, window?.goatcounter]);
+  }, [pathname, goatcounter_state]);
 
   return null;
 }
