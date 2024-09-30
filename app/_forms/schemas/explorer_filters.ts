@@ -11,7 +11,7 @@ export const FilterOptions = {
   diagnosis: [
     "All",
     "AD and amnestic MCI",
-    "bvFTD and FTD undefined",
+    "bvFTD*",
     "CBS and CBS + PPA",
     "VD, DLB and Dementia NOS",
     "FTD-MND and MND",
