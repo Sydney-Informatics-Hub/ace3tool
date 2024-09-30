@@ -7,6 +7,7 @@ import AceFormProvider from "@/app/_forms/AceFormProvider";
 import MainFooter from "@/app/_components/MainFooter";
 import TermsModal from "@/app/_components/TermsModal";
 import AnalyticsScript from "@/app/_components/AnalyticsScript";
+import AnalyticsUpdate from "@/app/_components/AnalyticsUpdate";
 
 export const metadata: Metadata = {
   title: {
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head>
         <AnalyticsScript />
+        <AnalyticsUpdate />
       </head>
       <body>
         <TermsModal />

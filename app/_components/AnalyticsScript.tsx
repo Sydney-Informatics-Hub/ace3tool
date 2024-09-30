@@ -9,6 +9,7 @@ export default function AnalyticsScript() {
     <Script
       src="//gc.zgo.at/count.js"
       data-goatcounter={COUNT_URL}
+      data-goatcounter-settings='{"no_onload": true}'
       async
       strategy="afterInteractive"
     />
