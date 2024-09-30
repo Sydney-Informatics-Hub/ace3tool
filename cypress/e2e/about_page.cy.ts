@@ -11,9 +11,9 @@ describe("About page", () => {
     cy.visit("/about");
     cy.get("p").should(
       "contain",
-      "This tool, developed by the FRONTIER Research Group at the\n" +
-        "University of Sydney, is designed to assist clinicians in\n" +
-        "screening patients for dementia."
+      "This tool, developed by the FRONTIER Research Group at the University of\n" +
+        "Sydney, is designed to assist clinicians in screening patients for\n" +
+        "dementia."
     );
   });
 });
