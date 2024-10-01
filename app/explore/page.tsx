@@ -10,6 +10,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import PlotTitle from "@/app/_components/PlotTitle";
+import { NoPaddingCardTheme } from "@/app/_components/ScoreWidget";
 
 export default function Explore() {
   // NOTE: not using form context/form provider here as we use it
@@ -38,7 +39,7 @@ export default function Explore() {
           <PlotTitle>Filters</PlotTitle>
           <ExplorerForm form_return={form} />
         </Card>
-        <Card className="min-w-96">
+        <Card className="min-w-96" theme={NoPaddingCardTheme}>
           <ExplorerPlot form_return={form} />
         </Card>
       </div>
