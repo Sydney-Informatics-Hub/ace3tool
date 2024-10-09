@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-const COUNT_URL = "https://ace3tooltest.goatcounter.com/count";
+const COUNT_URL = "https://ace3tool.goatcounter.com/count";
 
 /** Load the script for GoatCounter analytics.
  */
