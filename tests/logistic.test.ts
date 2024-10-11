@@ -1,5 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { Data, qnorm, LogisticModel } from "@/lib/logistic";
+import logistic_model from "@/app/_model/model";
+import { AceScales } from "@/app/_forms/schemas/ace";
 
 test("qnorm returns expected values", () => {
   expect(qnorm(0.975)).toBeCloseTo(1.959964, 7);
@@ -154,5 +156,84 @@ describe("Logistic regression", () => {
     const data1: Data = { gre: 6, gpa: 3, rank: 3 };
     const expected1: Data = { gre: 1, gpa: 1, rank: 1 };
     expect(model.get_centered_data(data1)).toStrictEqual(expected1);
+  });
+});
+
+describe("ACE-III logistic regression model", () => {
+  // These values copied directly from R, in the app we
+  // use exported coefficients in a JSON file
+  const get_model_manual = () => {
+    return new LogisticModel(
+      {
+        intercept: -10.324985772,
+        coefs: {
+          attention: 0.3248894365,
+          memory: 0.384899725,
+          fluency: 0.6649399088,
+          language: 0.8122292594,
+          visuospatial: 0.2726232014,
+        },
+      },
+      {
+        center_predictors: true,
+        predictor_means: {
+          attention: 13.743610882,
+          memory: 16.7830033,
+          fluency: 6.919900908,
+          language: 20.028854081,
+          visuospatial: 13.136850783,
+        },
+      }
+    );
+  };
+
+  test("We can center predictors", () => {
+    const model_manual = get_model_manual();
+    const example_scores = {
+      attention: 13,
+      memory: 19,
+      fluency: 8,
+      language: 23,
+      visuospatial: 11,
+    };
+    // Copied manually from R
+    const expected = {
+      attention: -0.7436108821,
+      memory: 2.2169967,
+      fluency: 1.080099092,
+      language: 2.971145919,
+      visuospatial: -2.136850783,
+    };
+    const centered_manual = model_manual.get_centered_data(example_scores);
+    const centered_data = logistic_model.get_centered_data(example_scores);
+    AceScales.forEach((scale) => {
+      expect(centered_data[scale]).toBeCloseTo(centered_manual[scale], 7);
+      expect(centered_data[scale]).toBeCloseTo(expected[scale], 7);
+    });
+  });
+
+  test("We can predict probability", () => {
+    // First row of data from R
+    const example_scores = {
+      attention: 13,
+      memory: 19,
+      fluency: 8,
+      language: 23,
+      visuospatial: 11,
+    };
+    // Reverse the probability as the original model predicts non-dementia
+    const prob = 1 - logistic_model.predict(example_scores);
+    expect(prob).toBeCloseTo(0.9992269);
+
+    // Another real example with lower prob of dementia
+    const example2 = {
+      attention: 16,
+      memory: 26,
+      fluency: 9,
+      language: 24,
+      visuospatial: 16,
+    };
+    const prob2 = 1 - logistic_model.predict(example2);
+    expect(prob2).toBeCloseTo(0.6581603);
   });
 });
