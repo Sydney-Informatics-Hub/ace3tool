@@ -26,6 +26,12 @@ export const tableau10_colours = {
   grey: "#b8b0ac",
 };
 
+export const observable_colours = {
+  blue: "#4269d0",
+  orange: "#efb118",
+  red: "#ff725c",
+};
+
 export const ace_colour_scale = {
   range: [
     tableau10_colours.red,
