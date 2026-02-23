@@ -10,11 +10,17 @@ import {
 import { useFormContext, UseFormReturn } from "react-hook-form";
 import { useTotalScore } from "@/app/_hooks/useTotalScore";
 import { AceScaleScoresInput } from "@/app/_forms/schemas/ace";
-import { colours } from "@/app/_utils/colours";
+import { colours, tableau10_colours } from "@/app/_utils/colours";
 import uniform from "@stdlib/random-base-uniform";
 
-const WIDTH = 800;
+const WIDTH = 900;
 const HEIGHT = 800;
+
+const thresholds = [
+  { score: 88, label: "Low risk", line: true },
+  { score: 83, label: "Intermediate risk", line: true },
+  { score: 78, label: "High risk", line: false },
+];
 
 type DataRow = ExplorerFilters;
 
@@ -74,6 +80,7 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
       width: WIDTH,
       height: HEIGHT,
       marginLeft: 50,
+      marginRight: 80,
       marginTop: 50,
       style: { fontSize: "10pt" },
       y: { domain: [0, 105], label: "ACE-III total score" },
@@ -90,6 +97,27 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
           fontSize: "12pt",
           labelOffset: 50,
         }),
+        Plot.ruleY(
+          thresholds.filter((d) => d.line),
+          {
+            y: "score",
+            strokeDasharray: "5,5",
+            stroke: tableau10_colours.orange,
+            strokeWidth: 2,
+          }
+        ),
+        Plot.textY(
+          thresholds.map((d) => ({ ...d, dementia: "Non-dementia" })),
+          {
+            y: "score",
+            fx: "dementia",
+            text: (d) => d.label,
+            frameAnchor: "right",
+            textAnchor: "middle",
+            dy: -15,
+            fontSize: "12pt",
+          }
+        ),
         Plot.dot(filtered_data, {
           fx: "dementia",
           x: "jitter",

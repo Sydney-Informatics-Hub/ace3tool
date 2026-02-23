@@ -6,7 +6,7 @@ import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { create_d3_gradient } from "@/app/_plots/plot_utils";
-import { colours } from "@/app/_utils/colours";
+import { colours, observable_colours } from "@/app/_utils/colours";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
 
 interface RiskPlotProps {
@@ -16,6 +16,52 @@ interface RiskPlotProps {
 
 const WIDTH = 500;
 const HEIGHT = 200;
+
+function RiskLegend() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const risk_levels = [
+    { label: "Lower", min: 0, max: 76, colour: observable_colours.blue },
+    { label: "Moderate", min: 76, max: 95, colour: observable_colours.orange },
+    { label: "High", min: 95, max: 100, colour: observable_colours.red },
+  ];
+
+  useEffect(() => {
+    const plot = Plot.plot({
+      width: WIDTH,
+      height: 50,
+      style: { fontSize: "10pt" },
+      x: { domain: [0, 100] },
+      y: { domain: [0, 10] },
+      marginBottom: 10,
+      marginTop: 10,
+      marks: [
+        Plot.axisY({ ticks: [] }),
+        Plot.axisX({ ticks: [] }),
+        ...risk_levels.map((item) => {
+          return Plot.rect([{ min: item.min, max: item.max }], {
+            x1: "min",
+            x2: "max",
+            y1: 4,
+            y2: 10,
+            fill: item.colour,
+            stroke: "black",
+            strokeWidth: 1,
+            opacity: 0.6,
+          });
+        }),
+        Plot.text(risk_levels, {
+          x: (item) => (item.min + item.max) / 2,
+          y: 0,
+          text: "label",
+        }),
+      ],
+    });
+    containerRef?.current?.append(plot);
+    return () => plot.remove();
+  });
+
+  return <div ref={containerRef} />;
+}
 
 export default function RiskPlot(props: RiskPlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -138,6 +184,7 @@ export default function RiskPlot(props: RiskPlotProps) {
       <div ref={containerRef}>
         <PlotSkeleton className="w-500px h-200px" />
       </div>
+      <RiskLegend />
     </div>
   );
 }
