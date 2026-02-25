@@ -14,16 +14,17 @@ interface RiskPlotProps {
   model: LogisticModel<keyof AceScaleScores>;
 }
 
+const risk_levels = [
+  { label: "Lower", min: 0, max: 76, colour: colours.slate200 },
+  { label: "Moderate", min: 76, max: 95, colour: colours.slate400 },
+  { label: "High", min: 95, max: 100, colour: colours.slate600 },
+];
+
 const WIDTH = 500;
 const HEIGHT = 200;
 
 function RiskLegend() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const risk_levels = [
-    { label: "Lower", min: 0, max: 76, colour: observable_colours.blue },
-    { label: "Moderate", min: 76, max: 95, colour: observable_colours.orange },
-    { label: "High", min: 95, max: 100, colour: observable_colours.red },
-  ];
 
   useEffect(() => {
     const plot = Plot.plot({
@@ -44,9 +45,6 @@ function RiskLegend() {
             y1: 4,
             y2: 10,
             fill: item.colour,
-            stroke: "black",
-            strokeWidth: 1,
-            opacity: 0.6,
           });
         }),
         Plot.text(risk_levels, {
@@ -114,6 +112,10 @@ export default function RiskPlot(props: RiskPlotProps) {
           stroke: "black",
           strokeWidth: 1,
         }),
+        Plot.tickX(
+          risk_levels.filter((level) => level.max < 100),
+          { x: "max", stroke: "white", strokeDasharray: "5,5", strokeWidth: 3 }
+        ),
         conf_int
           ? Plot.ruleY([conf_int], {
               x1: "lower",
