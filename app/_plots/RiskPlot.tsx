@@ -14,16 +14,17 @@ interface RiskPlotProps {
   model: LogisticModel<keyof AceScaleScores>;
 }
 
+const risk_levels = [
+  { label: "Lower", min: 0, max: 76, colour: colours.slate200 },
+  { label: "Moderate", min: 76, max: 95, colour: colours.slate400 },
+  { label: "High", min: 95, max: 100, colour: colours.slate600 },
+];
+
 const WIDTH = 500;
 const HEIGHT = 200;
 
 function RiskLegend() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const risk_levels = [
-    { label: "Lower", min: 0, max: 76, colour: observable_colours.blue },
-    { label: "Moderate", min: 76, max: 95, colour: observable_colours.orange },
-    { label: "High", min: 95, max: 100, colour: observable_colours.red },
-  ];
 
   useEffect(() => {
     const plot = Plot.plot({
@@ -44,9 +45,6 @@ function RiskLegend() {
             y1: 4,
             y2: 10,
             fill: item.colour,
-            stroke: "black",
-            strokeWidth: 1,
-            opacity: 0.6,
           });
         }),
         Plot.text(risk_levels, {
@@ -114,6 +112,10 @@ export default function RiskPlot(props: RiskPlotProps) {
           stroke: "black",
           strokeWidth: 1,
         }),
+        Plot.tickX(
+          risk_levels.filter((level) => level.max < 100),
+          { x: "max", stroke: "white", strokeDasharray: "5,5", strokeWidth: 3 }
+        ),
         conf_int
           ? Plot.ruleY([conf_int], {
               x1: "lower",
@@ -142,14 +144,18 @@ export default function RiskPlot(props: RiskPlotProps) {
   }, [risk, model, scores]);
   const Tooltip = () => (
     <>
+      <h2 className="font-bold">Dementia risk value</h2>
       <p className="mb-2">
-        The predicted risk of dementia value is obtained from a logistic
-        regression model based on the ACE-III subdomain scores, fitted to our
-        sample.
+        Calculated using ACE‑III subdomain scores (logistic regression; FRONTIER
+        Phase 1).
       </p>
-      <p>
-        The horizontal line represents the 95% prediction interval for risk.
-      </p>
+
+      <p className="font-bold">Risk thresholds:</p>
+      <ul className="list-disc ml-6">
+        <li>Low &lt;76%</li>
+        <li>Intermediate 76–94%</li>
+        <li>High ≥95%</li>
+      </ul>
     </>
   );
   const Title = (props: { risk: number | undefined }) => {
