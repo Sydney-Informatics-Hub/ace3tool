@@ -19,7 +19,6 @@ const HEIGHT = 800;
 const thresholds = [
   { score: 88, label: "Low risk", line: true },
   { score: 83, label: "Intermediate risk", line: true },
-  { score: 78, label: "High risk", line: false },
 ];
 
 type DataRow = ExplorerFilters;
@@ -80,7 +79,6 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
       width: WIDTH,
       height: HEIGHT,
       marginLeft: 50,
-      marginRight: 80,
       marginTop: 50,
       style: { fontSize: "10pt" },
       y: { domain: [0, 105], label: "ACE-III total score" },
@@ -104,18 +102,6 @@ export default function ExplorerPlot(props: ExplorerPlotProps) {
             strokeDasharray: "5,5",
             stroke: tableau10_colours.orange,
             strokeWidth: 2,
-          }
-        ),
-        Plot.textY(
-          thresholds.map((d) => ({ ...d, dementia: "Non-dementia" })),
-          {
-            y: "score",
-            fx: "dementia",
-            text: (d) => d.label,
-            frameAnchor: "right",
-            textAnchor: "middle",
-            dy: -15,
-            fontSize: "12pt",
           }
         ),
         Plot.dot(filtered_data, {
