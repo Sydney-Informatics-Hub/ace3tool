@@ -6,8 +6,9 @@ import { LogisticModel } from "@/lib/logistic";
 import { useValidatedScores } from "@/app/_hooks/useValidatedScores";
 import PlotSkeleton from "@/app/_components/PlotSkeleton";
 import { create_d3_gradient } from "@/app/_plots/plot_utils";
-import { colours, observable_colours } from "@/app/_utils/colours";
+import { colours } from "@/app/_utils/colours";
 import PlotTitleWithTooltip from "@/app/_components/PlotTitleWithTooltip";
+import { RiskPlotTooltip } from "@/app/_plots/RiskPlotTooltip";
 
 interface RiskPlotProps {
   scores: Partial<AceScaleScoresInput>;
@@ -142,22 +143,6 @@ export default function RiskPlot(props: RiskPlotProps) {
     containerRef?.current?.replaceChildren(plot);
     return () => plot.remove();
   }, [risk, model, scores]);
-  const Tooltip = () => (
-    <>
-      <h2 className="font-bold">Dementia risk value</h2>
-      <p className="mb-2">
-        Calculated using ACE‑III subdomain scores (logistic regression; FRONTIER
-        Phase 1).
-      </p>
-
-      <p className="font-bold">Risk thresholds:</p>
-      <ul className="list-disc ml-6">
-        <li>Low &lt;76%</li>
-        <li>Intermediate 76–94%</li>
-        <li>High ≥95%</li>
-      </ul>
-    </>
-  );
   const Title = (props: { risk: number | undefined }) => {
     const risk = props.risk;
     if (risk !== undefined) {
@@ -184,7 +169,7 @@ export default function RiskPlot(props: RiskPlotProps) {
     <div>
       <PlotTitleWithTooltip
         title={<Title risk={risk} />}
-        tooltip_content={<Tooltip />}
+        tooltip_content={<RiskPlotTooltip />}
         popover_id="risk_plot_tooltip"
       />
       <div ref={containerRef}>
